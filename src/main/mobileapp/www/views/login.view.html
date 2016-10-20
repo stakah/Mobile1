@@ -1,0 +1,41 @@
+<ion-view cache-view="false" view-title="{{'Login.view.Login' | translate}}"> 
+  <ion-content scroll="false"> 
+    <div class="bar bar-header bar-stable" data-container="true"> 
+    <h1 class="title">{{'Login.view.Login' | translate}}</h1> 
+  </div> 
+    <div class="list" data-container="true" style="padding-top: 60px;"> 
+      <div class="col text-center"> 
+         <img src="img/logo.png" /> 
+      </div> 
+    </div> 
+    <form class="form-validation" autocomplete="off" name="form" ng-submit="login()" role="form"> 
+      <div class="list list-inset" data-container="true"> 
+        <label class="item item-input"> <i class="icon ion-person placeholder-icon"></i> <input type="text" class="form-control" ng-model="user.username" id="username" placeholder="{{'Login.view.Username' | translate}}"> </label> 
+        <label class="item item-input"> <i class="icon ion-asterisk placeholder-icon"></i> <input type="password" class="form-control" ng-model="user.password" id="password" placeholder="{{'Login.view.Password' | translate}}"> </label> 
+        <label class="item"> <button type="submit" class="button button-block button-positive" ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}</button> </label> 
+        <label class="item"> 
+          <div ng-show="message.error" class="help-block">
+             {{message.error}} 
+          </div> </label> 
+        <label class="item"> 
+          <div class="row"> 
+            <div class="col col-offset-10"> 
+              <a href="http://facebook.com" target="_self"><i class="ion-social-facebook"></i></a> 
+            </div> 
+            <div class="col col-offset-10"> 
+              <a href="http://google.com" target="_self" ><i class="ion-social-googleplus"></i></a> 
+            </div> 
+            <div class="col col-offset-10"> 
+              <a href="http://facebook.com" target="_self"><i class="ion-social-github"></i></a> 
+            </div> 
+            <div class="col col-offset-10"> 
+              <a href="http://facebook.com" target="_self"><i class="ion-social-linkedin"></i></a> 
+            </div> 
+            <div class="col col-offset-10"> 
+              <a href="https://login.cronapp.io/login" target="_self"><i class="ion-android-cloud"></i></a> 
+            </div> 
+          </div> </label> 
+      </div> 
+    </form> 
+  </ion-content> 
+</ion-view>

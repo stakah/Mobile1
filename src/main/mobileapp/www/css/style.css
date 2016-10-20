@@ -1,0 +1,33 @@
+/* Empty. Add your own CSS if you like */
+
+.text-left{
+     text-align : left;
+}
+
+.text-right{
+     text-align : right;
+}
+
+.text-center{
+     text-align : center;
+}
+
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+.button.button-block, .button.button-full {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important; 
+  
+}
