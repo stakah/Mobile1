@@ -1,6 +1,6 @@
 angular.module('avisosList')
 .component('avisosList', {
-  templateUrl: 'components/templates/avisos-list.component.html',
+  templateUrl: 'js/custom-components/avisos-list/avisos-list.component.html',
   controller: function AvisosListController() {
     // Lista de avisos & ocorrencias
     this.list = [];

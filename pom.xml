@@ -120,7 +120,7 @@
         <project.cronospass.resource mimetype="folder/web">src/main/mobileapp/www</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/libs">lib</project.cronospass.resource>
-        <project.cronospass.resource encoding="UTF-8" mimetype="text/javascript">src/main/mobileapp/www/custom-components/aluno-card/aluno-card.component.js</project.cronospass.resource>
-        <project.cronospass.resource encoding="UTF-8" mimetype="text/javascript">src/main/mobileapp/www/custom-components/aluno-card/aluno-card.module.js</project.cronospass.resource>
+        <project.cronospass.resource encoding="UTF-8" mimetype="text/javascript">src/main/mobileapp/www/js/custom-components/aluno-card/aluno-card.module.js</project.cronospass.resource>
+        <project.cronospass.resource encoding="UTF-8" mimetype="text/javascript">src/main/mobileapp/www/js/custom-components/aluno-card/aluno-card.component.js</project.cronospass.resource>
     </properties>
 </project>
