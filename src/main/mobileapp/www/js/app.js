@@ -13,7 +13,7 @@ var app = (function() {
         'ngInputDate',
         'ngCordova',
 
-        'aluno',
+        'alunoCard',
         'avisosList'
     ])
 

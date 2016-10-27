@@ -1,4 +1,4 @@
-angular.module('aluno')
+angular.module('alunoCard')
 .component('alunoCard', {
   templateUrl: 'components/templates/aluno-card.component.html',
   controller: function AlunoCardController() {
