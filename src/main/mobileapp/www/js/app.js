@@ -11,7 +11,10 @@ var app = (function() {
         'tmh.dynamicLocale',
         'ui-notification',
         'ngInputDate',
-        'ngCordova'
+        'ngCordova',
+
+        'aluno',
+        'avisosList'
     ])
 
     .constant('LOCALES', {
@@ -81,6 +84,7 @@ var app = (function() {
             controller: 'HomeController',
             views: {
                 'menuContent': {
+                    controller: 'HomeAppController',
                     templateUrl: 'views/logged/app.view.html'
                 }
             }
@@ -139,9 +143,10 @@ var app = (function() {
 
             $translateProvider.use(locale);
             $translateProvider.useSanitizeValueStrategy('escaped');
-
+            
+            let localePlugin = 'plugins/angular-i18n/angular-locale_{{locale | lowercase}}.js';
             tmhDynamicLocaleProvider
-                .localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
+                .localeLocationPattern(localePlugin);
         })
 
     .directive('crnValue', ['$parse', function($parse) {

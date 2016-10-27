@@ -1,0 +1,8 @@
+        <div class="list list-inset">
+            <div class="item item-icon-left" ng-repeat="item in $ctrl.list"><i ng-class="item.icon"></i>
+                <a ng-href="{{item.url}}" class="item-content item-text-wrap">
+                    <h2 ng-bind-html="item.title"></h2>
+                    <p ng-bind-html="item.content"></p>
+                </a>
+            </div>
+        </div>

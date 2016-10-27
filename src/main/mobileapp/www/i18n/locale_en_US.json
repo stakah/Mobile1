@@ -97,5 +97,20 @@
   "Roles.view.Salvar": "Save",
   "Roles.view.Voltar": "Cancel",
   "Permission.view.Salvar": "Save",
-  "Permission.view.Voltar": "Cancel"
+  "Permission.view.Voltar": "Cancel",
+  "Login.view.AlunoUsername": "Student",
+  "Login.view.ResponsavelUsername": "Guardian",
+  "Login.view.AlunoButtonLabel": "Student",
+  "Login.view.ResponsavelButtonLabel": "Guardian",
+  "Home.view.dados": "Data",
+  "Home.view.dados.avisos": "Notifications & Incidents",
+  "Home.view.dados.boletim": "School Report Card",
+  "Home.view.calendario": "Calendar",
+  "Home.view.calendario.aulas": "Curriculum",
+  "Home.view.calendario.agenda": "Appointment Book",
+  "Home.view.administracao": "Administration",
+  "Home.view.administracao.secretaria": "Secretary",
+  "Home.view.ajustes": "Settings",
+  "Home.view.ajustes.configurar": "Configure",
+  "Home.view.ajustes.mudarSenha": ""
 }

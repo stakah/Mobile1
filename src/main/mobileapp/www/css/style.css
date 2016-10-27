@@ -31,3 +31,28 @@
     margin-bottom: 0px !important; 
   
 }
+
+.positive {
+  color:#ef473a;
+}
+.button.button-positive {
+    border-color: transparent;
+    background-color:#ef473a;
+    color: #fff; }
+.button.button-positive.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #ef473a; }
+.button.button-positive.button-outline {
+      border-color: #ef473a;
+      background: transparent;
+      color: #ef473a; }
+      
+.placeholder-icon {
+  color:#ef473a;
+}
+.item-avatar > img:first-child {
+  max-width: 64px;
+  max-height: 64px;
+}

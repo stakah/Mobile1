@@ -97,5 +97,20 @@
   "Roles.view.Salvar": "Salvar",
   "Roles.view.Voltar": "Voltar",
   "Permission.view.Salvar": "Salvar",
-  "Permission.view.Voltar": "Voltar"
+  "Permission.view.Voltar": "Voltar",
+  "Login.view.AlunoUsername": "Aluno",
+  "Login.view.ResponsavelUsername": "Responsável",
+  "Login.view.AlunoButtonLabel": "Student",
+  "Login.view.ResponsavelButtonLabel": "Responsável",
+  "Home.view.dados": "Dados",
+  "Home.view.dados.avisos": "Avisos e Ocorrências",
+  "Home.view.dados.boletim": "Boletim",
+  "Home.view.calendario": "Calendário",
+  "Home.view.calendario.aulas": "Horário das Aulas",
+  "Home.view.calendario.agenda": "Agenda",
+  "Home.view.administracao": "Administração",
+  "Home.view.administracao.secretaria": "Secretaria",
+  "Home.view.ajustes": "Ajustes",
+  "Home.view.ajustes.configurar": "Configurar",
+  "Home.view.ajustes.mudarSenha": ""
 }
