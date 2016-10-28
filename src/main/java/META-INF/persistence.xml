@@ -14,4 +14,21 @@
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
         </properties>
     </persistence-unit>
+    <persistence-unit name="aol" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:comp/env/jdbc/main</jta-data-source>
+        <class>aol.entity.Responsavel</class>
+        <class>aol.entity.AlunoResponsavel</class>
+        <class>aol.entity.ResponsavelAviso</class>
+        <class>aol.entity.Aluno</class>
+        <class>aol.entity.Aviso</class>
+        <class>aol.entity.AlunoAviso</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/98a1657aa70b47d4ace375ae013f0a2a;DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+        </properties>
+    </persistence-unit>
 </persistence>

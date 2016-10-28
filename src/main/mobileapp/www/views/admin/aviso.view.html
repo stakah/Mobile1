@@ -1,0 +1,59 @@
+<ion-view cache-view="false" view-title="Aviso"> 
+  <ion-nav-buttons side="right"> 
+    <button class="button button-stable" ng-hide="Aviso.inserting || Aviso.editing" ng-click="Aviso.startInserting()"> <i class="icon ion-plus-round"></i> </button> 
+    <button class="button button-stable" ng-show="Aviso.inserting || Aviso.editing" ng-click="Aviso.post()"> <i class="icon ion-checkmark"></i> </button> 
+  </ion-nav-buttons> 
+    <ion-nav-buttons side="left"> 
+    <button class="button button-icon button-clear ion-navicon" ng-hide="Aviso.inserting || Aviso.editing" menu-toggle="left"> </button>
+    <button class="button button-stable" ng-show="Aviso.inserting || Aviso.editing" ng-click="Aviso.cancel()"> <i class="icon ion-android-arrow-back"></i> </button> 
+  </ion-nav-buttons> 
+  <ion-content> 
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
+      <datasource  name="Aviso" entity="api/rest/aol/Aviso" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
+    </div> 
+	<div crn-datasource="Aviso" class="" ng-hide="Aviso.editing || Aviso.inserting"> 
+	<ion-list can-swipe="listCanSwipe"> 
+        <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
+		  <div class="row">
+			<div class="col">
+					  {{rowData.id}}
+			</div> 
+			<div class="col">
+					  {{rowData.title}}
+			</div> 
+			<div class="col">
+					  {{rowData.content}}
+			</div> 
+		  </div> 
+          <ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)"> 
+            <i class="icon ion-edit"></i> 
+          </ion-option-button> 
+          <ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)">
+             &nbsp; 
+            <i class="icon ion-trash-a"></i> 
+          </ion-option-button> 
+        </ion-item> 
+      </ion-list> 
+    </div> 
+    <div ng-show="Aviso.editing || Aviso.inserting"> 
+      <form crn-datasource="Aviso"> 
+        <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+          <div class="list"> 
+			<!-- title begin -->
+			<label for="textinput-title" class="item item-input item-stacked-label">
+				<span class="input-label">Title</span> 
+				<input type="text" placeholder="Title" ng-model="Aviso.active.title" id="textinput-title" name="textinput-title"  required="required"> 
+			</label> 
+			<!-- title end -->
+			<!-- content begin -->
+			<label for="textinput-content" class="item item-input item-stacked-label">
+				<span class="input-label">Content</span> 
+				<input type="text" placeholder="Content" ng-model="Aviso.active.content" id="textinput-content" name="textinput-content"  required="required"> 
+			</label> 
+			<!-- content end -->
+          </div> 
+        </fieldset> 
+      </form> 
+    </div> 
+  </ion-content> 
+</ion-view>
