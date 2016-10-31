@@ -145,7 +145,14 @@ public class AlunoBusiness {
   public Aluno findByUserId(java.lang.String userId) {
     // begin-user-code
     // end-user-code
-    Aluno entity = dao.findByUserId(userId);
+    Aluno entity;
+    try {
+      entity = dao.findByUserId(userId);
+    }
+    catch (javax.persistence.NoResultException e) {
+      entity = new Aluno();
+    }
+    
     // begin-user-code
     // end-user-code
     return entity;

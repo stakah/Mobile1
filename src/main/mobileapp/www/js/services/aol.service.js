@@ -6,8 +6,14 @@ angular.
         query: {
           method: 'GET',
           //params: {alunoId: 'alunos'},
-          isArray: false
+          isArray: true
         }
       });
+    }
+  ])
+  
+  .factory('Aluno.User', ['$resource',
+    function($resource) {
+      return $resource('api/rest/aol/Aluno/user/:userId');
     }
   ]);

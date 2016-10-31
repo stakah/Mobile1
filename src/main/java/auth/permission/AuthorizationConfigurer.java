@@ -106,19 +106,26 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
         
         String roles = authUser.getAuthorities().toString().replaceFirst("\\[", "").replaceFirst("\\]", "");
         
+        System.out.println("[auth] authUser.username=" + authUser.getUsername());
         List<User> users = userRepository.findByLogin(authUser.getUsername(), new PageRequest(0, 100)).getContent();
+        System.out.println("[auth] users.size=" + users.size());
+        User user = new User();
+        
         String id = "-1";
         if(!users.isEmpty()) {
-          id = users.get(0).getId();
+          user = users.get(0);
+          id = user.getId();
         }
         
         String theme = session.getAttribute("theme").toString();
         String str = String.format(
                 "{\"name\":\"%s\",\"id\":\"%s\",\"login\":\"%s\",\"roles\":\"%s\",\"root\":%s,\"theme\":\"%s\"}",
-                authUser.getUsername(), id, authUser.getUsername(), roles,
+                user.getName(), id, authUser.getUsername(), roles,
                 roles.contains(SecurityPermission.ROLE_ADMIN_NAME), theme);
         System.out.println(str);
-        resp.getOutputStream().print(str);
+        resp.getWriter().print(str);
+        
+        //resp.getOutputStream().print(str);
         resp.setHeader("Content-Type", "application/json");
         
       }

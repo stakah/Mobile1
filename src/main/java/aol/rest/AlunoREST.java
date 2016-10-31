@@ -75,7 +75,7 @@ public class AlunoREST implements RESTService<Aluno> {
   @GET
   @Path("/user/{userId}")
   public Aluno findByUserId(@PathParam("userId") java.lang.String userId) {
-    return this.business.findById(userId);
+    return this.business.findByUserId(userId);
   }
 
   /**

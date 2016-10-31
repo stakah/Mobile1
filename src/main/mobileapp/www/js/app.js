@@ -94,11 +94,11 @@ var app = (function() {
           url: "/{name:.*}",
           controller: 'PageController',
           views: { 'menuContent': {
-	                    templateUrl: function(urlattr) { return 'views/'+urlattr.name+'.view.html'; }
+	                    templateUrl: function(urlattr) { console.log('urlattr=', urlattr); return 'views/'+urlattr.name+'.view.html'; }
 	                    }
                   }
         }) 
-
+        
         .state('404', {
             url: "/error/404",
             controller: 'PageController',

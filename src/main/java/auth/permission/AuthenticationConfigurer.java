@@ -50,6 +50,9 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		String rawPassword = authentication.getCredentials().toString();
 		List<User> users = userRepository.findByLogin(name, new PageRequest(0, 100)).getContent();
 
+System.out.println("[Authentication] getName=" + name);
+
+
 		if (users.isEmpty())
 			throw new UsernameNotFoundException("Usuário não encontrado!");
 
@@ -57,7 +60,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		if (passwordEncoder.matches(rawPassword, user.getPassword())) {
 			Set<GrantedAuthority> roles = getAuthorities(user);
 			org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
-					user.getName(), user.getPassword(), false, false, false, false, roles);
+					user.getLogin(), user.getPassword(), false, false, false, false, roles);
 			UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userDetails,
 					user.getPassword(), roles);
 			userToken.setDetails(userDetails);
