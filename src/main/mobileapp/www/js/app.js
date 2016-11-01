@@ -12,9 +12,11 @@ var app = (function() {
         'ui-notification',
         'ngInputDate',
         'ngCordova',
-
+        
+        /* custom-compoents */
         'alunoCard',
         'avisosList'
+
     ])
 
     .constant('LOCALES', {
@@ -54,7 +56,7 @@ var app = (function() {
             startRight: 10,
             verticalSpacing: 20,
             horizontalSpacing: 20,
-            positionX: 'right',
+            positionX: 'center',
             positionY: 'top'
         });
 

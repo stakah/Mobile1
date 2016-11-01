@@ -100,13 +100,14 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
         org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         session.setAttribute("username", authUser.getUsername());
-        session.setAttribute("authorities", authentication.getAuthorities());
+        session.setAttribute(SecurityPermission.AUTHORITIES_ATTRIBUTE, authentication.getAuthorities());
         
         resp.setStatus(HttpServletResponse.SC_OK);
         
         String roles = authUser.getAuthorities().toString().replaceFirst("\\[", "").replaceFirst("\\]", "");
         
         System.out.println("[auth] authUser.username=" + authUser.getUsername());
+        System.out.println("[auth] authentication.getAuthorities():" + authentication.getAuthorities());
         List<User> users = userRepository.findByLogin(authUser.getUsername(), new PageRequest(0, 100)).getContent();
         System.out.println("[auth] users.size=" + users.size());
         User user = new User();

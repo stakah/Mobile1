@@ -27,13 +27,13 @@ public class AlunoController {
       this.avisoBusiness = new AvisoBusiness(session);    
     }
     
-    @RequestMapping("/alunos")
+    @RequestMapping("api/rest/alunos")
     public List<Aluno> list(@RequestParam(value="limit") int limit,
                             @RequestParam(value="offset") int offset) {
         return this.alunoBusiness.list(limit, offset);
     }
     
-    @RequestMapping("alunos/{id}")
+    @RequestMapping("api/rest/alunos/{id}")
     public Aluno get(@PathVariable(value="id") String id) {
       return this.alunoBusiness.findById(id);
     }

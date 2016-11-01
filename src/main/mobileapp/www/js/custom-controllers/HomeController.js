@@ -1,3 +1,5 @@
+  var external_groups;
+  
   angular.module('custom.controllers')
   .controller('HomeController', [ 
       '$scope', 
@@ -10,7 +12,11 @@
       '$ionicHistory',
       '$cordovaVibration',
       '$ionicModal',
-      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
+
+      /* ngResource services */
+      'MenuTree',
+
+      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal, menuTree) {
         
         console.log("HomeController");
         
@@ -52,11 +58,16 @@
           // we must send back to login page
           // TODO - REVISAR login oauth2
           // $state.go("login");
+          $state.go('login');
         }
 
         // Menu
         $scope.groups = [];
-
+        
+        external_groups = menuTree.query();
+        
+        
+        
         var mnuGrupoDados = {name:"Home.view.dados", items: []};
         mnuGrupoDados.items.push({name:"Home.view.dados.avisos", url: "alunos/avisos", icon: "icon ion-ios-bell placeholder-icon"});
         mnuGrupoDados.items.push({name:"Home.view.dados.boletim", url: "alunos/boletim", icon: "icon ion-ios-compose placeholder-icon"});
