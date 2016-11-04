@@ -1,5 +1,3 @@
-  var external_groups;
-  
   angular.module('custom.controllers')
   .controller('HomeController', [ 
       '$scope', 
@@ -19,7 +17,7 @@
       function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal, menuTree) {
         
         console.log("HomeController");
-        
+
         $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
           scope: $scope,
           animation: 'slide-in-up'
@@ -63,25 +61,8 @@
 
         // Menu
         $scope.groups = [];
-        
-        external_groups = menuTree.query();
-        
-        
-        
-        var mnuGrupoDados = {name:"Home.view.dados", items: []};
-        mnuGrupoDados.items.push({name:"Home.view.dados.avisos", url: "alunos/avisos", icon: "icon ion-ios-bell placeholder-icon"});
-        mnuGrupoDados.items.push({name:"Home.view.dados.boletim", url: "alunos/boletim", icon: "icon ion-ios-compose placeholder-icon"});
-        $scope.groups.push(mnuGrupoDados);
-        
-        var mnuGrupoCalendario = {name:"Home.view.calendario", items: []};
-        mnuGrupoCalendario.items.push({name:"Home.view.calendario.aulas", url: "calendario/aulas", icon: "icon ion-ios-calendar-outline placeholder-icon"});
-        mnuGrupoCalendario.items.push({name:"Home.view.calendario.agenda", url: "calendario/agenda", icon: "icon ion-ios-list-outline placeholder-icon"});
-        $scope.groups.push(mnuGrupoCalendario);
-        
-        var mnuGrupoAdministracao = {name:"Home.view.administracao", items: []};
-        mnuGrupoAdministracao.items.push({name:"Home.view.administracao.secretaria", url:"administracao/secretaria", icon: "icon ion-ios-paper-outline placeholder-icon"});
-        $scope.groups.push(mnuGrupoAdministracao);
-        
+        $scope.groups = menuTree.get();
+
         $scope.groupSettings = "Home.view.ajustes";
         
         /*

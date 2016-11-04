@@ -1,3 +1,4 @@
+var external_module;
 (function() {
 var module = angular.
   module('metadata.service')
@@ -20,8 +21,8 @@ var module = angular.
   
   .factory('MenuTree', ['$resource',
     function($resource) {
-      return $resource(module.baseUrl + 'Menu/tree', {}, {
-        query: {
+      return $resource('resources/metadata/main-menu.json', {}, {
+        get: {
           method: 'GET',
           //params: {alunoId: 'alunos'},
           isArray: true
@@ -40,4 +41,6 @@ var module = angular.
       });
     }
   ]);
+  
+  external_module = module;
 })();

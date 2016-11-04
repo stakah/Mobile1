@@ -1,3 +1,4 @@
+var pageController;
 var app = (function() {
     return angular.module('MyApp', [
         'ionic',
@@ -96,7 +97,9 @@ var app = (function() {
           url: "/{name:.*}",
           controller: 'PageController',
           views: { 'menuContent': {
-	                    templateUrl: function(urlattr) { console.log('urlattr=', urlattr); return 'views/'+urlattr.name+'.view.html'; }
+	                    templateUrl: function(urlattr) { 
+	                      console.log('urlattr=', urlattr);
+	                      return 'views/'+urlattr.name+'.view.html'; }
 	                    }
                   }
         }) 
@@ -182,7 +185,7 @@ var app = (function() {
             function($scope, $stateParams, $location, $http) {
                 for (var x in app.userEvents)
                     $scope[x] = app.userEvents[x].bind($scope);
-
+pageController = this;
                 // save state params into scope
                 $scope.params = $stateParams;
                 $scope.$http = $http;
