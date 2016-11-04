@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class SecurityPermission {
   
   public static final String ROLE_ADMIN_NAME = "Administrators";
-  public static final String ROLE_META_NAME = "Metadata";
   public static final String AUTHORITIES_ATTRIBUTE = "authorities";
   
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
@@ -35,15 +34,14 @@ public class SecurityPermission {
     // role admin permission
     //http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
     http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(ROLE_ADMIN_NAME);
-    http.authorizeRequests().antMatchers("/api/rest/metadata/**").hasAuthority(ROLE_META_NAME);
 
     // role logged permission
     http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
-    http.authorizeRequests().antMatchers("/views/meta/**").hasAuthority(ROLE_META_NAME);
     http.authorizeRequests().antMatchers("/views/logged/**").authenticated();
     http.authorizeRequests().antMatchers("/api/rest/**").authenticated();
     http.authorizeRequests().antMatchers("POST", "/changePassword").authenticated();
     http.authorizeRequests().antMatchers("POST", "/changeTheme").authenticated();
+    http.authorizeRequests().antMatchers("/resources/**").authenticated();
     
     // deny all
     http.authorizeRequests().antMatchers("/**").denyAll();
