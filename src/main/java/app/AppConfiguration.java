@@ -59,7 +59,7 @@ class AppConfiguration {
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
         strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), SecurityPermission.ROLE_ADMIN_NAME);
-        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_META_NAME}}"), SecurityPermission.ROLE_META_NAME);
+        //strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_META_NAME}}"), SecurityPermission.ROLE_META_NAME);
       } catch (Exception e) {
       }
     }
