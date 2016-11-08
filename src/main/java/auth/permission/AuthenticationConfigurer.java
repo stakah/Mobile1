@@ -50,13 +50,17 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		String rawPassword = authentication.getCredentials().toString();
 		List<User> users = userRepository.findByLogin(name, new PageRequest(0, 100)).getContent();
 
-System.out.println("[Authentication] getName=" + name);
+		LOGGER.debug("getName=" + name);
 
 
 		if (users.isEmpty())
 			throw new UsernameNotFoundException("Usuário não encontrado!");
+		else
+			LOGGER.debug("users.size=" + users.size());
 
 		User user = users.get(0);
+		LOGGER.debug("user=" + user.toString());
+
 		if (passwordEncoder.matches(rawPassword, user.getPassword())) {
 			Set<GrantedAuthority> roles = getAuthorities(user);
 			org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
@@ -68,8 +72,10 @@ System.out.println("[Authentication] getName=" + name);
 			HttpSession session = request.getSession();
 			session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
 
+			LOGGER.debug("roles=" + roles.toString());
 			return userToken;
 		} else {
+			LOGGER.debug(("Usuario ou senha incorreta!"));
 			throw new BadCredentialsException("Usuário ou senha incorreta!");
 		}
 	}

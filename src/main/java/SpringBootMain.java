@@ -2,6 +2,7 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.context.web.*;
 import org.springframework.context.annotation.*;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 /**
  * Classe responsável iniciar a aplicação, por padrão ela executará as seguintes etapas:
