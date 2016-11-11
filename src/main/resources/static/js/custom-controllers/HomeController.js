@@ -1,12 +1,12 @@
   angular.module('custom.controllers')
-  .controller('HomeController', [ 
-      '$scope', 
-      '$http', 
-      '$rootScope', 
+  .controller('HomeController', [
+      '$scope',
+      '$http',
+      '$rootScope',
       '$state',
       '$timeout',
-      '$translate', 
-      'Notification', 
+      '$translate',
+      'Notification',
       '$ionicHistory',
       '$cordovaVibration',
       '$ionicModal',
@@ -15,7 +15,7 @@
       'MenuTree',
 
       function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal, menuTree) {
-        
+
         console.log("HomeController");
 
         $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
@@ -24,7 +24,7 @@
         }).then(function(modal) {
           $scope.modal = modal;
         });
-        
+
         $scope.openChangePassword = function() {
           $scope.modal.show();
         };
@@ -32,6 +32,7 @@
         $scope.closeChangePassword = function() {
           $scope.modal.hide();
         };
+
 
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
@@ -46,7 +47,7 @@
         $scope.vibrate = function() {
            $cordovaVibration.vibrate(1000);
         };
-        
+
         // When access home page we have to check
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage
@@ -64,7 +65,7 @@
         $scope.groups = menuTree.get();
 
         $scope.groupSettings = "Home.view.ajustes";
-        
+
         /*
          * if given group is the selected group, deselect it else, select the given group
          */

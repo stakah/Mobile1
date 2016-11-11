@@ -49,17 +49,19 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		String name = authentication.getName();
 		String rawPassword = authentication.getCredentials().toString();
 		List<User> users = userRepository.findByLogin(name, new PageRequest(0, 100)).getContent();
+		List<User> all = userRepository.findAll();
 
-		LOGGER.debug("getName=" + name);
-
+		LOGGER.info("getName=" + name);
+		LOGGER.info("users.size=" + users.size());
+		LOGGER.info("all.size=" + all.size());
 
 		if (users.isEmpty())
 			throw new UsernameNotFoundException("Usuário não encontrado!");
 		else
-			LOGGER.debug("users.size=" + users.size());
+			LOGGER.info("users.size=" + users.size());
 
 		User user = users.get(0);
-		LOGGER.debug("user=" + user.toString());
+		LOGGER.info("user=" + user.toString());
 
 		if (passwordEncoder.matches(rawPassword, user.getPassword())) {
 			Set<GrantedAuthority> roles = getAuthorities(user);
@@ -72,10 +74,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 			HttpSession session = request.getSession();
 			session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
 
-			LOGGER.debug("roles=" + roles.toString());
+			LOGGER.info("roles=" + roles.toString());
 			return userToken;
 		} else {
-			LOGGER.debug(("Usuario ou senha incorreta!"));
+			LOGGER.info(("Usuario ou senha incorreta!"));
 			throw new BadCredentialsException("Usuário ou senha incorreta!");
 		}
 	}
@@ -100,7 +102,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 			authorities.add(grantedAuthority);
 		}
 
-		LOGGER.debug("user authorities are " + authorities.toString());
+		LOGGER.info("user authorities are " + authorities.toString());
 		return authorities;
 	}
 

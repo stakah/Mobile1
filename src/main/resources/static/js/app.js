@@ -14,11 +14,8 @@ var app = (function() {
         'tmh.dynamicLocale',
         'ui-notification',
         'ngInputDate',
-        'ngCordova',
+        'ngCordova'
 
-        /* custom-compoents */
-        'alunoCard',
-        'avisosList'
 
     ])
 
@@ -88,9 +85,10 @@ var app = (function() {
             url: "/app",
             controller: 'HomeController',
             views: {
-                'menuContent': {
+                'mainContent': {
                     controller: 'HomeAppController',
-                    templateUrl: 'views/logged/app.view.html'
+                    controllerAs: 'vm',
+                    templateUrl: 'views/logged/app.avisos.view.html'
                 }
             }
         })

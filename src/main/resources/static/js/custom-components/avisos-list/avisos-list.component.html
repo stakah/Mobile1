@@ -1,8 +1,6 @@
-        <div class="list list-inset">
-            <div class="item item-icon-left" ng-repeat="item in $ctrl.list"><i ng-class="item.icon"></i>
-                <a ng-href="{{item.url}}" class="item-content item-text-wrap">
-                    <h2 ng-bind-html="item.title"></h2>
-                    <p ng-bind-html="item.content"></p>
-                </a>
-            </div>
-        </div>
+<div class="list list-inset">
+  <avisos-list-item ng-repeat="item in ctrlAvisosList.avisos"
+                    aviso-item="item"
+                    on-list-open-aviso-detail="ctrlAvisosList.listOpenAvisoDetail(item)">
+  </avisos-list-item>
+  </div>

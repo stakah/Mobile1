@@ -1,59 +1,59 @@
-<ion-side-menus enable-menu-with-back-views="false"> 
-  <div class="row" data-container="true"> 
-    <ion-side-menu-content> 
-      <ion-nav-bar class="bar-stable"> 
-        <ion-nav-back-button> 
-        </ion-nav-back-button> 
-        <ion-nav-buttons side="left"> 
-          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"> </button> 
-        </ion-nav-buttons> 
+<ion-side-menus enable-menu-with-back-views="false">
+  <div class="row" data-container="true">
+    <ion-side-menu-content>
+      <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"> </button>
+        </ion-nav-buttons>
       </ion-nav-bar>
-      
-      <ion-nav-view name="menuContent"></ion-nav-view> 
-    </ion-side-menu-content> 
-    
-    <ion-side-menu side="left"> 
-      <ion-header-bar class="bar-stable"> 
-        <h1 class="title">Menu</h1> 
-      </ion-header-bar> 
-      <ion-content data-container="true"> 
-        <ion-list> 
-          <div menu-close class="item item-icon-left"> 
+
+      <ion-nav-view name="mainContent"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Menu</h1>
+      </ion-header-bar>
+      <ion-content data-container="true">
+        <ion-list>
+          <div menu-close class="item item-icon-left">
             <i class="icon ion-ios-person placeholder-icon"></i>
             <a class="button button-clear button-positive ng-binding" ng-href="#/home/app">
-                {{session.name}}</a> 
-          </div> 
-          <div ng-repeat="group in groups" class=""> 
-              <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}"> 
+                {{session.name}}</a>
+          </div>
+          <div ng-repeat="group in groups" class="">
+              <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
                 <i class="icon placeholder-icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp;
                 <span class="positive">{{group.name | translate}}</span>
-              </ion-item> 
-              <ion-item class="item-accordion item-icon" ng-repeat="item in group.items" ng-show="isGroupShown(group)" menu-close> 
+              </ion-item>
+              <ion-item class="item-accordion item-icon" ng-repeat="item in group.items" ng-show="isGroupShown(group)" menu-close>
                 <a ng-href="{{item.url}}" class="item-content ng-binding" ng-click="toggleGroup(null)">
                     <i class="icon {{item.icon}} placeholder-icon"></i>
                     <span class="positive">{{item.name | translate}}</span>
-                    </a> 
-              </ion-item> 
+                    </a>
+              </ion-item>
           </div>
-              <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}"> 
+              <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
                 <i class="icon placeholder-icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp;
                 <span class="positive">{{groupSettings | translate}}</span>
-              </ion-item> 
-              <ion-item class="item-accordion item-icon" ng-show="isGroupShown(group)" menu-close> 
+              </ion-item>
+              <ion-item class="item-accordion item-icon" ng-show="isGroupShown(group)" menu-close>
                 <a class="item-content ng-binding" ng-click="openChangePassword()">
                     <i class="icon ion-lock-combination placeholder-icon"></i>
                     <span class="positive">{{"Home.view.ChangePassword" | translate}}</span>
-                </a> 
-              </ion-item> 
+                </a>
+              </ion-item>
             <div class="item item-divider"></div>
-          <div menu-close class="item item-icon-left"> 
+          <div menu-close class="item item-icon-left">
             <a class="item-content ng-binding" ng-click="logout()">
                 <i class="icon icon ion-ios-close-empty placeholder-icon"></i>
                 <span class="positive">{{"Home.view.Sair" | translate}}</span>
-            </a> 
-          </div> 
-        </ion-list> 
-      </ion-content> 
-    </ion-side-menu> 
-  </div> 
+            </a>
+          </div>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </div>
 </ion-side-menus>

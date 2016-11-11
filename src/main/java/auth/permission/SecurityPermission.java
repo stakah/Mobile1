@@ -1,5 +1,6 @@
 package auth.permission;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +15,12 @@ public class SecurityPermission {
   
   public static final String ROLE_ADMIN_NAME = "Administrators";
   public static final String AUTHORITIES_ATTRIBUTE = "authorities";
-  private static final String APP_BASE = "/Mobile1-1.0-SNAPSHOT";
+  //private static final String APP_BASE = "/Mobile1-1.0-SNAPSHOT";
+  private static final String APP_BASE = "";
+
 
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
+
 
     // public
     http.authorizeRequests().antMatchers(APP_BASE + "/index.html").permitAll();
@@ -39,7 +43,7 @@ public class SecurityPermission {
     // role logged permission
     http.authorizeRequests().antMatchers(APP_BASE + "/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
     http.authorizeRequests().antMatchers(APP_BASE + "/views/logged/**").authenticated();
-    http.authorizeRequests().antMatchers(APP_BASE + "/api/rest/**").authenticated();
+    http.authorizeRequests().antMatchers(APP_BASE + "/api/**").authenticated();
     http.authorizeRequests().antMatchers(APP_BASE + "POST", "/changePassword").authenticated();
     http.authorizeRequests().antMatchers(APP_BASE + "POST", "/changeTheme").authenticated();
     http.authorizeRequests().antMatchers(APP_BASE + "/resources/**").authenticated();
