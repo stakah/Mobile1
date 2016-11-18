@@ -1,10 +1,14 @@
-        <div class="card"> 
-            <div class="item item-avatar">
-                <img src="img/img_bruna.png">
-                <div class="col ion-content" style="padding-left:20px">
-                <h2 ng-bind-html="$ctrl.aluno.nome"></h2>
-                <p ng-bind-html="$ctrl.aluno.grupo"></p>
-                <p><i ng-bind-html="$ctrl.aluno.matricula"></i> - Turma <i ng-bind-html="$ctrl.aluno.turma"></i></p>
-                </div>
-            </div>
-        </div> 
+  <div class="list content-block margem-cima-negativo10">
+    <div class="row item item-avatar">
+      <div class="col col-33">
+        <img src="img/img_bruna.png" class="profile">
+      </div>
+
+      <div class="col col-66 col-center">
+        <h2 ng-bind-html="ctrlAlunoCard.aluno.nome"></h2>
+        <p ng-bind-html="ctrlAlunoCard.aluno.periodo"></p>
+        <p>Matr&iacute;cula <i ng-bind-html="ctrlAlunoCard.aluno.matricula"></i> - Turma <i ng-bind-html="ctrlAlunoCard.aluno.turma"></i></p>
+        <p>Sala <i ng-bind-html="ctrlAlunoCard.aluno.sala"></i></p>
+      </div>
+    </div>
+  </div>

@@ -43,14 +43,16 @@ public class SecurityPermission {
     // role logged permission
     http.authorizeRequests().antMatchers(APP_BASE + "/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
     http.authorizeRequests().antMatchers(APP_BASE + "/views/logged/**").authenticated();
-    http.authorizeRequests().antMatchers(APP_BASE + "/api/**").authenticated();
+    http.authorizeRequests().antMatchers(APP_BASE + "/api/rest/**").authenticated();
     http.authorizeRequests().antMatchers(APP_BASE + "POST", "/changePassword").authenticated();
     http.authorizeRequests().antMatchers(APP_BASE + "POST", "/changeTheme").authenticated();
     http.authorizeRequests().antMatchers(APP_BASE + "/resources/**").authenticated();
-    
+    http.authorizeRequests().antMatchers(APP_BASE + "/api/rest/aol/**").authenticated();
+
     // deny all
-    http.authorizeRequests().antMatchers(APP_BASE + "/**").denyAll();
-    
+    //http.authorizeRequests().antMatchers(APP_BASE + "/**").denyAll();
+
+    http.authorizeRequests().antMatchers(APP_BASE + "/**").authenticated();
   }
   
 }

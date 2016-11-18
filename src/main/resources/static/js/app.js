@@ -81,14 +81,38 @@ var app = (function() {
             templateUrl: 'views/logged/home.view.html'
         })
 
-        .state('home.app', {
+        /*.state('home.app', {
             url: "/app",
             controller: 'HomeController',
             views: {
                 'mainContent': {
                     controller: 'HomeAppController',
                     controllerAs: 'vm',
-                    templateUrl: 'views/logged/app.avisos.view.html'
+                    templateUrl: 'views/logged/aluno.avisos.view.html'
+                }
+            }
+        })*/
+
+        .state('home.avisos', {
+            url: "/avisos",
+            controller: 'HomeController',
+            views: {
+                'mainContent': {
+                    controller: 'AlunoAvisosController',
+                    controllerAs: 'vm',
+                    templateUrl: 'views/logged/aluno.avisos.view.html'
+                }
+            }
+        })
+
+        .state('home.boletim', {
+            url: "/boletim",
+            controller: 'HomeController',
+            views: {
+                'mainContent': {
+                    controller: 'AlunoBoletimController',
+                    controllerAs: 'vm',
+                    templateUrl: 'views/logged/aluno.boletim.view.html'
                 }
             }
         })

@@ -29,7 +29,7 @@
                 <span class="positive">{{group.name | translate}}</span>
               </ion-item>
               <ion-item class="item-accordion item-icon" ng-repeat="item in group.items" ng-show="isGroupShown(group)" menu-close>
-                <a ng-href="{{item.url}}" class="item-content ng-binding" ng-click="toggleGroup(null)">
+                <a ui-sref="{{item.url}}" class="item-content ng-binding" ng-clickx="toggleGroup(null)">
                     <i class="icon {{item.icon}} placeholder-icon"></i>
                     <span class="positive">{{item.name | translate}}</span>
                     </a>

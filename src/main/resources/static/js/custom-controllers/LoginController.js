@@ -1,15 +1,15 @@
   (function() {
   angular.module('custom.controllers')
-  .controller('LoginController', [ 
-    '$scope', 
-    '$http', 
-    '$location', 
-    '$rootScope', 
-    '$window', 
-    '$state', 
-    '$translate', 
-    'Notification', 
-    '$ionicLoading', 
+  .controller('LoginController', [
+    '$scope',
+    '$http',
+    '$location',
+    '$rootScope',
+    '$window',
+    '$state',
+    '$translate',
+    'Notification',
+    '$ionicLoading',
     '$timeout',
     '$stateParams',
     function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
@@ -68,9 +68,9 @@
           }
 
           // Redirect to home page
-          $state.go("home.app");
+          $state.go("home.avisos");
           window.location.reload();
-          
+
           $timeout(function() {
             $ionicLoading.hide();
           },500);
@@ -106,19 +106,19 @@
           var source = buffer.join("&").replace(/%20/g, "+");
           return (source);
         }
-        
+
         $scope.selectProfile = function (profile) {
             let classPositive    = 'button button-positive';
             let classOutline     = 'button button-positive button-outline';
             let loginAluno       = 'Login.view.AlunoUsername';
             let loginResponsavel = 'Login.view.ResponsavelUsername';
-            
+
             $scope.loginAlunoButton       = 'Login.view.AlunoButtonLabel';
             $scope.loginResponsavelButton = 'Login.view.ResponsavelButtonLabel';
-            
+
           if (profile == 'aluno') {
             $scope.profile = {};
-            
+
             $scope.profile.name = 'aluno';
             $scope.buttonClassAluno = classPositive;
             $scope.buttonClassResponsavel = classOutline;
@@ -127,7 +127,7 @@
 
           if (profile == 'responsavel') {
             $scope.profile = {};
-            
+
             $scope.profile.name = 'responsavel';
             $scope.buttonClassAluno = classOutline;
             $scope.buttonClassResponsavel = classPositive;
@@ -137,7 +137,7 @@
 
 
         $scope.selectProfile('aluno');
-        
+
       } ]);
 
 })(app);

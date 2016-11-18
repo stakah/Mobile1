@@ -1,13 +1,13 @@
 (function() {
   /*
-   * Modulo do componente aluno-card (alunoCard)
+   * Modulo do componente boletim-deck (boletimDeck)
    */
-  angular.module('alunoCard', ['aol.service'])
-    .controller('AlunoCardController',
+  angular.module('boletim', ['aol.service'])
+    .controller('BoletimDeckController',
      ['Aluno', 'Aluno.User',
-        AlunoCardController]);
+        BoletimDeckController]);
 
-  function AlunoCardController(Aluno, Aluno_User) {
+  function BoletimDeckController(Aluno, Aluno_User) {
     var self = this;
     //this.aluno = {nome:"Claudia Cristina M. Rodrigues", grupo:"2o. Ano Ensino Médio", matricula: "144632", turma: "B"};
     var User = angular.fromJson(sessionStorage.getItem('_u'));

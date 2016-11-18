@@ -1,5 +1,5 @@
   angular.module('custom.controllers')
-  .controller('HomeAppController', [
+  .controller('AlunoAvisosController', [
       '$scope',
       '$http',
       '$rootScope',

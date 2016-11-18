@@ -28,8 +28,8 @@
 
 .button.button-block, .button.button-full {
     margin-top: 0px !important;
-    margin-bottom: 0px !important; 
-  
+    margin-bottom: 0px !important;
+
 }
 
 .positive {
@@ -48,11 +48,54 @@
       border-color: #ef473a;
       background: transparent;
       color: #ef473a; }
-      
+
 .placeholder-icon {
   color:#ef473a;
 }
 .item-avatar > img:first-child {
   max-width: 64px;
   max-height: 64px;
+}
+
+.login-content {
+  width: 320px;
+  margin: auto;
+}
+
+.profile {
+    max-width: 100px!important;
+    margin-top: 15px!important;
+    margin-bottom: 5px!important;
+    border: 3px solid #fff!important;
+    border-radius: 100%!important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.content-block {
+    margin: 35px 0;
+    //padding: 0 15px;
+    color: #6d6d72;
+    box-sizing: border-box;
+}
+.margem-cima-negativo10 {
+    margin-top: 0px!important;
+}
+
+.discipina {}
+
+.disciplina-title {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.disciplina-nota {
+  font-size: 3.0em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.disciplina-media {
+  display: block;
+  text-align: right;
+  left: auto;
 }

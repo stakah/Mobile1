@@ -112,5 +112,6 @@
   "Home.view.administracao.secretaria": "Secretaria",
   "Home.view.ajustes": "Ajustes",
   "Home.view.ajustes.configurar": "Configurar",
-  "Home.view.ajustes.mudarSenha": ""
+  "Home.view.ajustes.mudarSenha": "",
+  "Home.view.AvisosAluno": "Avisos"
 }

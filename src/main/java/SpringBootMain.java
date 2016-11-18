@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
  *
  */
 @ComponentScan(basePackages = {
-"auth.permission", "api.rest.events", "app"
+"auth.permission", "api.rest.events", "app", "aol.rest"
 })
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {

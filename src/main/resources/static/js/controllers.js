@@ -3,7 +3,8 @@
       'metadata.service',
       'alunoCard',
       'avisos',
-      'avisoDetail'
+      'avisoDetail',
+      'boletim'
    ]);
   /*
    * Controllers declarados em arquivos separados.
