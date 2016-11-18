@@ -9,7 +9,7 @@ import java.util.*;
  * Classe que representa a camada de negócios de Aluno
  * @generated
  **/
-public class AlunoBusiness {
+public class AlunoBusinessOld {
 
   /**
    * Instância da classe AlunoDAO que faz o acesso ao banco de dados
@@ -30,7 +30,7 @@ public class AlunoBusiness {
    *          Singleton de sessão
    * @generated modifiable
    */
-  public AlunoBusiness(final SessionManager sessionmanager) {
+  public AlunoBusinessOld(final SessionManager sessionmanager) {
     // begin-user-code
     // end-user-code
     this.sessionManager = sessionmanager;
@@ -43,7 +43,7 @@ public class AlunoBusiness {
    * Construtor padrão, inicializa singleton de sessão
    * @generated modifiable   
    */
-  public AlunoBusiness() {
+  public AlunoBusinessOld() {
     // begin-user-code
     // end-user-code  
     this(SessionManager.getInstance());
@@ -141,6 +141,7 @@ public class AlunoBusiness {
     // end-user-code      
     return entity;  
   }   
+  
   public Aluno findByUserId(java.lang.String userId) {
     // begin-user-code
     // end-user-code
@@ -156,7 +157,6 @@ public class AlunoBusiness {
     // end-user-code
     return entity;
   }
-  
   /**
    * @generated modifiable
    */  
@@ -176,18 +176,6 @@ public class AlunoBusiness {
       // begin-user-code
       // end-user-code  
       List<AlunoAviso> result = dao.findAlunoAviso(id, limit, offset);
-      // begin-user-code  
-      // end-user-code        
-      return result;	  
-  }
-
-  /**
-   * @generated modifiable
-   */  
-  public List<Boletim> findBoletim(java.lang.String id, int limit, int offset) {
-      // begin-user-code
-      // end-user-code  
-      List<Boletim> result = dao.findBoletim(id, limit, offset);
       // begin-user-code  
       // end-user-code        
       return result;	  

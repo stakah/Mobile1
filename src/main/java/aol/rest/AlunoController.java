@@ -1,6 +1,7 @@
 package aol.rest;
 
 import aol.entity.Aluno;
+import aol.entity.Boletim;
 import aol.business.AlunoBusiness;
 import aol.business.AvisoBusiness;
 import aol.dao.SessionManager;
@@ -44,8 +45,11 @@ public class AlunoController {
     }
 
     @RequestMapping("/api/rest/alunos/{id}/boletim")
-    public Boletim getBoletim(@PathVariable(value="id") String id) {
-        return this.alunoBusiness.findById(id);
+    public List<Boletim> getBoletim(@PathVariable(value="id") String id,
+                              @RequestParam(value="limit", defaultValue = "100") int limit,
+                              @RequestParam(value="offset", defaultValue = "0") int offset) {
+                                
+        return this.alunoBusiness.findBoletim(id, limit, offset);
     }
 
 }

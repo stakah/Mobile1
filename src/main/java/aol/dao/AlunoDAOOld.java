@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * @generated
  */
-public class AlunoDAO extends BasicDAO<String, Aluno> implements Serializable {
+public class AlunoDAOOld extends BasicDAO<String, Aluno> implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
@@ -24,7 +24,7 @@ public class AlunoDAO extends BasicDAO<String, Aluno> implements Serializable {
    *          Tabela do banco
    * @generated
    */
-  public AlunoDAO(EntityManager entitymanager) {
+  public AlunoDAOOld(EntityManager entitymanager) {
     super(entitymanager);
   }
 
@@ -83,16 +83,6 @@ public class AlunoDAO extends BasicDAO<String, Aluno> implements Serializable {
    */
   public List<AlunoAviso> findAlunoAviso(java.lang.String id, int limit, int offset) {
       TypedQuery<AlunoAviso> query = this.entityManager.createQuery("SELECT entity FROM AlunoAviso entity WHERE entity.aluno.id = :id", AlunoAviso.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  /**
-   * OneToMany Relation
-   * @generated
-   */
-  public List<Boletim> findBoletim(java.lang.String id, int limit, int offset) {
-      TypedQuery<Boletim> query = this.entityManager.createQuery("SELECT entity FROM Boletim entity WHERE entity.aluno.id = :id", Boletim.class);
       query.setParameter("id", id);
 
       return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  

@@ -6,16 +6,16 @@ import aol.entity.*;
 import java.util.*;
 
 /**
- * Classe que representa a camada de negócios de Aluno
+ * Classe que representa a camada de negócios de Turma
  * @generated
  **/
-public class AlunoBusiness {
+public class TurmaBusiness {
 
   /**
-   * Instância da classe AlunoDAO que faz o acesso ao banco de dados
+   * Instância da classe TurmaDAO que faz o acesso ao banco de dados
    * @generated
    */
-  private AlunoDAO dao;
+  private TurmaDAO dao;
   
   /**
    * Singleton de sessão usado para abrir e fechar conexão com o banco de dados
@@ -30,11 +30,11 @@ public class AlunoBusiness {
    *          Singleton de sessão
    * @generated modifiable
    */
-  public AlunoBusiness(final SessionManager sessionmanager) {
+  public TurmaBusiness(final SessionManager sessionmanager) {
     // begin-user-code
     // end-user-code
     this.sessionManager = sessionmanager;
-    this.dao = new AlunoDAO(sessionmanager.getEntityManager());
+    this.dao = new TurmaDAO(sessionmanager.getEntityManager());
     // begin-user-code
     // end-user-code
   }
@@ -43,7 +43,7 @@ public class AlunoBusiness {
    * Construtor padrão, inicializa singleton de sessão
    * @generated modifiable   
    */
-  public AlunoBusiness() {
+  public TurmaBusiness() {
     // begin-user-code
     // end-user-code  
     this(SessionManager.getInstance());
@@ -57,7 +57,7 @@ public class AlunoBusiness {
    * @param entity Linha da tabela a ser persistida no banco de dados
    * @generated modifiable   
    */
-  public void save(final Aluno entity) {
+  public void save(final Turma entity) {
     // begin-user-code
     // end-user-code  
     dao.save(entity);
@@ -71,7 +71,7 @@ public class AlunoBusiness {
    * @param entity Entidade
    * @generated modifiable
    */
-  public void refresh(final Aluno entity) {
+  public void refresh(final Turma entity) {
     // begin-user-code
     // end-user-code  
     dao.refresh(entity);
@@ -85,10 +85,10 @@ public class AlunoBusiness {
    * @param entity Linha da tabela a ser atualizada
    * @generated modifiable   
    */
-  public Aluno update(final Aluno entity) {
+  public Turma update(final Turma entity) {
     // begin-user-code
     // end-user-code  
-	Aluno updatedEntity = dao.update(entity);
+	Turma updatedEntity = dao.update(entity);
     // begin-user-code
     // end-user-code	
     return updatedEntity;
@@ -100,7 +100,7 @@ public class AlunoBusiness {
    * @param entity Linha da tabela a ser excluída
    * @generated modifiable   
    */
-  public void delete(final Aluno entity){
+  public void delete(final Turma entity){
     // begin-user-code
     // end-user-code    
 	dao.delete(entity);
@@ -109,7 +109,7 @@ public class AlunoBusiness {
   }
   
   /**
-   * Remove a instância de Aluno utilizando os identificadores
+   * Remove a instância de Turma utilizando os identificadores
    * 
    * @param id
    *          Identificador 
@@ -126,44 +126,29 @@ public class AlunoBusiness {
   }  
   
   /**
-   * Obtém a instância de Aluno utilizando os identificadores
+   * Obtém a instância de Turma utilizando os identificadores
    * 
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
    * @generated modifiable
    */  
-  public Aluno findById(java.lang.String id){
+  public Turma findById(java.lang.String id){
     // begin-user-code
     // end-user-code  
-    Aluno entity = dao.findById(id);
+    Turma entity = dao.findById(id);
     // begin-user-code
     // end-user-code      
     return entity;  
   }   
-  public Aluno findByUserId(java.lang.String userId) {
-    // begin-user-code
-    // end-user-code
-    Aluno entity;
-    try {
-      entity = dao.findByUserId(userId);
-    }
-    catch (javax.persistence.NoResultException e) {
-      entity = new Aluno();
-    }
-    
-    // begin-user-code
-    // end-user-code
-    return entity;
-  }
   
   /**
    * @generated modifiable
    */  
-  public List<AlunoResponsavel> findAlunoResponsavel(java.lang.String id, int limit, int offset) {
+  public List<Aluno> findAluno(java.lang.String id, int limit, int offset) {
       // begin-user-code
       // end-user-code  
-      List<AlunoResponsavel> result = dao.findAlunoResponsavel(id, limit, offset);
+      List<Aluno> result = dao.findAluno(id, limit, offset);
       // begin-user-code  
       // end-user-code        
       return result;	  
@@ -172,22 +157,10 @@ public class AlunoBusiness {
   /**
    * @generated modifiable
    */  
-  public List<AlunoAviso> findAlunoAviso(java.lang.String id, int limit, int offset) {
+  public List<TurmaDisciplina> findTurmaDisciplina(java.lang.String id, int limit, int offset) {
       // begin-user-code
       // end-user-code  
-      List<AlunoAviso> result = dao.findAlunoAviso(id, limit, offset);
-      // begin-user-code  
-      // end-user-code        
-      return result;	  
-  }
-
-  /**
-   * @generated modifiable
-   */  
-  public List<Boletim> findBoletim(java.lang.String id, int limit, int offset) {
-      // begin-user-code
-      // end-user-code  
-      List<Boletim> result = dao.findBoletim(id, limit, offset);
+      List<TurmaDisciplina> result = dao.findTurmaDisciplina(id, limit, offset);
       // begin-user-code  
       // end-user-code        
       return result;	  
@@ -197,10 +170,10 @@ public class AlunoBusiness {
   /**
    * @generated modifiable
    */  
-  public List<Responsavel> listResponsavel(java.lang.String id, int limit, int offset) {
+  public List<Disciplina> listDisciplina(java.lang.String id, int limit, int offset) {
       // begin-user-code
       // end-user-code  
-      List<Responsavel> result = dao.listResponsavel(id, limit, offset);
+      List<Disciplina> result = dao.listDisciplina(id, limit, offset);
       // begin-user-code
       // end-user-code
       return result;        	  
@@ -209,34 +182,10 @@ public class AlunoBusiness {
   /**
    * @generated modifiable
    */    
-  public int deleteResponsavel(java.lang.String instanceId, java.lang.String relationId) {
+  public int deleteDisciplina(java.lang.String instanceId, java.lang.String relationId) {
       // begin-user-code
       // end-user-code  
-      int result = dao.deleteResponsavel(instanceId, relationId);
-      // begin-user-code
-      // end-user-code  
-      return result;  
-  }
-    
-  /**
-   * @generated modifiable
-   */  
-  public List<Aviso> listAviso(java.lang.String id, int limit, int offset) {
-      // begin-user-code
-      // end-user-code  
-      List<Aviso> result = dao.listAviso(id, limit, offset);
-      // begin-user-code
-      // end-user-code
-      return result;        	  
-  }
-  
-  /**
-   * @generated modifiable
-   */    
-  public int deleteAviso(java.lang.String instanceId, java.lang.String relationId) {
-      // begin-user-code
-      // end-user-code  
-      int result = dao.deleteAviso(instanceId, relationId);
+      int result = dao.deleteDisciplina(instanceId, relationId);
       // begin-user-code
       // end-user-code  
       return result;  
@@ -246,10 +195,10 @@ public class AlunoBusiness {
   /**
    * @generated modifiable
    */  	
-  public List<Aluno> list(int limit, int offset){
+  public List<Turma> list(int limit, int offset){
       // begin-user-code
       // end-user-code  
-      List<Aluno> result = dao.list(limit, offset);
+      List<Turma> result = dao.list(limit, offset);
       // begin-user-code
       // end-user-code        
       return result;	

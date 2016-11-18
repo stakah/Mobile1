@@ -12,9 +12,6 @@ import aol.dao.*;
 import aol.entity.*;
 import aol.business.*;
 import aol.rest.exceptions.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -52,6 +49,10 @@ public class AlunoREST implements RESTService<Aluno> {
   private AlunoAvisoBusiness alunoAvisoBusiness;
   /**
    * @generated
+   */
+  private BoletimBusiness boletimBusiness;
+  /**
+   * @generated
    */  
   @Context 
   private HttpServletRequest request;
@@ -67,6 +68,7 @@ public class AlunoREST implements RESTService<Aluno> {
     this.avisoBusiness = new AvisoBusiness(session);
     this.alunoResponsavelBusiness = new AlunoResponsavelBusiness(session);
     this.alunoAvisoBusiness = new AlunoAvisoBusiness(session);
+    this.boletimBusiness = new BoletimBusiness(session);
   }
   
   @GET
@@ -315,6 +317,77 @@ public class AlunoREST implements RESTService<Aluno> {
 			this.alunoAvisoBusiness.save(entity);
 			session.commit();
 			this.alunoAvisoBusiness.refresh(entity);
+			return Response.ok(entity).build();
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }   
+  
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
+  @GET
+  @Path("/{instanceId}/Boletim")
+  public GenericEntity<List<Boletim>> findBoletim(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    return new GenericEntity<List<Boletim>>(this.business.findBoletim(instanceId, limit, offset)){};
+  }
+  
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
+  @DELETE
+  @Path("/{instanceId}/Boletim/{relationId}")
+  public Response deleteBoletim(@PathParam("relationId") java.lang.String relationId) {
+		try {
+			session.begin();
+			if (this.boletimBusiness.deleteById(relationId) > 0) {
+				session.commit();
+				return Response.ok().build();
+			} else {
+				session.rollBack();
+				return Response.status(404).build();
+			}
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }
+  
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
+  @PUT
+  @Path("/{instanceId}/Boletim/{relationId}")
+  public Response putBoletim(Boletim entity, @PathParam("relationId") java.lang.String relationId) {
+		try {
+			session.begin();
+			Boletim updatedEntity = this.boletimBusiness.update(entity);
+			session.commit();
+			return Response.ok(updatedEntity).build();
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }  
+  
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
+  @POST
+  @Path("/{instanceId}/Boletim")
+  public Response postBoletim(Boletim entity, @PathParam("instanceId") java.lang.String instanceId) {
+		try {
+			session.begin();
+			Aluno aluno = this.business.findById(instanceId);
+			entity.setAluno(aluno);
+			this.boletimBusiness.save(entity);
+			session.commit();
+			this.boletimBusiness.refresh(entity);
 			return Response.ok(entity).build();
 		} catch(Exception exception) {
 			session.rollBack();

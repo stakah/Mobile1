@@ -74,6 +74,14 @@ public class Aluno implements Serializable {
 	@Column(name = "sala", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.String sala;
 	
+	/**
+	 * @generated
+	 */
+	
+	@ManyToOne
+	@JoinColumn(name="fk_turma_1", referencedColumnName = "id", insertable=true, updatable=true)
+	private Turma turma_1;
+	
 	
 	/**
 	 * Construtor
@@ -214,6 +222,25 @@ public class Aluno implements Serializable {
 	 */
 	public void setSala(java.lang.String sala){
 		this.sala = sala;
+	}
+	
+	/**
+	 * Obtém turma_1
+	 * @param turma_1 turma_1
+	 * return turma_1
+	 * @generated
+	 */
+	public Turma getTurma_1(){
+		return this.turma_1;
+	}
+	
+	/**
+	 * Define turma_1
+	 * @param turma_1 turma_1
+	 * @generated
+	 */
+	public void setTurma_1(Turma turma_1){
+		this.turma_1 = turma_1;
 	}
 	
 	/**
