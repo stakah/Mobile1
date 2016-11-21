@@ -30,4 +30,29 @@ angular.
     }
   ])
 
+  .factory('Aluno.TurmaDisciplinas', ['$resource',
+    function($resource) {
+      return $resource('/api/rest/alunos/:alunoId/turmas/:turmaId/turmaDisciplinas', {}, {
+        query: {
+          method: 'GET',
+          //params: {alunoId: 'alunos'},
+          isArray: true
+        }
+      });
+    }
+  ])
+
+  .factory('Aluno.Boletim.Disciplinas', ['$resource',
+    function($resource) {
+      return $resource('/api/rest/alunos/:alunoId/boletim/:boletimId/disciplinas', {}, {
+        query: {
+          method: 'GET',
+          //params: {alunoId: 'alunos'},
+          isArray: true
+        }
+      });
+    }
+  ])
+
+
 ;

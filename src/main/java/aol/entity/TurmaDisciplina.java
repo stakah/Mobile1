@@ -54,8 +54,7 @@ public class TurmaDisciplina implements Serializable {
 	
 	@Column(name = "media", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.Double media;
-	
-	
+
 	/**
 	 * Construtor
 	 * @generated
@@ -139,7 +138,7 @@ public class TurmaDisciplina implements Serializable {
 	public void setMedia(java.lang.Double media){
 		this.media = media;
 	}
-	
+
 	/**
 	 * @generated
 	 */

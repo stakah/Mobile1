@@ -53,8 +53,18 @@ public class Disciplina implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_boletim", referencedColumnName = "id", insertable=true, updatable=true)
 	private Boletim boletim;
-	
-	
+
+	public String getAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(String aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	@Column(name = "aprovado", nullable = false, unique = false, insertable=true, updatable=true)
+	private java.lang.String aprovado;
+
 	/**
 	 * Construtor
 	 * @generated

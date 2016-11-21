@@ -2,6 +2,8 @@ package aol.business;
 
 import aol.dao.*;
 import aol.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -22,7 +24,10 @@ public class BoletimBusiness {
    * @generated
    */
   protected SessionManager sessionManager;
-	
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(BoletimBusiness.class);
+
+
   /**
    * Copia referência da sessão e instancia DAO relacionada à essa classe para manipular o banco de dados
    * 
@@ -147,8 +152,10 @@ public class BoletimBusiness {
    */  
   public List<Disciplina> findDisciplina(java.lang.String id, int limit, int offset) {
       // begin-user-code
-      // end-user-code  
+      // end-user-code
+      LOGGER.info("boletimId:" + id);
       List<Disciplina> result = dao.findDisciplina(id, limit, offset);
+      LOGGER.info("List<Disciplinas>:" + result.size() + " : " + result.toString());
       // begin-user-code  
       // end-user-code        
       return result;	  

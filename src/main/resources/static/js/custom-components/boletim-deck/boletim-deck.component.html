@@ -1,57 +1,18 @@
-<div class="row responsive-sm">
-  <div class="col">
+<div class="row responsive-sm" ng-repeat="cells in ctrl.rows">
+  <div class="col" ng-repeat="cell in cells">
     <a ng-click="">
-      <div class="item item-icon-left item-positive">
-        <i class="icon ion-ios-book placeholder-icon"></i>
-        <div class="disciplina disciplina-title">Portugues</div>
+      <div class="item item-icon-left {{cell.background}}">
+        <i class="icon ion-ios-book"></i>
+        <div class="disciplina disciplina-title" ng-bind="cell.disciplina.nome"></div>
       </div>
-      <div class="item item-positive">
-        <div class="disciplina disciplina-nota">7,0</div>
+      <div class="item {{cell.background}}">
+        <div class="disciplina disciplina-nota" ng-bind="cell.disciplina.nota"></div>
       </div>
-      <div class="item item-positive item-icon-left item-icon-right">
-        <i class="icon ion-calendar placeholder-icon"></i>
-        <span class="disciplina disciplina-media">9,0</span>
-        <i class="icon ion-android-done placeholder-icon"></i>
+      <div class="item item-icon-left item-icon-right {{cell.background}}">
+        <i class="icon ion-calendar"></i>
+        <span class="disciplina disciplina-media" ng-bind="cell.turmaDisciplina.media"></span>
+        <i class="icon {{cell.icon}}"></i>
       </div>
     </a>
   </div>
-
-  <div class="col">
-    <div class="card">
-      <div class="list">
-        <a ng-click="">
-          <div class="item item-icon-left item-list-divider">
-            <i class="icon ion-ios-book placeholder-icon"></i>
-            <h2>Portugues</h2>
-          </div>
-          <div class="item"><h2>7,0</h2></div>
-          <div class="item item-icon-left item-icon-right">
-            <i class="icon ion-icon-calendar placeholder-icon"></i>
-            <span>9,0</span>
-            <i class="icon ion-icon-yes placeholder-icon"></i>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card">
-      <div class="list">
-        <a ng-click="">
-          <div class="item item-icon-left item-list-divider">
-            <i class="icon ion-ios-book placeholder-icon"></i>
-            <h2>Portugues</h2>
-          </div>
-          <div class="item"><h2>7,0</h2></div>
-          <div class="item item-icon-left item-icon-right">
-            <i class="icon ion-icon-calendar placeholder-icon"></i>
-            <span>9,0</span>
-            <i class="icon ion-icon-yes placeholder-icon"></i>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
 </div>
