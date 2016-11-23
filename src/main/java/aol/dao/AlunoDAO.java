@@ -2,6 +2,8 @@ package aol.dao;
 
 import javax.persistence.*;
 import aol.entity.*;
+import org.springframework.stereotype.Repository;
+
 import java.util.*;
 import java.io.Serializable;
 

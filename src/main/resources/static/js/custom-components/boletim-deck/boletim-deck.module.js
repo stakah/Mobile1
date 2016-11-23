@@ -19,18 +19,13 @@
     self.boletim;
     self.rows = [];
 
-    self.aluno = Aluno_User.get({userId: User.id},
-      Aluno_User_handleSuccess,
-      Aluno_User_handleFailure);
+    self.aluno = Aluno_User.get({userId: User.id}, Aluno_User_handleSuccess, Aluno_User_handleFailure);
 
     function Aluno_User_handleSuccess(aluno) {
       console.log('aluno=', aluno);
       self.aluno = aluno;
 
-      self.boletim = Aluno_Boletim.query({alunoId: aluno.id},
-        Aluno_Boletim_handleSuccess,
-        Aluno_User_handleFailure
-      );
+      self.boletim = Aluno_Boletim.query({alunoId: aluno.id}, Aluno_Boletim_handleSuccess, Aluno_User_handleFailure);
      }
 
      function Aluno_User_handleFailure() {
@@ -73,7 +68,7 @@
         console.log('turmaDisciplinas=', turmaDisciplinas);
 
          for (d=0; d< self.disciplinas.length; d++) {
-             var col = [];
+           var col = [];
            for (i=0; i<3; i++) {
              var cell = {};
              cell.disciplina = self.disciplinas[d];
