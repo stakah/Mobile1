@@ -31,21 +31,18 @@ public class Disciplina implements Serializable {
 	
 	@Column(name = "id", insertable=true, updatable=true)
 	private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-	
 	/**
 	 * @generated
 	 */
 	
 	@Column(name = "nome", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.String nome;
-	
 	/**
 	 * @generated
 	 */
 	
 	@Column(name = "nota", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.Double nota;
-	
 	/**
 	 * @generated
 	 */
@@ -53,43 +50,31 @@ public class Disciplina implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_boletim", referencedColumnName = "id", insertable=true, updatable=true)
 	private Boletim boletim;
-	
 	/**
 	 * @generated
 	 */
 	
 	@Column(name = "aulas_previstas", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.Integer aulas_previstas;
-	
 	/**
 	 * @generated
 	 */
 	
 	@Column(name = "aulas_ministradas", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.Integer aulas_ministradas;
-	
 	/**
 	 * @generated
 	 */
 	
 	@Column(name = "faltas", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.Integer faltas;
-	
 	/**
 	 * @generated
 	 */
 	
-	@ManyToOne
-	@JoinColumn(name="fk_disciplina", referencedColumnName = "id", insertable=true, updatable=true)
-	private List<TurmaDisciplina> (1 to N) TurmaDisciplina;
+	@Column(name = "aprovado", nullable = false, unique = false, insertable=true, updatable=true)
+	private java.lang.String aprovado;
 	
-	/**
-	 * @generated
-	 */
-	
-	@ManyToOne
-	@JoinColumn(name="fk_turma", referencedColumnName = "id", insertable=true, updatable=true)
-	private List<Turma> (N to N) Turma;
 	
 	
 	/**
@@ -234,41 +219,22 @@ public class Disciplina implements Serializable {
 	}
 	
 	/**
-	 * Obtém TurmaDisciplina
-	 * @param TurmaDisciplina TurmaDisciplina
-	 * return TurmaDisciplina
+	 * Obtém aprovado
+	 * @param aprovado aprovado
+	 * return aprovado
 	 * @generated
 	 */
-	public List<TurmaDisciplina> (1 to N) getTurmaDisciplina(){
-		return this.TurmaDisciplina;
+	public java.lang.String getAprovado(){
+		return this.aprovado;
 	}
 	
 	/**
-	 * Define TurmaDisciplina
-	 * @param TurmaDisciplina TurmaDisciplina
+	 * Define aprovado
+	 * @param aprovado aprovado
 	 * @generated
 	 */
-	public void setTurmaDisciplina(List<TurmaDisciplina> (1 to N) TurmaDisciplina){
-		this.TurmaDisciplina = TurmaDisciplina;
-	}
-	
-	/**
-	 * Obtém Turma
-	 * @param Turma Turma
-	 * return Turma
-	 * @generated
-	 */
-	public List<Turma> (N to N) getTurma(){
-		return this.Turma;
-	}
-	
-	/**
-	 * Define Turma
-	 * @param Turma Turma
-	 * @generated
-	 */
-	public void setTurma(List<Turma> (N to N) Turma){
-		this.Turma = Turma;
+	public void setAprovado(java.lang.String aprovado){
+		this.aprovado = aprovado;
 	}
 	
 	/**
