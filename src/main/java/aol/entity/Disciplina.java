@@ -53,18 +53,45 @@ public class Disciplina implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_boletim", referencedColumnName = "id", insertable=true, updatable=true)
 	private Boletim boletim;
-
-	public String getAprovado() {
-		return aprovado;
-	}
-
-	public void setAprovado(String aprovado) {
-		this.aprovado = aprovado;
-	}
-
-	@Column(name = "aprovado", nullable = false, unique = false, insertable=true, updatable=true)
-	private java.lang.String aprovado;
-
+	
+	/**
+	 * @generated
+	 */
+	
+	@Column(name = "aulas_previstas", nullable = false, unique = false, insertable=true, updatable=true)
+	private java.lang.Integer aulas_previstas;
+	
+	/**
+	 * @generated
+	 */
+	
+	@Column(name = "aulas_ministradas", nullable = false, unique = false, insertable=true, updatable=true)
+	private java.lang.Integer aulas_ministradas;
+	
+	/**
+	 * @generated
+	 */
+	
+	@Column(name = "faltas", nullable = false, unique = false, insertable=true, updatable=true)
+	private java.lang.Integer faltas;
+	
+	/**
+	 * @generated
+	 */
+	
+	@ManyToOne
+	@JoinColumn(name="fk_disciplina", referencedColumnName = "id", insertable=true, updatable=true)
+	private List<TurmaDisciplina> (1 to N) TurmaDisciplina;
+	
+	/**
+	 * @generated
+	 */
+	
+	@ManyToOne
+	@JoinColumn(name="fk_turma", referencedColumnName = "id", insertable=true, updatable=true)
+	private List<Turma> (N to N) Turma;
+	
+	
 	/**
 	 * Construtor
 	 * @generated
@@ -147,6 +174,101 @@ public class Disciplina implements Serializable {
 	 */
 	public void setBoletim(Boletim boletim){
 		this.boletim = boletim;
+	}
+	
+	/**
+	 * Obtém aulas_previstas
+	 * @param aulas_previstas aulas_previstas
+	 * return aulas_previstas
+	 * @generated
+	 */
+	public java.lang.Integer getAulas_previstas(){
+		return this.aulas_previstas;
+	}
+	
+	/**
+	 * Define aulas_previstas
+	 * @param aulas_previstas aulas_previstas
+	 * @generated
+	 */
+	public void setAulas_previstas(java.lang.Integer aulas_previstas){
+		this.aulas_previstas = aulas_previstas;
+	}
+	
+	/**
+	 * Obtém aulas_ministradas
+	 * @param aulas_ministradas aulas_ministradas
+	 * return aulas_ministradas
+	 * @generated
+	 */
+	public java.lang.Integer getAulas_ministradas(){
+		return this.aulas_ministradas;
+	}
+	
+	/**
+	 * Define aulas_ministradas
+	 * @param aulas_ministradas aulas_ministradas
+	 * @generated
+	 */
+	public void setAulas_ministradas(java.lang.Integer aulas_ministradas){
+		this.aulas_ministradas = aulas_ministradas;
+	}
+	
+	/**
+	 * Obtém faltas
+	 * @param faltas faltas
+	 * return faltas
+	 * @generated
+	 */
+	public java.lang.Integer getFaltas(){
+		return this.faltas;
+	}
+	
+	/**
+	 * Define faltas
+	 * @param faltas faltas
+	 * @generated
+	 */
+	public void setFaltas(java.lang.Integer faltas){
+		this.faltas = faltas;
+	}
+	
+	/**
+	 * Obtém TurmaDisciplina
+	 * @param TurmaDisciplina TurmaDisciplina
+	 * return TurmaDisciplina
+	 * @generated
+	 */
+	public List<TurmaDisciplina> (1 to N) getTurmaDisciplina(){
+		return this.TurmaDisciplina;
+	}
+	
+	/**
+	 * Define TurmaDisciplina
+	 * @param TurmaDisciplina TurmaDisciplina
+	 * @generated
+	 */
+	public void setTurmaDisciplina(List<TurmaDisciplina> (1 to N) TurmaDisciplina){
+		this.TurmaDisciplina = TurmaDisciplina;
+	}
+	
+	/**
+	 * Obtém Turma
+	 * @param Turma Turma
+	 * return Turma
+	 * @generated
+	 */
+	public List<Turma> (N to N) getTurma(){
+		return this.Turma;
+	}
+	
+	/**
+	 * Define Turma
+	 * @param Turma Turma
+	 * @generated
+	 */
+	public void setTurma(List<Turma> (N to N) Turma){
+		this.Turma = Turma;
 	}
 	
 	/**
