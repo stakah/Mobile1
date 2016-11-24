@@ -4,6 +4,7 @@ angular.module('alunoCard')
   controller: 'AlunoCardController',
   controllerAs: 'ctrlAlunoCard',
   bindings: {
-      aluno: "="
+      aluno: "=",
+      columns: "<"
     },
 });

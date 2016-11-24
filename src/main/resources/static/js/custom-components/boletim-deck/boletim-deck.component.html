@@ -1,5 +1,5 @@
 <div class="row responsive-sm" ng-repeat="cells in ctrl.rows">
-  <div class="col" ng-repeat="cell in cells">
+  <div class="col" ng-repeat="cell in cells" ng-click="ctrl.itemClick(cell)">
     <a ng-click="">
       <div class="item item-icon-left {{cell.background}}">
         <i class="icon ion-ios-book"></i>
@@ -9,7 +9,9 @@
         <div class="disciplina disciplina-nota" ng-bind="cell.disciplina.nota"></div>
       </div>
       <div class="item item-icon-left item-icon-right {{cell.background}}">
-        <i class="icon ion-calendar"></i>
+        <i class="icon ion-calendar {{cell.calendarColor}}"></i>
+        <span class="disciplina disciplina-faltas"  ng-bind="cell.disciplina.faltas">
+        </span>
         <span class="disciplina disciplina-media" ng-bind="cell.turmaDisciplina.media"></span>
         <i class="icon {{cell.icon}}"></i>
       </div>

@@ -1,0 +1,44 @@
+<div class="list">
+  <div class="item item-divider item-positive">
+    <h1 class="title" ng-bind-html="ctrl.cell.disciplina.nome"></h1>
+  </div>
+
+  <div class="item item-icon-left">
+    <i class="icon fa fa-check-circle placeholder-icon icon-positive"></i>
+    Nota:
+    <span class="item-note item-big" ng-bind-html="ctrl.cell.disciplina.nota"></span>
+  </div>
+
+  <div class="item item-icon-left">
+    <i class="icon fa fa-thumbs-up placeholder-icon icon-positive"></i>
+    M&eacute;dia da turma:
+    <span class="item-note item-big" ng-bind-html="ctrl.cell.turmaDisciplina.media"></span>
+  </div>
+
+  <div class="item item-icon-left item-icon-right padding-right" ng-click="ctrl.toggleGroup('faltas')">
+    <i class="icon fa fa-calendar-times-o placeholder-icon icon-positive"></i>
+    Faltas:
+    <span class="xitem-note" ng-bind-html="ctrl.cell.disciplina.faltas"></span>
+    <i ng-class="ctrl.isGroupShown('faltas') ? 'icon fa fa-chevron-down' : 'icon fa fa-chevron-right'"></i>
+  </div>
+  <div class="list" ng-show="ctrl.isGroupShown('faltas')">
+    <canvas id="doughnut" class="chart chart-doughnut"
+            chart-data="ctrl.chart.data"
+            chart-labels="ctrl.chart.labels"
+            chart-options="ctrl.chart.options"
+            >
+    </canvas>
+  </div>
+
+  <div class="item item-icon-left">
+    <i class="icon fa fa-calendar placeholder-icon icon-positive"></i>
+    Aulas Previstas:
+    <span class="item-note item-big" ng-bind-html="ctrl.cell.disciplina.aulas_previstas"></span>
+  </div>
+
+  <div class="item item-icon-left">
+    <i class="icon fa fa-calendar-check-o placeholder-icon icon-positive"></i>
+    Aulas Ministradas:
+    <span class="item-note item-big" ng-bind-html="ctrl.cell.disciplina.aulas_ministradas"></span>
+  </div>
+</div>

@@ -2,24 +2,41 @@
   /*
    * Modulo do componente boletim-deck (boletimDeck)
    */
-  angular.module('boletim', ['aol.service'])
+  angular.module('boletim', ['aol.service', 'boletimDetail'])
     .controller('BoletimDeckController',
      ['Aluno', 'Aluno.User', 'Aluno.Boletim', 'Aluno.Boletim.Disciplinas', 'Aluno.TurmaDisciplinas',
+      '$attrs',
         BoletimDeckController]);
 
-  function BoletimDeckController(Aluno, Aluno_User, Aluno_Boletim, Aluno_Boletim_Disciplinas, Aluno_TurmaDisciplinas) {
+  function BoletimDeckController(Aluno, Aluno_User, Aluno_Boletim, Aluno_Boletim_Disciplinas, Aluno_TurmaDisciplinas,
+    $attrs) {
     var self = this;
     //this.aluno = {nome:"Claudia Cristina M. Rodrigues", grupo:"2o. Ano Ensino Médio", matricula: "144632", turma: "B"};
     var User = angular.fromJson(sessionStorage.getItem('_u'));
     external_User = User;
-
-    console.log('[AlunoCardController]:User=', User);
+    console.log('[BoletimDeckController]:self=', self);
+    console.log('[BoletimDeckController]:User=', User);
     console.log('User.id=', User.id);
 
     self.boletim;
     self.rows = [];
 
+    console.log("self.aluno=", self.aluno);
+    console.log("self.columns=", self.columns);
+    console.log("$attrs=", $attrs);
+    self.columns = $attrs.columns;
+
     self.aluno = Aluno_User.get({userId: User.id}, Aluno_User_handleSuccess, Aluno_User_handleFailure);
+
+    self.itemClick = function(cell) {
+        console.log('[BoletimDeckController.itemClick] cell:', cell);
+        self.itemOpenBoletimDetail(cell);
+     }
+
+     self.itemOpenBoletimDetail = function(cell) {
+        console.log('[BoletimDeckController.itemOpenBoletimDetail]\t cell=', cell);
+        self.onOpenBoletimDetail({cell: cell});
+     }
 
     function Aluno_User_handleSuccess(aluno) {
       console.log('aluno=', aluno);
@@ -67,17 +84,23 @@
 
         console.log('turmaDisciplinas=', turmaDisciplinas);
 
-         for (d=0; d< self.disciplinas.length; d++) {
+         for (d=0; d< self.disciplinas.length;) {
            var col = [];
-           for (i=0; i<3; i++) {
+           var columns = self.columns || 3;
+           for (i=0; i< columns; i++) {
              var cell = {};
              cell.disciplina = self.disciplinas[d];
 
-             cell.icon = 'ion-sad'
+             cell.icon = 'fa fa-thumbs-o-down'
              cell.background = 'item-assertive';
              if (cell.disciplina.aprovado == 'aprovado') {
-                cell.icon = 'ion-happy';
+                cell.icon = 'fa fa-thumbs-o-up';
                 cell.background = 'item-positive';
+             }
+
+             cell.calendarColor = 'item-normal';
+             if (cell.disciplina.faltas > 0) {
+               cell.calendarColor = 'placeholder-icon item-assertive';
              }
 
              for (td=0; td<turmaDisciplinas.length; td++) {

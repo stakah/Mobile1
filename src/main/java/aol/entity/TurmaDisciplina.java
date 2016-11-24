@@ -65,7 +65,6 @@ public class TurmaDisciplina implements Serializable {
 	
 	/**
 	 * Obtém id
-	 * @param id id
 	 * return id
 	 * @generated
 	 */
@@ -84,7 +83,6 @@ public class TurmaDisciplina implements Serializable {
 	
 	/**
 	 * Obtém turma
-	 * @param turma turma
 	 * return turma
 	 * @generated
 	 */
@@ -103,7 +101,6 @@ public class TurmaDisciplina implements Serializable {
 	
 	/**
 	 * Obtém disciplina
-	 * @param disciplina disciplina
 	 * return disciplina
 	 * @generated
 	 */
@@ -122,7 +119,6 @@ public class TurmaDisciplina implements Serializable {
 	
 	/**
 	 * Obtém media
-	 * @param media media
 	 * return media
 	 * @generated
 	 */

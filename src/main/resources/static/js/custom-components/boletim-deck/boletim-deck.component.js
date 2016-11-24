@@ -4,6 +4,7 @@ angular.module('boletim')
   controller: 'BoletimDeckController',
   controllerAs: 'ctrl',
   bindings: {
-      aluno: "="
+      aluno: "=",
+      onOpenBoletimDetail: "&"
     },
 });

@@ -1,4 +1,5 @@
   angular.module('custom.controllers')
+
   .controller('AlunoBoletimController', [
       '$scope',
       '$http',
@@ -12,26 +13,83 @@
       '$ionicModal',
       function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
           var vm = this;
+          vm.cell = {};
+          vm.chart = {};
+          vm.chart.options = {};
+          vm.chart.options.lengend = {};
 
           console.log('[AlunoBoletimController]\tvm=', vm);
 
-          $ionicModal.fromTemplateUrl('views/logged/_aluno.aviso.detail.view.html', {
+          $ionicModal.fromTemplateUrl('views/logged/_boletim.detail.view.html', {
             scope: $scope,
             animation: 'slide-in-up'
           }).then(function(modal) {
-            vm.modalAviso = modal;
+            vm.modalBoletim = modal;
           });
 
-          vm.openAvisoDetail2 = function(aviso) {
-            vm.avisoItem = aviso;
-            console.log('[AlunoBoletimController.openAvisoDetail]\tvm=', vm);
-            console.log('[AlunoBoletimController.openAvisoDetail]\taviso=', aviso);
-            vm.modalAviso.show();
+          var chartGenerateLabels  = function(chart) {
+            var labels = [];
+            external_chart = chart;
+
+            for (i=0; i<chart.data.labels.length; i++) {
+              var L = chart.data.labels[i];
+              var N = vm.chart.data[i];
+              var txt = L + ' (' + N + ')';
+              labels.push({
+                text: txt,
+                fillStyle:   Chart.defaults.global.colors[i],
+                strokeStyle: Chart.defaults.global.colors[i]
+              });
+            }
+            console.log('chartGenerateLabels] chart=', chart);
+            return labels;
           };
 
-          $scope.closeAvisoDetail2 = function() {
-            console.log('[HomeAppController]\tvm.closeAvisoDetail2()');
-            vm.modalAviso.hide();
+          vm.openBoletimDetail2 = function(cell) {
+            vm.cell = cell;
+
+            vm.chart.options = {
+              title: {
+                display: true,
+                text: vm.cell.disciplina.faltas + ' falta(s)'
+              },
+
+              legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                  generateLabels: chartGenerateLabels
+                }
+              }
+            };
+
+            Chart.defaults.global.colors =
+              ['#085970', '#7DAA07', '#B40808', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'];
+
+            vm.chart.labels = ["Aulas Assistidas", "Aulas Restantes", "Faltas" ];
+            var aulasAssistidas = vm.cell.disciplina.aulas_ministradas - vm.cell.disciplina.faltas;
+            var aulasRestantes = vm.cell.disciplina.aulas_previstas -
+              (vm.cell.disciplina.aulas_ministradas);
+
+            vm.chart.aulas = [vm.cell.disciplina.aulas_previstas, vm.cell.disciplina.aulas_ministradas, vm.cell.disciplina.faltas];
+            vm.chart.data = [aulasAssistidas, aulasRestantes, vm.cell.disciplina.faltas];
+
+//            vm.chart.data = {
+//              datasets: [
+//                {
+//                  data: vm.chart.data,
+//                  backgroundColor: backgroundColors
+//                }
+//              ]
+//            };
+
+            console.log('[AlunoBoletimController.openBoletimDetail2]\tvm=', vm);
+            vm.modalBoletim.show();
+          };
+
+          $scope.closeBoletimDetail2 = function() {
+            console.log('[AlunoBoletimController]\tvm.closeBoletimDetail2()');
+            vm.modalBoletim.hide();
           }
 
     } ]);
