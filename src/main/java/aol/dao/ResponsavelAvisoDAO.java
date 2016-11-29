@@ -1,34 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class ResponsavelAvisoDAO extends BasicDAO<String, ResponsavelAviso> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = 1009547742l;
+@Repository("ResponsavelAvisoDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface ResponsavelAvisoDAO extends JpaRepository<ResponsavelAviso, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de ResponsavelAviso utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public ResponsavelAvisoDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM ResponsavelAviso entity WHERE entity.id = :id")
+  public ResponsavelAviso findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de ResponsavelAviso utilizando os identificadores
@@ -37,37 +41,24 @@ public class ResponsavelAvisoDAO extends BasicDAO<String, ResponsavelAviso> impl
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM ResponsavelAviso entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM ResponsavelAviso entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de ResponsavelAviso utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
-   * @generated
-   */  
-  public ResponsavelAviso findById(java.lang.String id){
-      TypedQuery<ResponsavelAviso> query = this.entityManager.createQuery("SELECT entity FROM ResponsavelAviso entity WHERE entity.id = :id", ResponsavelAviso.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
-
-
-
-  /**
-   * NamedQuery list
    * @generated
    */
-  public List<ResponsavelAviso> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("responsavelAvisoList", ResponsavelAviso.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
+  @Query("select r from ResponsavelAviso r")
+  public Page<ResponsavelAviso> list ( Pageable pageable );
   
+
+
+
+
+
+
+
 }

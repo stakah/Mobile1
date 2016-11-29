@@ -1,238 +1,150 @@
 package aol.rest;
 
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+
+import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.*;
 
 import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
 
-import aol.rest.util.*;
-
-import aol.dao.*;
 import aol.entity.*;
 import aol.business.*;
-import aol.rest.exceptions.*;
-import javax.servlet.http.HttpServletRequest;
+
 
 
 /**
- * Publicando metodos de negocio via REST
+ * Controller para expor serviços REST de Boletim
+ * 
+ * @author sergiot
+ * @version 1.0
  * @generated
  **/
-@Path("/Boletim")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class BoletimREST implements RESTService<Boletim> {
-  /**
-   * @generated
-   */
-  private SessionManager session;
-  /**
-   * @generated
-   */  
-  private BoletimBusiness business;
-  /**
-   * @generated
-   */
-  private DisciplinaBusiness disciplinaBusiness;
-  /**
-   * @generated
-   */  
-  @Context 
-  private HttpServletRequest request;
+@RestController
+@RequestMapping(value = "/api/rest/aol/Boletim")
+public class BoletimREST {
+
+    /**
+     * Classe de negócio para manipulação de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("BoletimBusiness")
+    private BoletimBusiness boletimBusiness;
+
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("DisciplinaBusiness")
+      private DisciplinaBusiness disciplinaBusiness;
+
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public Boletim post(@Validated @RequestBody final Boletim entity) throws Exception {
+        return boletimBusiness.post(entity);
+    }
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public Boletim put(@Validated @RequestBody final Boletim entity) throws Exception {
+        return boletimBusiness.put(entity);
+    }
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public Boletim put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final Boletim entity) throws Exception {
+        return boletimBusiness.put(entity);
+    }
+
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable("id") java.lang.String id) throws Exception {
+        boletimBusiness.delete(id);
+    }
+
 
   /**
+   * NamedQuery list
    * @generated
    */
-  public BoletimREST() {
-    this.session = SessionManager.getInstance();
-    this.session.getEntityManager().clear();
-    this.business = new BoletimBusiness(session);
-    this.disciplinaBusiness = new DisciplinaBusiness(session);
-  }
-  
-  /**
-   * @generated
-   */  
-  @POST
-  public Response post(Boletim entity) {
-    try {
-	    session.begin();
-	    business.save(entity);
-	    session.commit();
-	    business.refresh(entity);
-	    return Response.ok(entity).build();
-    }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }
+  @RequestMapping(method = RequestMethod.GET
+  )    
+  public  HttpEntity<PagedResources<Boletim>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(boletimBusiness.list(pageable   )), HttpStatus.OK);    
   }
 
-  /**
-   * @generated
-   */
-  @PUT
-  public Response put(Boletim entity) {
-    try {
-	    session.begin();
-	    Boletim updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
-    }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @PUT
-  @Path("/{id}")
-  public Response putWithId(Boletim entity) {
-    try {
-	    session.begin();
-	    Boletim updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
-    }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @DELETE
-  public Response delete(Boletim entity) {  
-		try {
-			session.begin();
-			Boletim updatedEntity = business.update(entity);
-			business.delete(updatedEntity);
-			session.commit();
-			return Response.ok().build();
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  } 
-   
-  /**
-   * @generated
-   */    
-  @DELETE
-  @Path("/{id}")
-  public Response delete(@PathParam("id") java.lang.String id) {  
-		try {
-			session.begin();
-			if (business.deleteById(id) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				return Response.status(404).build();
-			}
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  }
-  
-  
-  
   /**
    * OneToMany Relationship GET
    * @generated
    */
-  @GET
-  @Path("/{instanceId}/Disciplina")
-  public GenericEntity<List<Disciplina>> findDisciplina(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<Disciplina>>(this.business.findDisciplina(instanceId, limit, offset)){};
+  @RequestMapping(method = RequestMethod.GET
+  , value="/{instanceId}/Disciplina")    
+  public HttpEntity<PagedResources<Disciplina>> findDisciplina(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(boletimBusiness.findDisciplina(instanceId,  pageable )), HttpStatus.OK);
   }
-  
+
   /**
    * OneToMany Relationship DELETE 
    * @generated
    */  
-  @DELETE
-  @Path("/{instanceId}/Disciplina/{relationId}")
-  public Response deleteDisciplina(@PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.disciplinaBusiness.deleteById(relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.DELETE
+  , value="/{instanceId}/Disciplina/{relationId}")    
+  public void deleteDisciplina(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.disciplinaBusiness.delete(relationId);
   }
   
   /**
    * OneToMany Relationship PUT
    * @generated
    */  
-  @PUT
-  @Path("/{instanceId}/Disciplina/{relationId}")
-  public Response putDisciplina(Disciplina entity, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			Disciplina updatedEntity = this.disciplinaBusiness.update(entity);
-			session.commit();
-			return Response.ok(updatedEntity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/Disciplina/{relationId}")
+  public Disciplina putDisciplina(@Validated @RequestBody final Disciplina entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.disciplinaBusiness.put(entity);
   }  
   
   /**
    * OneToMany Relationship POST
    * @generated
    */  
-  @POST
-  @Path("/{instanceId}/Disciplina")
-  public Response postDisciplina(Disciplina entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			Boletim boletim = this.business.findById(instanceId);
-			entity.setBoletim(boletim);
-			this.disciplinaBusiness.save(entity);
-			session.commit();
-			this.disciplinaBusiness.refresh(entity);
-			return Response.ok(entity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/Disciplina")
+  public Disciplina postDisciplina(@Validated @RequestBody final Disciplina entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	Boletim boletim = this.boletimBusiness.get(instanceId);
+	entity.setBoletim(boletim);
+	return this.disciplinaBusiness.post(entity);
   }   
-  
 
 
-  
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  @GET
-  	
-  public GenericEntity<List<Boletim>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<Boletim>>(business.list(limit, offset)){};
 
-  }
-	
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public Boletim get(@PathVariable("id") java.lang.String id) throws Exception {
+        return boletimBusiness.get(id);
+    }
 }

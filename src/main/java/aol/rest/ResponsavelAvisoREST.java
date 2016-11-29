@@ -1,162 +1,102 @@
 package aol.rest;
 
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+
+import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.*;
 
 import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
 
-import aol.rest.util.*;
-
-import aol.dao.*;
 import aol.entity.*;
 import aol.business.*;
-import aol.rest.exceptions.*;
-import javax.servlet.http.HttpServletRequest;
+
 
 
 /**
- * Publicando metodos de negocio via REST
+ * Controller para expor serviços REST de ResponsavelAviso
+ * 
+ * @author sergiot
+ * @version 1.0
  * @generated
  **/
-@Path("/ResponsavelAviso")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class ResponsavelAvisoREST implements RESTService<ResponsavelAviso> {
-  /**
-   * @generated
-   */
-  private SessionManager session;
-  /**
-   * @generated
-   */  
-  private ResponsavelAvisoBusiness business;
-  /**
-   * @generated
-   */  
-  @Context 
-  private HttpServletRequest request;
+@RestController
+@RequestMapping(value = "/api/rest/aol/ResponsavelAviso")
+public class ResponsavelAvisoREST {
 
-  /**
-   * @generated
-   */
-  public ResponsavelAvisoREST() {
-    this.session = SessionManager.getInstance();
-    this.session.getEntityManager().clear();
-    this.business = new ResponsavelAvisoBusiness(session);
-  }
-  
-  /**
-   * @generated
-   */  
-  @POST
-  public Response post(ResponsavelAviso entity) {
-    try {
-	    session.begin();
-	    business.save(entity);
-	    session.commit();
-	    business.refresh(entity);
-	    return Response.ok(entity).build();
+    /**
+     * Classe de negócio para manipulação de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("ResponsavelAvisoBusiness")
+    private ResponsavelAvisoBusiness responsavelAvisoBusiness;
+
+
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponsavelAviso post(@Validated @RequestBody final ResponsavelAviso entity) throws Exception {
+        return responsavelAvisoBusiness.post(entity);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponsavelAviso put(@Validated @RequestBody final ResponsavelAviso entity) throws Exception {
+        return responsavelAvisoBusiness.put(entity);
     }
-  }
 
-  /**
-   * @generated
-   */
-  @PUT
-  public Response put(ResponsavelAviso entity) {
-    try {
-	    session.begin();
-	    ResponsavelAviso updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public ResponsavelAviso put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final ResponsavelAviso entity) throws Exception {
+        return responsavelAvisoBusiness.put(entity);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @PUT
-  @Path("/{id}")
-  public Response putWithId(ResponsavelAviso entity) {
-    try {
-	    session.begin();
-	    ResponsavelAviso updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable("id") java.lang.String id) throws Exception {
+        responsavelAvisoBusiness.delete(id);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @DELETE
-  public Response delete(ResponsavelAviso entity) {  
-		try {
-			session.begin();
-			ResponsavelAviso updatedEntity = business.update(entity);
-			business.delete(updatedEntity);
-			session.commit();
-			return Response.ok().build();
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  } 
-   
-  /**
-   * @generated
-   */    
-  @DELETE
-  @Path("/{id}")
-  public Response delete(@PathParam("id") java.lang.String id) {  
-		try {
-			session.begin();
-			if (business.deleteById(id) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				return Response.status(404).build();
-			}
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  }
-  
-  
-  
 
 
-  
   /**
    * NamedQuery list
    * @generated
    */
-  @GET
-  	
-  public GenericEntity<List<ResponsavelAviso>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<ResponsavelAviso>>(business.list(limit, offset)){};
-
+  @RequestMapping(method = RequestMethod.GET
+  )    
+  public  HttpEntity<PagedResources<ResponsavelAviso>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(responsavelAvisoBusiness.list(pageable   )), HttpStatus.OK);    
   }
-	
+
+
+
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponsavelAviso get(@PathVariable("id") java.lang.String id) throws Exception {
+        return responsavelAvisoBusiness.get(id);
+    }
 }

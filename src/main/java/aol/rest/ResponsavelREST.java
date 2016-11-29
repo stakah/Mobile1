@@ -1,461 +1,300 @@
 package aol.rest;
 
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+
+import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.*;
 
 import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
 
-import aol.rest.util.*;
-
-import aol.dao.*;
 import aol.entity.*;
 import aol.business.*;
-import aol.rest.exceptions.*;
-import javax.servlet.http.HttpServletRequest;
+
 
 
 /**
- * Publicando metodos de negocio via REST
+ * Controller para expor serviços REST de Responsavel
+ * 
+ * @author sergiot
+ * @version 1.0
  * @generated
  **/
-@Path("/Responsavel")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class ResponsavelREST implements RESTService<Responsavel> {
-  /**
-   * @generated
-   */
-  private SessionManager session;
-  /**
-   * @generated
-   */  
-  private ResponsavelBusiness business;
-  /**
-   * @generated
-   */
-  private AlunoBusiness alunoBusiness;
-  /**
-   * @generated
-   */
-  private AvisoBusiness avisoBusiness;
-  /**
-   * @generated
-   */
-  private AlunoResponsavelBusiness alunoResponsavelBusiness;
-  /**
-   * @generated
-   */
-  private ResponsavelAvisoBusiness responsavelAvisoBusiness;
-  /**
-   * @generated
-   */  
-  @Context 
-  private HttpServletRequest request;
+@RestController
+@RequestMapping(value = "/api/rest/aol/Responsavel")
+public class ResponsavelREST {
 
-  /**
-   * @generated
-   */
-  public ResponsavelREST() {
-    this.session = SessionManager.getInstance();
-    this.session.getEntityManager().clear();
-    this.business = new ResponsavelBusiness(session);
-    this.alunoBusiness = new AlunoBusiness(session);
-    this.avisoBusiness = new AvisoBusiness(session);
-    this.alunoResponsavelBusiness = new AlunoResponsavelBusiness(session);
-    this.responsavelAvisoBusiness = new ResponsavelAvisoBusiness(session);
-  }
-  
-  /**
-   * @generated
-   */  
-  @POST
-  public Response post(Responsavel entity) {
-    try {
-	    session.begin();
-	    business.save(entity);
-	    session.commit();
-	    business.refresh(entity);
-	    return Response.ok(entity).build();
+    /**
+     * Classe de negócio para manipulação de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("ResponsavelBusiness")
+    private ResponsavelBusiness responsavelBusiness;
+
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("AlunoBusiness")
+      private AlunoBusiness alunoBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("AvisoBusiness")
+      private AvisoBusiness avisoBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("AlunoResponsavelBusiness")
+      private AlunoResponsavelBusiness alunoResponsavelBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("ResponsavelAvisoBusiness")
+      private ResponsavelAvisoBusiness responsavelAvisoBusiness;
+
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public Responsavel post(@Validated @RequestBody final Responsavel entity) throws Exception {
+        return responsavelBusiness.post(entity);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public Responsavel put(@Validated @RequestBody final Responsavel entity) throws Exception {
+        return responsavelBusiness.put(entity);
     }
-  }
 
-  /**
-   * @generated
-   */
-  @PUT
-  public Response put(Responsavel entity) {
-    try {
-	    session.begin();
-	    Responsavel updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public Responsavel put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final Responsavel entity) throws Exception {
+        return responsavelBusiness.put(entity);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @PUT
-  @Path("/{id}")
-  public Response putWithId(Responsavel entity) {
-    try {
-	    session.begin();
-	    Responsavel updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable("id") java.lang.String id) throws Exception {
+        responsavelBusiness.delete(id);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @DELETE
-  public Response delete(Responsavel entity) {  
-		try {
-			session.begin();
-			Responsavel updatedEntity = business.update(entity);
-			business.delete(updatedEntity);
-			session.commit();
-			return Response.ok().build();
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  } 
-   
-  /**
-   * @generated
-   */    
-  @DELETE
-  @Path("/{id}")
-  public Response delete(@PathParam("id") java.lang.String id) {  
-		try {
-			session.begin();
-			if (business.deleteById(id) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				return Response.status(404).build();
-			}
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  }
-  
-  
-  
-  /**
-   * OneToMany Relationship GET
-   * @generated
-   */
-  @GET
-  @Path("/{instanceId}/AlunoResponsavel")
-  public GenericEntity<List<AlunoResponsavel>> findAlunoResponsavel(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<AlunoResponsavel>>(this.business.findAlunoResponsavel(instanceId, limit, offset)){};
-  }
-  
-  /**
-   * OneToMany Relationship DELETE 
-   * @generated
-   */  
-  @DELETE
-  @Path("/{instanceId}/AlunoResponsavel/{relationId}")
-  public Response deleteAlunoResponsavel(@PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.alunoResponsavelBusiness.deleteById(relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }
-  
-  /**
-   * OneToMany Relationship PUT
-   * @generated
-   */  
-  @PUT
-  @Path("/{instanceId}/AlunoResponsavel/{relationId}")
-  public Response putAlunoResponsavel(AlunoResponsavel entity, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			AlunoResponsavel updatedEntity = this.alunoResponsavelBusiness.update(entity);
-			session.commit();
-			return Response.ok(updatedEntity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }  
-  
-  /**
-   * OneToMany Relationship POST
-   * @generated
-   */  
-  @POST
-  @Path("/{instanceId}/AlunoResponsavel")
-  public Response postAlunoResponsavel(AlunoResponsavel entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			Responsavel responsavel = this.business.findById(instanceId);
-			entity.setResponsavel(responsavel);
-			this.alunoResponsavelBusiness.save(entity);
-			session.commit();
-			this.alunoResponsavelBusiness.refresh(entity);
-			return Response.ok(entity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }   
-  
-  /**
-   * OneToMany Relationship GET
-   * @generated
-   */
-  @GET
-  @Path("/{instanceId}/ResponsavelAviso")
-  public GenericEntity<List<ResponsavelAviso>> findResponsavelAviso(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<ResponsavelAviso>>(this.business.findResponsavelAviso(instanceId, limit, offset)){};
-  }
-  
-  /**
-   * OneToMany Relationship DELETE 
-   * @generated
-   */  
-  @DELETE
-  @Path("/{instanceId}/ResponsavelAviso/{relationId}")
-  public Response deleteResponsavelAviso(@PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.responsavelAvisoBusiness.deleteById(relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }
-  
-  /**
-   * OneToMany Relationship PUT
-   * @generated
-   */  
-  @PUT
-  @Path("/{instanceId}/ResponsavelAviso/{relationId}")
-  public Response putResponsavelAviso(ResponsavelAviso entity, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			ResponsavelAviso updatedEntity = this.responsavelAvisoBusiness.update(entity);
-			session.commit();
-			return Response.ok(updatedEntity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }  
-  
-  /**
-   * OneToMany Relationship POST
-   * @generated
-   */  
-  @POST
-  @Path("/{instanceId}/ResponsavelAviso")
-  public Response postResponsavelAviso(ResponsavelAviso entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			Responsavel responsavel = this.business.findById(instanceId);
-			entity.setResponsavel(responsavel);
-			this.responsavelAvisoBusiness.save(entity);
-			session.commit();
-			this.responsavelAvisoBusiness.refresh(entity);
-			return Response.ok(entity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }   
-  
 
 
-  /**
-   * ManyToMany Relationship GET
-   * @generated
-   */
-  @GET
-  @Path("/{instanceId}/Aluno")
-  public GenericEntity<List<Aluno>> listAluno(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<Aluno>>(this.business.listAluno(instanceId, limit, offset)){};
-  }
-  
-  /**
-   * ManyToMany Relationship POST
-   * @generated
-   */  
-  @POST
-  @Path("/{instanceId}/Aluno")
-  public Response postAluno(Aluno entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			AlunoResponsavel newAlunoResponsavel = new AlunoResponsavel();
-
-			Responsavel instance = this.business.findById(instanceId);
-
-
-			newAlunoResponsavel.setAluno(entity);
-			newAlunoResponsavel.setResponsavel(instance);
-			
-			this.alunoResponsavelBusiness.save(newAlunoResponsavel);
-			session.commit();
-			this.alunoResponsavelBusiness.refresh(newAlunoResponsavel);
-			return Response.ok(newAlunoResponsavel.getResponsavel()).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }   
-  
-  /**
-   * ManyToMany Relationship DELETE
-   * @generated
-   */  
-  @DELETE
-  @Path("/{instanceId}/Aluno/{relationId}")
-  public Response deleteAluno(@PathParam("instanceId") java.lang.String instanceId, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.business.deleteAluno(instanceId, relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }  
-  
-  /**
-   * ManyToMany Relationship GET
-   * @generated
-   */
-  @GET
-  @Path("/{instanceId}/Aviso")
-  public GenericEntity<List<Aviso>> listAviso(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<Aviso>>(this.business.listAviso(instanceId, limit, offset)){};
-  }
-  
-  /**
-   * ManyToMany Relationship POST
-   * @generated
-   */  
-  @POST
-  @Path("/{instanceId}/Aviso")
-  public Response postAviso(Aviso entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			ResponsavelAviso newResponsavelAviso = new ResponsavelAviso();
-
-			Responsavel instance = this.business.findById(instanceId);
-
-
-			newResponsavelAviso.setAviso(entity);
-			newResponsavelAviso.setResponsavel(instance);
-			
-			this.responsavelAvisoBusiness.save(newResponsavelAviso);
-			session.commit();
-			this.responsavelAvisoBusiness.refresh(newResponsavelAviso);
-			return Response.ok(newResponsavelAviso.getResponsavel()).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }   
-  
-  /**
-   * ManyToMany Relationship DELETE
-   * @generated
-   */  
-  @DELETE
-  @Path("/{instanceId}/Aviso/{relationId}")
-  public Response deleteAviso(@PathParam("instanceId") java.lang.String instanceId, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.business.deleteAviso(instanceId, relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }  
-  
-  
   /**
    * NamedQuery list
    * @generated
    */
-  @GET
-  	
-  public GenericEntity<List<Responsavel>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<Responsavel>>(business.list(limit, offset)){};
-
+  @RequestMapping(method = RequestMethod.GET
+  )    
+  public  HttpEntity<PagedResources<Responsavel>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(responsavelBusiness.list(pageable   )), HttpStatus.OK);    
   }
+
   /**
    * NamedQuery listByUser
    * @generated
    */
-  @GET
-  @Path("/listByUser/{user}")	
-  public GenericEntity<List<Responsavel>> listByUser(@PathParam("user")java.lang.String user, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<Responsavel>>(business.listByUser(user, limit, offset)){};
-
+  @RequestMapping(method = RequestMethod.GET
+  , value="/listByUser/{user}")    
+  public  HttpEntity<PagedResources<Responsavel>> listByUserParams (@PathVariable("user") java.lang.String user, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(responsavelBusiness.listByUser(user, pageable   )), HttpStatus.OK);    
   }
-	
+
   /**
-   * NamedQuery listByUser
+   * OneToMany Relationship GET
    * @generated
    */
-  @GET
-  @Path("/listByUser")	
-  public GenericEntity<List<Responsavel>> listByUserParams(@QueryParam("user")java.lang.String user, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<Responsavel>>(business.listByUser(user, limit, offset)){};	
+  @RequestMapping(method = RequestMethod.GET
+  , value="/{instanceId}/AlunoResponsavel")    
+  public HttpEntity<PagedResources<AlunoResponsavel>> findAlunoResponsavel(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(responsavelBusiness.findAlunoResponsavel(instanceId,  pageable )), HttpStatus.OK);
   }
+
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  , value="/{instanceId}/AlunoResponsavel/{relationId}")    
+  public void deleteAlunoResponsavel(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.alunoResponsavelBusiness.delete(relationId);
+  }
+  
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/AlunoResponsavel/{relationId}")
+  public AlunoResponsavel putAlunoResponsavel(@Validated @RequestBody final AlunoResponsavel entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.alunoResponsavelBusiness.put(entity);
+  }  
+  
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/AlunoResponsavel")
+  public AlunoResponsavel postAlunoResponsavel(@Validated @RequestBody final AlunoResponsavel entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	Responsavel responsavel = this.responsavelBusiness.get(instanceId);
+	entity.setResponsavel(responsavel);
+	return this.alunoResponsavelBusiness.post(entity);
+  }   
+
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  , value="/{instanceId}/ResponsavelAviso")    
+  public HttpEntity<PagedResources<ResponsavelAviso>> findResponsavelAviso(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(responsavelBusiness.findResponsavelAviso(instanceId,  pageable )), HttpStatus.OK);
+  }
+
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  , value="/{instanceId}/ResponsavelAviso/{relationId}")    
+  public void deleteResponsavelAviso(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.responsavelAvisoBusiness.delete(relationId);
+  }
+  
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/ResponsavelAviso/{relationId}")
+  public ResponsavelAviso putResponsavelAviso(@Validated @RequestBody final ResponsavelAviso entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.responsavelAvisoBusiness.put(entity);
+  }  
+  
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/ResponsavelAviso")
+  public ResponsavelAviso postResponsavelAviso(@Validated @RequestBody final ResponsavelAviso entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	Responsavel responsavel = this.responsavelBusiness.get(instanceId);
+	entity.setResponsavel(responsavel);
+	return this.responsavelAvisoBusiness.post(entity);
+  }   
+
+
+  /**
+   * ManyToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/{instanceId}/Aluno")
+  public HttpEntity<PagedResources<Aluno>> listAluno(@PathVariable("instanceId") java.lang.String instanceId,  Pageable pageable, PagedResourcesAssembler assembler ) {
+    return new ResponseEntity<>(assembler.toResource(responsavelBusiness.listAluno(instanceId,  pageable )), HttpStatus.OK); 
+  }
+
+  /**
+   * ManyToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  ,value="/{instanceId}/Aluno")
+  public Responsavel postAluno(@Validated @RequestBody final Aluno entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+      AlunoResponsavel newAlunoResponsavel = new AlunoResponsavel();
+
+      Responsavel instance = this.responsavelBusiness.get(instanceId);
+
+      newAlunoResponsavel.setAluno(entity);
+      newAlunoResponsavel.setResponsavel(instance);
+      
+      this.alunoResponsavelBusiness.post(newAlunoResponsavel);
+
+      return newAlunoResponsavel.getResponsavel();
+  }   
+
+  /**
+   * ManyToMany Relationship DELETE
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  ,value="/{instanceId}/Aluno/{relationId}")
+  public void deleteAluno(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
+	  this.responsavelBusiness.deleteAluno(instanceId, relationId);
+  }  
+
+
+  /**
+   * ManyToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/{instanceId}/Aviso")
+  public HttpEntity<PagedResources<Aviso>> listAviso(@PathVariable("instanceId") java.lang.String instanceId,  Pageable pageable, PagedResourcesAssembler assembler ) {
+    return new ResponseEntity<>(assembler.toResource(responsavelBusiness.listAviso(instanceId,  pageable )), HttpStatus.OK); 
+  }
+
+  /**
+   * ManyToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  ,value="/{instanceId}/Aviso")
+  public Responsavel postAviso(@Validated @RequestBody final Aviso entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+      ResponsavelAviso newResponsavelAviso = new ResponsavelAviso();
+
+      Responsavel instance = this.responsavelBusiness.get(instanceId);
+
+      newResponsavelAviso.setAviso(entity);
+      newResponsavelAviso.setResponsavel(instance);
+      
+      this.responsavelAvisoBusiness.post(newResponsavelAviso);
+
+      return newResponsavelAviso.getResponsavel();
+  }   
+
+  /**
+   * ManyToMany Relationship DELETE
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  ,value="/{instanceId}/Aviso/{relationId}")
+  public void deleteAviso(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
+	  this.responsavelBusiness.deleteAviso(instanceId, relationId);
+  }  
+
+
+
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public Responsavel get(@PathVariable("id") java.lang.String id) throws Exception {
+        return responsavelBusiness.get(id);
+    }
 }

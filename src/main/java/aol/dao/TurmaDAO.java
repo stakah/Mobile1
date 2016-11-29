@@ -1,34 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class TurmaDAO extends BasicDAO<String, Turma> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = 81176345l;
+@Repository("TurmaDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface TurmaDAO extends JpaRepository<Turma, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de Turma utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public TurmaDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM Turma entity WHERE entity.id = :id")
+  public Turma findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de Turma utilizando os identificadores
@@ -37,80 +41,51 @@ public class TurmaDAO extends BasicDAO<String, Turma> implements Serializable {
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM Turma entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM Turma entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de Turma utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
    * @generated
-   */  
-  public Turma findById(java.lang.String id){
-      TypedQuery<Turma> query = this.entityManager.createQuery("SELECT entity FROM Turma entity WHERE entity.id = :id", Turma.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
+   */
+  @Query("select t from Turma t")
+  public Page<Turma> list ( Pageable pageable );
+  
 
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<Aluno> findAluno(java.lang.String id, int limit, int offset) {
-      TypedQuery<Aluno> query = this.entityManager.createQuery("SELECT entity FROM Aluno entity WHERE entity.turma_1.id = :id", Aluno.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+  @Query("SELECT entity FROM Aluno entity WHERE entity.turma_1.id = :id")
+  public Page<Aluno> findAluno(@Param(value="id") java.lang.String id,  Pageable pageable );
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<TurmaDisciplina> findTurmaDisciplina(java.lang.String id, int limit, int offset) {
-      TypedQuery<TurmaDisciplina> query = this.entityManager.createQuery("SELECT entity FROM TurmaDisciplina entity WHERE entity.turma.id = :id", TurmaDisciplina.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity FROM TurmaDisciplina entity WHERE entity.turma.id = :id")
+  public Page<TurmaDisciplina> findTurmaDisciplina(@Param(value="id") java.lang.String id,  Pageable pageable );
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+
 
   /**
    * ManyToOne Relation
    * @generated
    */
-  public List<Disciplina> listDisciplina(java.lang.String id, int limit, int offset) {
-      TypedQuery<Disciplina> query = this.entityManager.createQuery("SELECT entity.disciplina FROM TurmaDisciplina entity WHERE entity.turma.id = :id", Disciplina.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity.disciplina FROM TurmaDisciplina entity WHERE entity.turma.id = :id")
+  public Page<Disciplina> listDisciplina(@Param(value="id") java.lang.String id,  Pageable pageable);
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
     /**
      * ManyToOne Relation Delete
      * @generated
      */
-    public int deleteDisciplina(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM TurmaDisciplina entity WHERE entity.turma.id = :instanceId AND entity.disciplina.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
+    @Modifying
+    @Query("DELETE FROM TurmaDisciplina entity WHERE entity.turma.id = :instanceId AND entity.disciplina.id = :relationId")
+    public int deleteDisciplina(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
-      return query.executeUpdate();	  
-  }
-  
 
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  public List<Turma> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("turmaList", Turma.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
+
+
 }

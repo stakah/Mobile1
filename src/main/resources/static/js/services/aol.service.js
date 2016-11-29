@@ -24,7 +24,19 @@ angular.
         query: {
           method: 'GET',
           //params: {alunoId: 'alunos'},
-          isArray: true
+          //isArray: true
+        }
+      });
+    }
+  ])
+
+  .factory('Aluno.Boletim.Id', ['$resource',
+    function($resource) {
+      return $resource('api/rest/alunos/:alunoId/boletim/id', {}, {
+        query: {
+          method: 'GET',
+          //params: {alunoId: 'alunos'},
+          //isArray: true
         }
       });
     }
@@ -36,23 +48,47 @@ angular.
         query: {
           method: 'GET',
           //params: {alunoId: 'alunos'},
-          isArray: true
+          //isArray: true
         }
       });
     }
   ])
 
-  .factory('Aluno.Boletim.Disciplinas', ['$resource',
+.factory('Aluno.HorariosAula', ['$resource',
     function($resource) {
-      return $resource('/api/rest/alunos/:alunoId/boletim/:boletimId/disciplinas', {}, {
+      return $resource('/api/rest/alunos/:alunoId/HorariosAula', {}, {
         query: {
           method: 'GET',
           //params: {alunoId: 'alunos'},
-          isArray: true
+          //isArray: true
         }
       });
     }
   ])
 
+//'/api/rest/alunos/:alunoId/boletim/:boletimId/disciplinas'
+  .factory('Aluno.Boletim.Disciplinas', ['$resource',
+    function($resource) {
+      return $resource('/api/rest/alunos/:alunoId/BoletimDisciplinas', {}, {
+        query: {
+          method: 'GET',
+          //params: {alunoId: 'alunos'},
+          //isArray: true
+        }
+      });
+    }
+  ])
+
+  .factory('Aluno.Calendario.Aulas', ['$resource',
+    function($resource) {
+      return $resource('/api/rest/alunos/:alunoId/calendario/:calendarioId/aulas', {}, {
+        query: {
+          method: 'GET',
+          //params: {alunoId: 'alunos'},
+          //isArray: true
+        }
+      });
+    }
+  ])
 
 ;

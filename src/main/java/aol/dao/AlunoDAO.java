@@ -1,36 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import org.springframework.stereotype.Repository;
 
-import java.util.*;
-import java.io.Serializable;
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class AlunoDAO extends BasicDAO<String, Aluno> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = 63364293l;
+@Repository("AlunoDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface AlunoDAO extends JpaRepository<Aluno, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de Aluno utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public AlunoDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM Aluno entity WHERE entity.id = :id")
+  public Aluno findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de Aluno utilizando os identificadores
@@ -39,120 +41,93 @@ public class AlunoDAO extends BasicDAO<String, Aluno> implements Serializable {
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM Aluno entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM Aluno entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de Aluno utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
+   * @generated
+   */
+  @Query("select a from Aluno a")
+  public Page<Aluno> list ( Pageable pageable );
+  
+
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM AlunoResponsavel entity WHERE entity.aluno.id = :id")
+  public Page<AlunoResponsavel> findAlunoResponsavel(@Param(value="id") java.lang.String id,  Pageable pageable );
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM AlunoAviso entity WHERE entity.aluno.id = :id")
+  public Page<AlunoAviso> findAlunoAviso(@Param(value="id") java.lang.String id,  Pageable pageable );
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM Boletim entity WHERE entity.aluno.id = :id")
+  public Page<Boletim> findBoletim(@Param(value="id") java.lang.String id,  Pageable pageable );
+
+  @Query("SELECT d FROM Boletim entity, Disciplina d WHERE entity.aluno.id = :id AND entity.id = d.boletim.id")
+  public Page<Disciplina> getBoletimId(@Param(value="id") java.lang.String id, Pageable pageable);
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM Calendario entity WHERE entity.aluno.id = :id")
+  public Page<Calendario> findCalendario(@Param(value="id") java.lang.String id,  Pageable pageable );
+
+
+
+  /**
+   * ManyToOne Relation
+   * @generated
+   */
+  @Query("SELECT entity.responsavel FROM AlunoResponsavel entity WHERE entity.aluno.id = :id")
+  public Page<Responsavel> listResponsavel(@Param(value="id") java.lang.String id,  Pageable pageable);
+
+    /**
+     * ManyToOne Relation Delete
+     * @generated
+     */
+    @Modifying
+    @Query("DELETE FROM AlunoResponsavel entity WHERE entity.aluno.id = :instanceId AND entity.responsavel.id = :relationId")
+    public int deleteResponsavel(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+
+  /**
+   * ManyToOne Relation
+   * @generated
+   */
+  @Query("SELECT entity.aviso FROM AlunoAviso entity WHERE entity.aluno.id = :id")
+  public Page<Aviso> listAviso(@Param(value="id") java.lang.String id,  Pageable pageable);
+
+    /**
+     * ManyToOne Relation Delete
+     * @generated
+     */
+    @Modifying
+    @Query("DELETE FROM AlunoAviso entity WHERE entity.aluno.id = :instanceId AND entity.aviso.id = :relationId")
+    public int deleteAviso(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+
+
+
+   /**
+   * Obtém a instância de Aluno buscando pelo UserId
+   * 
+   * @param userId
+   *          Identificador do usuario
    * @return Instância relacionada com o filtro indicado
    * @generated
-   */  
-  public Aluno findById(java.lang.String id){
-      TypedQuery<Aluno> query = this.entityManager.createQuery("SELECT entity FROM Aluno entity WHERE entity.id = :id", Aluno.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
+   */    
+  @Query("SELECT entity FROM Aluno entity WHERE entity.user = :userId")
+  public Aluno findOneByUserId(@Param(value="userId") java.lang.String userId);
 
-  public Aluno findByUserId(java.lang.String userId){
-      TypedQuery<Aluno> query = this.entityManager.createQuery("SELECT entity FROM Aluno entity WHERE entity.user = :id", Aluno.class);
-      query.setParameter("id", userId);
-           
-      return query.getSingleResult();	
-  }
-
-  /**
-   * OneToMany Relation
-   * @generated
-   */
-  public List<AlunoResponsavel> findAlunoResponsavel(java.lang.String id, int limit, int offset) {
-      TypedQuery<AlunoResponsavel> query = this.entityManager.createQuery("SELECT entity FROM AlunoResponsavel entity WHERE entity.aluno.id = :id", AlunoResponsavel.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  /**
-   * OneToMany Relation
-   * @generated
-   */
-  public List<AlunoAviso> findAlunoAviso(java.lang.String id, int limit, int offset) {
-      TypedQuery<AlunoAviso> query = this.entityManager.createQuery("SELECT entity FROM AlunoAviso entity WHERE entity.aluno.id = :id", AlunoAviso.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  /**
-   * OneToMany Relation
-   * @generated
-   */
-  public List<Boletim> findBoletim(java.lang.String id, int limit, int offset) {
-      TypedQuery<Boletim> query = this.entityManager.createQuery("SELECT entity FROM Boletim entity WHERE entity.aluno.id = :id", Boletim.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-
-  /**
-   * ManyToOne Relation
-   * @generated
-   */
-  public List<Responsavel> listResponsavel(java.lang.String id, int limit, int offset) {
-      TypedQuery<Responsavel> query = this.entityManager.createQuery("SELECT entity.responsavel FROM AlunoResponsavel entity WHERE entity.aluno.id = :id", Responsavel.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
-    /**
-     * ManyToOne Relation Delete
-     * @generated
-     */
-    public int deleteResponsavel(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM AlunoResponsavel entity WHERE entity.aluno.id = :instanceId AND entity.responsavel.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
-
-      return query.executeUpdate();	  
-  }
-  
-  /**
-   * ManyToOne Relation
-   * @generated
-   */
-  public List<Aviso> listAviso(java.lang.String id, int limit, int offset) {
-      TypedQuery<Aviso> query = this.entityManager.createQuery("SELECT entity.aviso FROM AlunoAviso entity WHERE entity.aluno.id = :id", Aviso.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
-    /**
-     * ManyToOne Relation Delete
-     * @generated
-     */
-    public int deleteAviso(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM AlunoAviso entity WHERE entity.aluno.id = :instanceId AND entity.aviso.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
-
-      return query.executeUpdate();	  
-  }
-  
-
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  public List<Aluno> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("alunoList", Aluno.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
+  @Query("SELECT new aol.entity.HorariosAulaAluno(a,td,h) FROM Aluno a, TurmaDisciplina td, HorarioAula h WHERE a.turma_1 = td.turma.id AND h.disciplina.id = td.disciplina.id AND a.id = :id")
+  public Page<HorariosAulaAluno> listHorariosAulaAluno(@Param(value="id") java.lang.String id,  Pageable pageable);
 }

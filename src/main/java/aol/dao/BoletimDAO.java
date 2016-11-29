@@ -1,34 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class BoletimDAO extends BasicDAO<String, Boletim> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = 1726402542l;
+@Repository("BoletimDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface BoletimDAO extends JpaRepository<Boletim, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de Boletim utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public BoletimDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM Boletim entity WHERE entity.id = :id")
+  public Boletim findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de Boletim utilizando os identificadores
@@ -37,47 +41,32 @@ public class BoletimDAO extends BasicDAO<String, Boletim> implements Serializabl
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM Boletim entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM Boletim entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de Boletim utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
    * @generated
-   */  
-  public Boletim findById(java.lang.String id){
-      TypedQuery<Boletim> query = this.entityManager.createQuery("SELECT entity FROM Boletim entity WHERE entity.id = :id", Boletim.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
+   */
+  @Query("select b from Boletim b")
+  public Page<Boletim> list ( Pageable pageable );
+  
 
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<Disciplina> findDisciplina(java.lang.String id, int limit, int offset) {
-      TypedQuery<Disciplina> query = this.entityManager.createQuery("SELECT entity FROM Disciplina entity WHERE entity.boletim.id = :id", Disciplina.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity FROM Disciplina entity WHERE entity.boletim.id = :id")
+  public Page<Disciplina> findDisciplina(@Param(value="id") java.lang.String id,  Pageable pageable );
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+  @Query("SELECT new aol.entity.BoletimDisciplinas(b,d,t) FROM Boletim b, Disciplina d, TurmaDisciplina t WHERE b.aluno.id = :alunoId AND b.id = d.boletim.id AND t.disciplina.id = d.id")
+  public Page<BoletimDisciplinas> findBoletimDisciplinasByAlunoId(@Param(value="alunoId") java.lang.String alunoId, Pageable pageable);
 
 
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  public List<Boletim> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("boletimList", Boletim.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
+
+
+
 }

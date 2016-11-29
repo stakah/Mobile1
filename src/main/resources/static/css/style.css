@@ -32,26 +32,37 @@
 
 }
 
-.positive {
-  color:#ef473a;
+/*
+.positive,
+.placeholder-icon,
+.button.button-positive.button-clear,
+.button.button-positive.button-outline
+{
+      color:#ef473a;
 }
+.button.button-positive
+{
+      background-color:#ef473a;
+}
+.button.button-positive.button-outline
+{
+      border-color: #ef473a;
+}
+*/
 .button.button-positive {
-    border-color: transparent;
-    background-color:#ef473a;
-    color: #fff; }
+      border-color: transparent;
+      color: #fff;
+}
 .button.button-positive.button-clear {
       border-color: transparent;
       background: none;
       box-shadow: none;
-      color: #ef473a; }
-.button.button-positive.button-outline {
-      border-color: #ef473a;
-      background: transparent;
-      color: #ef473a; }
-
-.placeholder-icon {
-  color:#ef473a;
 }
+.button.button-positive.button-outline {
+      background: transparent;
+}
+
+
 .item-avatar > img:first-child {
   max-width: 64px;
   max-height: 64px;
@@ -101,4 +112,42 @@
   display: block;
   text-align: right;
   left: auto;
+}
+
+/*
+ * Custom Classes *
+ */
+.badge-faltas {
+    background: red;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    line-height: 20px;
+    margin: 0px 4px 0px 0px!important;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.badge-media {
+    background: #007aff;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    line-height: 20px;
+    margin: 0px 4px 0px 0px!important;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.icon-small {
+    font-size: 24px!important;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
 }

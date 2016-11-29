@@ -117,6 +117,18 @@ var app = (function() {
             }
         })
 
+        .state('home.calendarioAulas', {
+            url: "/aulas",
+            controller: 'HomeController',
+            views: {
+                'mainContent': {
+                    controller: 'AlunoCalendarioAulasController',
+                    controllerAs: 'vm',
+                    templateUrl: 'views/logged/aluno.calendario.aulas.view.html'
+                }
+            }
+        })
+
         .state('home.pages', {
           url: "/{name:.*}",
           controller: 'PageController',

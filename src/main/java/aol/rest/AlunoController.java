@@ -5,6 +5,7 @@ import aol.business.TurmaBusiness;
 import aol.entity.*;
 import aol.business.AlunoBusiness;
 import aol.business.AvisoBusiness;
+import aol.business.CalendarioBusiness;
 import aol.dao.SessionManager;
 
 import java.util.ArrayList;
@@ -17,14 +18,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.PagedResources;
 
 @RestController
+@RequestMapping(value = "${rest.baseUrl}/alunos")
 public class AlunoController {
 
+    /**
+     * Classe de negócio para manipulação de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("AlunoBusiness")
     private AlunoBusiness alunoBusiness;
+    @Autowired
+    @Qualifier("AvisoBusiness")
     private AvisoBusiness avisoBusiness;
+    @Autowired
+    @Qualifier("BoletimBusiness")
     private BoletimBusiness boletimBusiness;
+    @Autowired
+    @Qualifier("TurmaBusiness")
     private TurmaBusiness turmaBusiness;
+    @Autowired
+    @Qualifier("CalendarioBusiness")
+    private CalendarioBusiness calendarioBusiness;
 
     private SessionManager session;
     private static final Logger LOGGER = LoggerFactory.getLogger(AlunoController.class);
@@ -33,60 +58,83 @@ public class AlunoController {
         this.session = SessionManager.getInstance();
         this.session.getEntityManager().clear();
 
-        this.alunoBusiness   = new AlunoBusiness  (session);
-        this.avisoBusiness   = new AvisoBusiness  (session);
-        this.boletimBusiness = new BoletimBusiness(session);
-        this.turmaBusiness   = new TurmaBusiness  (session);
     }
 
-    @RequestMapping(value = "${rest.baseUrl}/alunos", method = RequestMethod.GET)
-    public List<Aluno> list(@RequestParam(value="limit", defaultValue = "100") int limit,
-                            @RequestParam(value="offset", defaultValue = "0") int offset) {
-        return this.alunoBusiness.list(limit, offset);
+    @RequestMapping(method = RequestMethod.GET)
+    public HttpEntity<PagedResources<Aluno>>  list(Pageable pageable, PagedResourcesAssembler assembler) {
+      return new ResponseEntity<>(assembler.toResource(alunoBusiness.list(pageable   )), HttpStatus.OK);    
     }
     
-    @RequestMapping(value = "${rest.baseUrl}/alunos/{id}",method = RequestMethod.GET)
-    public Aluno get(@PathVariable(value="id") String id) {
-      return this.alunoBusiness.findById(id);
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public HttpEntity<Aluno> get(@PathVariable(value="id") String id) {
+      
+      try {
+        Aluno response = this.alunoBusiness.get(id);
+        
+        return new ResponseEntity<>(response, HttpStatus.OK);
+        
+      }
+      catch (Exception e) {
+        LOGGER.debug(String.format("[GET]\tid=%s %s", id, e.getMessage()));
+        
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+
     }
 
-    @RequestMapping(value = "${rest.baseUrl}/alunos/user/{userid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{userid}", method = RequestMethod.GET)
     public Aluno getByUserId(@PathVariable(value="userid") String userid) {
         return this.alunoBusiness.findByUserId(userid);
     }
 
-    @RequestMapping(value = "${rest.baseUrl}/alunos/{id}/boletim", method = RequestMethod.GET)
-    public List<Boletim> getBoletim(@PathVariable(value="id") String id,
-                              @RequestParam(value="limit", defaultValue = "100") int limit,
-                              @RequestParam(value="offset", defaultValue = "0") int offset) {
+    @RequestMapping(value = "/{id}/boletim", method = RequestMethod.GET)
+    public HttpEntity<PagedResources<Boletim>> getBoletim(@PathVariable(value="id") String id,
+                              Pageable pageable, PagedResourcesAssembler assembler) {
                                 
-        return this.alunoBusiness.findBoletim(id, limit, offset);
+      return new ResponseEntity<>(assembler.toResource(alunoBusiness.findBoletim(id, pageable)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "${rest.baseUrl}/alunos/{id}/boletim/{boletimId}/disciplinas", method = RequestMethod.GET)
-    public List<Disciplina> getBoletimDisciplinas(@PathVariable(value="id") String id,
+    @RequestMapping(method = RequestMethod.GET
+            , value="/{alunoId}/BoletimDisciplinas")
+    public HttpEntity<PagedResources<BoletimDisciplinas>> findBoletimDisciplinasByAlunoId(@PathVariable("alunoId") java.lang.String alunoId, Pageable pageable, PagedResourcesAssembler assembler) {
+        return new ResponseEntity<>(assembler.toResource(boletimBusiness.findBoletimDisciplinasByAlunoId(alunoId,  pageable )), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/boletim/id", method = RequestMethod.GET)
+    public HttpEntity<PagedResources<java.lang.Integer>> getBoletimId(@PathVariable(value="id") String id,
+                                                          Pageable pageable, PagedResourcesAssembler assembler) {
+
+        return new ResponseEntity<>(assembler.toResource(alunoBusiness.getBoletimId(id, pageable)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/boletim/{boletimId}/disciplinas", method = RequestMethod.GET)
+    public HttpEntity<PagedResources<Disciplina>> getBoletimDisciplinas(@PathVariable(value="id") String id,
                                                   @PathVariable(value="boletimId") String boletimId,
-                                                  @RequestParam(value="limit", defaultValue = "100") int limit,
-                                                  @RequestParam(value="offset", defaultValue = "0") int offset) {
+                                                  Pageable pageable, PagedResourcesAssembler assembler) {
 
-        LOGGER.info("alunoId:" + id + " boletimId:" + boletimId);
-
-        List<Boletim> boletins = this.alunoBusiness.findBoletim(id, limit, offset);
+        Page<Boletim> boletins = this.alunoBusiness.findBoletim(id, pageable);
         for (Boletim b : boletins) {
             LOGGER.info("b.id:" + b.getId() + "boletimId:" + boletimId + "b:" + b.toString());
             if (b.getId().equals(boletimId)) {
-                return this.boletimBusiness.findDisciplina(boletimId, limit, offset);
+                return new ResponseEntity<>(assembler.toResource(boletimBusiness.findDisciplina(boletimId, pageable)), HttpStatus.OK);
             }
         }
-        return new ArrayList<Disciplina>();
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "${rest.baseUrl}/alunos/{id}/turmas/{turmaId}/turmaDisciplinas", method = RequestMethod.GET)
-    public List<TurmaDisciplina> getTurmasDisciplinas(@PathVariable(value="id") String id,
+    @RequestMapping(value = "/{id}/turmas/{turmaId}/turmaDisciplinas", method = RequestMethod.GET)
+    public HttpEntity<PagedResources<TurmaDisciplina>> getTurmasDisciplinas(@PathVariable(value="id") String id,
                                                       @PathVariable(value="turmaId") String turmaId,
-                                                      @RequestParam(value="limit", defaultValue = "100") int limit,
-                                                      @RequestParam(value="offset", defaultValue = "0") int offset) {
+                                                      Pageable pageable, PagedResourcesAssembler assembler) {
+
         LOGGER.info("alunoId:" + id + " turmaId:" + turmaId);
-        return this.turmaBusiness.findTurmaDisciplina(turmaId, limit, offset);
+        return new ResponseEntity<>(assembler.toResource(turmaBusiness.findTurmaDisciplina(turmaId, pageable)), HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET
+            , value="/{alunoId}/HorariosAula")
+    public HttpEntity<PagedResources<HorariosAulaAluno>> findBoletimHorariosAulaByAlunoId(@PathVariable("alunoId") java.lang.String alunoId, Pageable pageable, PagedResourcesAssembler assembler) {
+        return new ResponseEntity<>(assembler.toResource(alunoBusiness.listHorariosAulaAluno(alunoId,  pageable )), HttpStatus.OK);
     }
 }
+

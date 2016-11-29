@@ -2,6 +2,7 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.context.web.*;
 import org.springframework.context.annotation.*;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 /**
@@ -14,8 +15,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
  *
  */
 @ComponentScan(basePackages = {
-"auth.permission", "api.rest.events", "app", "aol.rest"
+"auth.permission", "api.rest.events", "app", "aol"
 })
+//@EnableJpaRepositories("aol.dao")
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {
   

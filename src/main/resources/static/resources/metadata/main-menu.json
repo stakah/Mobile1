@@ -1,11 +1,11 @@
 [
   {"name":"Home.view.dados",
   "items": [{"name":"Home.view.dados.avisos", "url": ".avisos", "icon": "ion-ios-bell"},
-          {"name":"Home.view.dados.boletim", "url": ".boletim", "icon": "ion-ios-compose"}]
+          {"name":"Home.view.dados.boletim", "url": ".boletim", "icon": "fa fa-pencil-square-o"}]
   },
    {"name":"Home.view.calendario",
-   "items": [{"name":"Home.view.calendario.aulas", "url": ".calendario.aulas", "icon": "ion-ios-calendar-outline"},
-           {"name":"Home.view.calendario.agenda", "url": ".calendario.agenda", "icon": "ion-ios-list-outline"}]
+   "items": [{"name":"Home.view.calendario.aulas", "url": ".calendarioAulas", "icon": "ion-ios-calendar-outline"},
+           {"name":"Home.view.calendario.agenda", "url": "home.agenda", "icon": "ion-ios-list-outline"}]
    },
    {"name":"Home.view.administracao",
    "items": [{"name":"Home.view.administracao.secretaria", "url":".administracao.secretaria", "icon": "ion-ios-paper-outline"}]

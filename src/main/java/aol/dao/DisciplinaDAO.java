@@ -1,34 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class DisciplinaDAO extends BasicDAO<String, Disciplina> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = -1941078204l;
+@Repository("DisciplinaDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface DisciplinaDAO extends JpaRepository<Disciplina, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de Disciplina utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public DisciplinaDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM Disciplina entity WHERE entity.id = :id")
+  public Disciplina findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de Disciplina utilizando os identificadores
@@ -37,70 +41,66 @@ public class DisciplinaDAO extends BasicDAO<String, Disciplina> implements Seria
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM Disciplina entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM Disciplina entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de Disciplina utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
    * @generated
-   */  
-  public Disciplina findById(java.lang.String id){
-      TypedQuery<Disciplina> query = this.entityManager.createQuery("SELECT entity FROM Disciplina entity WHERE entity.id = :id", Disciplina.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
+   */
+  @Query("select d from Disciplina d")
+  public Page<Disciplina> list ( Pageable pageable );
+  
 
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<TurmaDisciplina> findTurmaDisciplina(java.lang.String id, int limit, int offset) {
-      TypedQuery<TurmaDisciplina> query = this.entityManager.createQuery("SELECT entity FROM TurmaDisciplina entity WHERE entity.disciplina.id = :id", TurmaDisciplina.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity FROM TurmaDisciplina entity WHERE entity.disciplina.id = :id")
+  public Page<TurmaDisciplina> findTurmaDisciplina(@Param(value="id") java.lang.String id,  Pageable pageable );
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM HorarioAula entity WHERE entity.disciplina.id = :id")
+  public Page<HorarioAula> findHorarioAula(@Param(value="id") java.lang.String id,  Pageable pageable );
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+
 
   /**
    * ManyToOne Relation
    * @generated
    */
-  public List<Turma> listTurma(java.lang.String id, int limit, int offset) {
-      TypedQuery<Turma> query = this.entityManager.createQuery("SELECT entity.turma FROM TurmaDisciplina entity WHERE entity.disciplina.id = :id", Turma.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity.turma FROM TurmaDisciplina entity WHERE entity.disciplina.id = :id")
+  public Page<Turma> listTurma(@Param(value="id") java.lang.String id,  Pageable pageable);
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
     /**
      * ManyToOne Relation Delete
      * @generated
      */
-    public int deleteTurma(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM TurmaDisciplina entity WHERE entity.disciplina.id = :instanceId AND entity.turma.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
-
-      return query.executeUpdate();	  
-  }
-  
+    @Modifying
+    @Query("DELETE FROM TurmaDisciplina entity WHERE entity.disciplina.id = :instanceId AND entity.turma.id = :relationId")
+    public int deleteTurma(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
   /**
-   * NamedQuery list
+   * ManyToOne Relation
    * @generated
    */
-  public List<Disciplina> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("disciplinaList", Disciplina.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
+  @Query("SELECT entity.calendario FROM HorarioAula entity WHERE entity.disciplina.id = :id")
+  public Page<Calendario> listCalendario(@Param(value="id") java.lang.String id,  Pageable pageable);
+
+    /**
+     * ManyToOne Relation Delete
+     * @generated
+     */
+    @Modifying
+    @Query("DELETE FROM HorarioAula entity WHERE entity.disciplina.id = :instanceId AND entity.calendario.id = :relationId")
+    public int deleteCalendario(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+
+
+
+
 }

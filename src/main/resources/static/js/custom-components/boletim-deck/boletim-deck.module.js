@@ -4,12 +4,12 @@
    */
   angular.module('boletim', ['aol.service', 'boletimDetail'])
     .controller('BoletimDeckController',
-     ['Aluno', 'Aluno.User', 'Aluno.Boletim', 'Aluno.Boletim.Disciplinas', 'Aluno.TurmaDisciplinas',
-      '$attrs',
+     ['Aluno', 'Aluno.User', 'Aluno.Boletim.Id', 'Aluno.Boletim.Disciplinas', 'Aluno.TurmaDisciplinas',
+      'Aluno.HorariosAula', '$attrs',
         BoletimDeckController]);
 
-  function BoletimDeckController(Aluno, Aluno_User, Aluno_Boletim, Aluno_Boletim_Disciplinas, Aluno_TurmaDisciplinas,
-    $attrs) {
+  function BoletimDeckController(Aluno, Aluno_User, Aluno_Boletim_Id, Aluno_Boletim_Disciplinas, Aluno_TurmaDisciplinas,
+    Aluno_HorariosAula, $attrs) {
     var self = this;
     //this.aluno = {nome:"Claudia Cristina M. Rodrigues", grupo:"2o. Ano Ensino Médio", matricula: "144632", turma: "B"};
     var User = angular.fromJson(sessionStorage.getItem('_u'));
@@ -42,78 +42,88 @@
       console.log('aluno=', aluno);
       self.aluno = aluno;
 
-      self.boletim = Aluno_Boletim.query({alunoId: aluno.id}, Aluno_Boletim_handleSuccess, Aluno_User_handleFailure);
+      //self.boletim = Aluno_Boletim_Id.query({alunoId: aluno.id}, Aluno_Boletim_handleSuccess, Aluno_User_handleFailure);
+      Aluno_Boletim_Disciplinas.query({alunoId: aluno.id}, Aluno_TurmaDisciplinas_handleSuccess, Aluno_TurmaDisciplinas_handleFailure);
      }
 
      function Aluno_User_handleFailure() {
        console.log('faliure: arguments=', arguments);
      }
 
-     function Aluno_Boletim_handleSuccess(boletim) {
-       console.log('boletim=', boletim);
+//     function Aluno_Boletim_handleSuccess(boletim) {
+//       console.log('boletim=', boletim);
+//
+//      self.boletim = boletim;
+//        var idList = boletim._embedded.strings;
+//       if (idList.length > 0) {
+//        var bId = idList[0].content;
+//        console.log('bId=', bId);
+//        self.disciplinas = Aluno_Boletim_Disciplinas.query({alunoId: self.aluno.id, boletimId: bId},
+//          Aluno_Boletim_Disciplinas_handleSuccess,
+//          Aluno_Boletim_Disciplinas_handleFailure);
+//       }
+//     }
+//
+//     function Aluno_Boletim_handleFailure(reason) {
+//       console.log('Failure: reason=', reason);
+//     }
 
-      self.boletim = boletim;
+//     function Aluno_Boletim_Disciplinas_handleSuccess(disciplinas) {
+//       console.log('disciplinas=', disciplinas);
+//
+//        self.turmaDisciplinas = Aluno_TurmaDisciplinas.query({alunoId: self.aluno.id, turmaId: self.aluno.turma_1.id},
+//          Aluno_TurmaDisciplinas_handleSuccess,
+//          Aluno_TurmaDisciplinas_handleFailure);
+//
+//     }
+//
+//     function Aluno_Boletim_Disciplinas_handleFailure(reason) {
+//         console.log('Failure: reason=', reason);
+//     }
 
-       if (boletim.length > 0) {
-        var b = boletim[0];
-        self.disciplinas = Aluno_Boletim_Disciplinas.query({alunoId: self.aluno.id, boletimId: b.id},
-          Aluno_Boletim_Disciplinas_handleSuccess,
-          Aluno_Boletim_Disciplinas_handleFailure);
-       }
-     }
+     function Aluno_TurmaDisciplinas_handleSuccess(result) {
+        console.log('[Aluno_TurmaDisciplinas_handleSuccess]\tresult=', result);
+        //self.turmaDisciplinas = result._embedded.turmaDisciplinas;
+        //self.disciplinas = self.disciplinas._embedded.disciplinas;
+        self.boletimDisciplinas = result._embedded.boletimDisciplinases;
 
-     function Aluno_Boletim_handleFailure(reason) {
-       console.log('Failure: reason=', reason);
-     }
+        //console.log('[Aluno_TurmaDisciplinas_handleSuccess]\tturmaDisciplinas=', self.turmaDisciplinas);
+        console.log('[Aluno_TurmaDisciplinas_handleSuccess]\tdisciplinas=', self.disciplinas);
 
-     function Aluno_Boletim_Disciplinas_handleSuccess(disciplinas) {
-       console.log('disciplinas=', disciplinas);
-
-        self.turmaDisciplinas = Aluno_TurmaDisciplinas.query({alunoId: self.aluno.id, turmaId: self.aluno.turma_1.id},
-          Aluno_TurmaDisciplinas_handleSuccess,
-          Aluno_TurmaDisciplinas_handleFailure);
-
-     }
-
-     function Aluno_Boletim_Disciplinas_handleFailure(reason) {
-         console.log('Failure: reason=', reason);
-     }
-
-     function Aluno_TurmaDisciplinas_handleSuccess(turmaDisciplinas) {
-        self.turmaDisciplinas = turmaDisciplinas;
-
-        console.log('turmaDisciplinas=', turmaDisciplinas);
-
-         for (d=0; d< self.disciplinas.length;) {
+         for (d=0; d< self.boletimDisciplinas.length;) {
            var col = [];
            var columns = self.columns || 3;
            for (i=0; i< columns; i++) {
              var cell = {};
-             cell.disciplina = self.disciplinas[d];
+             cell.disciplina = self.boletimDisciplinas[d].disciplina;
 
-             cell.icon = 'fa fa-thumbs-o-down'
-             cell.background = 'item-assertive';
+             cell.css = angular.copy(config.boletim.cell.css.default);
+
              if (cell.disciplina.aprovado == 'aprovado') {
-                cell.icon = 'fa fa-thumbs-o-up';
-                cell.background = 'item-positive';
+                cell.css = angular.copy(config.boletim.cell.css.aprovado);
              }
 
-             cell.calendarColor = 'item-normal';
-             if (cell.disciplina.faltas > 0) {
-               cell.calendarColor = 'placeholder-icon item-assertive';
-             }
+             cell.css.faltasBadge = config.boletim.cell.css.default.faltasBadge;
+             cell.css.faltasIcon  = config.boletim.cell.css.default.faltasIcon;
 
-             for (td=0; td<turmaDisciplinas.length; td++) {
-                turmaDisciplina = turmaDisciplinas[td];
-                console.log('td=', td, ' turmaDisciplina=', turmaDisciplina);
-              if (turmaDisciplina.disciplina.id == cell.disciplina.id) {
-                cell.turmaDisciplina = turmaDisciplina;
-                break;
-              }
+             if (cell.disciplina.faltas <= 0) {
+               cell.css.faltasBadge = config.boletim.cell.css.aprovado.faltasBadge;
+               cell.css.faltasIcon  = config.boletim.cell.css.aprovado.faltasIcon;
              }
+             console.log('[Aluno_TurmaDisciplina_handleSuccess]\tcell=', cell);
+             cell.turmaDisciplina = self.boletimDisciplinas[d].turmaDisciplina;
+
+//             for (td=0; td<self.turmaDisciplinas.length; td++) {
+//                turmaDisciplina = self.turmaDisciplinas[td];
+//                //console.log('td=', td, ' turmaDisciplina=', turmaDisciplina);
+//              if (turmaDisciplina.disciplina.id == cell.disciplina.id) {
+//                cell.turmaDisciplina = turmaDisciplina;
+//                break;
+//              }
+//             }
              col.push(cell);
              d += 1;
-             if (d >= self.disciplinas.length) {
+             if (d >= self.boletimDisciplinas.length) {
                break;
              }
            }

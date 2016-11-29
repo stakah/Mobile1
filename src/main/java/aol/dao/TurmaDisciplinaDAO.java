@@ -1,34 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class TurmaDisciplinaDAO extends BasicDAO<String, TurmaDisciplina> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = 709725239l;
+@Repository("TurmaDisciplinaDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface TurmaDisciplinaDAO extends JpaRepository<TurmaDisciplina, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de TurmaDisciplina utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public TurmaDisciplinaDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM TurmaDisciplina entity WHERE entity.id = :id")
+  public TurmaDisciplina findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de TurmaDisciplina utilizando os identificadores
@@ -37,37 +41,24 @@ public class TurmaDisciplinaDAO extends BasicDAO<String, TurmaDisciplina> implem
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM TurmaDisciplina entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM TurmaDisciplina entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de TurmaDisciplina utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
-   * @generated
-   */  
-  public TurmaDisciplina findById(java.lang.String id){
-      TypedQuery<TurmaDisciplina> query = this.entityManager.createQuery("SELECT entity FROM TurmaDisciplina entity WHERE entity.id = :id", TurmaDisciplina.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
-
-
-
-  /**
-   * NamedQuery list
    * @generated
    */
-  public List<TurmaDisciplina> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("turmaDisciplinaList", TurmaDisciplina.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
+  @Query("select t from TurmaDisciplina t")
+  public Page<TurmaDisciplina> list ( Pageable pageable );
   
+
+
+
+
+
+
+
 }

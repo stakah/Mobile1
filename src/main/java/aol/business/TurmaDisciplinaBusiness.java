@@ -1,158 +1,109 @@
 package aol.business;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import aol.dao.*;
 import aol.entity.*;
 
-import java.util.*;
+
 
 /**
- * Classe que representa a camada de negócios de TurmaDisciplina
+ * Classe que representa a camada de negócios de TurmaDisciplinaBusiness
+ * 
  * @generated
  **/
+@Service("TurmaDisciplinaBusiness")
 public class TurmaDisciplinaBusiness {
 
-  /**
-   * Instância da classe TurmaDisciplinaDAO que faz o acesso ao banco de dados
-   * @generated
-   */
-  private TurmaDisciplinaDAO dao;
-  
-  /**
-   * Singleton de sessão usado para abrir e fechar conexão com o banco de dados
-   * @generated
-   */
-  protected SessionManager sessionManager;
-	
-  /**
-   * Copia referência da sessão e instancia DAO relacionada à essa classe para manipular o banco de dados
-   * 
-   * @param sessionmanager
-   *          Singleton de sessão
-   * @generated modifiable
-   */
-  public TurmaDisciplinaBusiness(final SessionManager sessionmanager) {
-    // begin-user-code
-    // end-user-code
-    this.sessionManager = sessionmanager;
-    this.dao = new TurmaDisciplinaDAO(sessionmanager.getEntityManager());
-    // begin-user-code
-    // end-user-code
-  }
-  
-  /**
-   * Construtor padrão, inicializa singleton de sessão
-   * @generated modifiable   
-   */
-  public TurmaDisciplinaBusiness() {
-    // begin-user-code
-    // end-user-code  
-    this(SessionManager.getInstance());
-    // begin-user-code
-    // end-user-code    
-  }	
 
-  /**
-   * Grava valor no banco
-   * 
-   * @param entity Linha da tabela a ser persistida no banco de dados
-   * @generated modifiable   
-   */
-  public void save(final TurmaDisciplina entity) {
-    // begin-user-code
-    // end-user-code  
-    dao.save(entity);
-    // begin-user-code
-    // end-user-code    
-  }
-  
-  /**
-   * Dá um refresh na entidade com valores valor no banco
-   * 
-   * @param entity Entidade
-   * @generated modifiable
-   */
-  public void refresh(final TurmaDisciplina entity) {
-    // begin-user-code
-    // end-user-code  
-    dao.refresh(entity);
-    // begin-user-code
-    // end-user-code  
-  }  
-  
-  /**
-   * Atualiza valor do banco
-   * 
-   * @param entity Linha da tabela a ser atualizada
-   * @generated modifiable   
-   */
-  public TurmaDisciplina update(final TurmaDisciplina entity) {
-    // begin-user-code
-    // end-user-code  
-	TurmaDisciplina updatedEntity = dao.update(entity);
-    // begin-user-code
-    // end-user-code	
-    return updatedEntity;
-  }
-  
-  /**
-   * Apaga valor do banco
-   * 
-   * @param entity Linha da tabela a ser excluída
-   * @generated modifiable   
-   */
-  public void delete(final TurmaDisciplina entity){
-    // begin-user-code
-    // end-user-code    
-	dao.delete(entity);
-    // begin-user-code
-    // end-user-code  	
-  }
-  
-  /**
-   * Remove a instância de TurmaDisciplina utilizando os identificadores
-   * 
-   * @param id
-   *          Identificador 
-   * @return Quantidade de modificações efetuadas
-   * @generated modifiable   
-   */  
-  public int deleteById(java.lang.String id){
-    // begin-user-code
-    // end-user-code  
-    int result = dao.deleteById(id);
-    // begin-user-code
-    // end-user-code    
-    return result;    
-  }  
-  
-  /**
-   * Obtém a instância de TurmaDisciplina utilizando os identificadores
-   * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
-   * @generated modifiable
-   */  
-  public TurmaDisciplina findById(java.lang.String id){
-    // begin-user-code
-    // end-user-code  
-    TurmaDisciplina entity = dao.findById(id);
-    // begin-user-code
-    // end-user-code      
-    return entity;  
-  }   
-  
+    /**
+     * Instância da classe TurmaDisciplinaDAO que faz o acesso ao banco de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("TurmaDisciplinaDAO")
+    protected TurmaDisciplinaDAO repository;
 
-  
-  /**
-   * @generated modifiable
-   */  	
-  public List<TurmaDisciplina> list(int limit, int offset){
-      // begin-user-code
+    // CRUD
+
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    public TurmaDisciplina post(final TurmaDisciplina entity) throws Exception {
+      // begin-user-code  
       // end-user-code  
-      List<TurmaDisciplina> result = dao.list(limit, offset);
-      // begin-user-code
+        repository.save(entity);
+      // begin-user-code  
+      // end-user-code  
+      return entity;
+    }
+
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    public TurmaDisciplina get(java.lang.String id) throws Exception {
+      // begin-user-code  
       // end-user-code        
-      return result;	
-  }  
+       TurmaDisciplina result = repository.findOne(id);
+      // begin-user-code  
+      // end-user-code        
+      return result;
+    }
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    public TurmaDisciplina put(final TurmaDisciplina entity) throws Exception {
+      // begin-user-code  
+      // end-user-code
+        repository.saveAndFlush(entity);
+      // begin-user-code  
+      // end-user-code        
+      return entity;
+    }
+
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    public void delete( java.lang.String id) throws Exception {
+      // begin-user-code  
+      // end-user-code        
+      repository.delete(id);
+      // begin-user-code  
+      // end-user-code        
+    }
+
+    // CRUD
+    
+  /**
+   * Lista com paginação de acordo com a NamedQuery
+   * 
+   * @generated
+   */
+  public Page<TurmaDisciplina> list ( Pageable pageable ){
+    // begin-user-code  
+    // end-user-code        
+    Page<TurmaDisciplina> result = repository.list (  pageable );
+    // begin-user-code  
+    // end-user-code        
+    return result;
+  }
+    
+    
+
+
+
 }

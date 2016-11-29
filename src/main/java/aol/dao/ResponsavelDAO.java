@@ -1,34 +1,38 @@
 package aol.dao;
 
-import javax.persistence.*;
 import aol.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class ResponsavelDAO extends BasicDAO<String, Responsavel> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = -779641406l;
+@Repository("ResponsavelDAO")
+@Transactional(transactionManager="aol-TransactionManager")
+public interface ResponsavelDAO extends JpaRepository<Responsavel, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de Responsavel utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public ResponsavelDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM Responsavel entity WHERE entity.id = :id")
+  public Responsavel findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de Responsavel utilizando os identificadores
@@ -37,111 +41,74 @@ public class ResponsavelDAO extends BasicDAO<String, Responsavel> implements Ser
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM Responsavel entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM Responsavel entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de Responsavel utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
    * @generated
-   */  
-  public Responsavel findById(java.lang.String id){
-      TypedQuery<Responsavel> query = this.entityManager.createQuery("SELECT entity FROM Responsavel entity WHERE entity.id = :id", Responsavel.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
+   */
+  @Query("select r from Responsavel r")
+  public Page<Responsavel> list ( Pageable pageable );
+  
+  /**
+   * Lista com paginação de acordo com a NamedQuery
+   * 
+   * @generated
+   */
+  @Query("select r from Responsavel r where r.user LIKE CONCAT('%', COALESCE(:user, r.user),'%')")
+  public Page<Responsavel> listByUser (@Param(value="user") java.lang.String user , Pageable pageable );
+  
 
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<AlunoResponsavel> findAlunoResponsavel(java.lang.String id, int limit, int offset) {
-      TypedQuery<AlunoResponsavel> query = this.entityManager.createQuery("SELECT entity FROM AlunoResponsavel entity WHERE entity.responsavel.id = :id", AlunoResponsavel.class);
-      query.setParameter("id", id);
-
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+  @Query("SELECT entity FROM AlunoResponsavel entity WHERE entity.responsavel.id = :id")
+  public Page<AlunoResponsavel> findAlunoResponsavel(@Param(value="id") java.lang.String id,  Pageable pageable );
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<ResponsavelAviso> findResponsavelAviso(java.lang.String id, int limit, int offset) {
-      TypedQuery<ResponsavelAviso> query = this.entityManager.createQuery("SELECT entity FROM ResponsavelAviso entity WHERE entity.responsavel.id = :id", ResponsavelAviso.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity FROM ResponsavelAviso entity WHERE entity.responsavel.id = :id")
+  public Page<ResponsavelAviso> findResponsavelAviso(@Param(value="id") java.lang.String id,  Pageable pageable );
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+
 
   /**
    * ManyToOne Relation
    * @generated
    */
-  public List<Aluno> listAluno(java.lang.String id, int limit, int offset) {
-      TypedQuery<Aluno> query = this.entityManager.createQuery("SELECT entity.aluno FROM AlunoResponsavel entity WHERE entity.responsavel.id = :id", Aluno.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity.aluno FROM AlunoResponsavel entity WHERE entity.responsavel.id = :id")
+  public Page<Aluno> listAluno(@Param(value="id") java.lang.String id,  Pageable pageable);
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
     /**
      * ManyToOne Relation Delete
      * @generated
      */
-    public int deleteAluno(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM AlunoResponsavel entity WHERE entity.responsavel.id = :instanceId AND entity.aluno.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
+    @Modifying
+    @Query("DELETE FROM AlunoResponsavel entity WHERE entity.responsavel.id = :instanceId AND entity.aluno.id = :relationId")
+    public int deleteAluno(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
-      return query.executeUpdate();	  
-  }
-  
   /**
    * ManyToOne Relation
    * @generated
    */
-  public List<Aviso> listAviso(java.lang.String id, int limit, int offset) {
-      TypedQuery<Aviso> query = this.entityManager.createQuery("SELECT entity.aviso FROM ResponsavelAviso entity WHERE entity.responsavel.id = :id", Aviso.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity.aviso FROM ResponsavelAviso entity WHERE entity.responsavel.id = :id")
+  public Page<Aviso> listAviso(@Param(value="id") java.lang.String id,  Pageable pageable);
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
     /**
      * ManyToOne Relation Delete
      * @generated
      */
-    public int deleteAviso(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM ResponsavelAviso entity WHERE entity.responsavel.id = :instanceId AND entity.aviso.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
+    @Modifying
+    @Query("DELETE FROM ResponsavelAviso entity WHERE entity.responsavel.id = :instanceId AND entity.aviso.id = :relationId")
+    public int deleteAviso(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
-      return query.executeUpdate();	  
-  }
-  
 
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  public List<Responsavel> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("responsavelList", Responsavel.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
-  /**
-   * NamedQuery listByUser
-   * @generated
-   */
-  public List<Responsavel> listByUser(java.lang.String user, int limit, int offset){
-      return this.entityManager.createNamedQuery("responsavelListByUser", Responsavel.class).setParameter("user", user).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
+
+
 }
