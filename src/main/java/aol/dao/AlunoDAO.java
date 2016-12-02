@@ -128,6 +128,11 @@ public interface AlunoDAO extends JpaRepository<Aluno, java.lang.String> {
   @Query("SELECT entity FROM Aluno entity WHERE entity.user = :userId")
   public Aluno findOneByUserId(@Param(value="userId") java.lang.String userId);
 
-  @Query("SELECT new aol.entity.HorariosAulaAluno(a,td,h) FROM Aluno a, TurmaDisciplina td, HorarioAula h WHERE a.turma_1 = td.turma.id AND h.disciplina.id = td.disciplina.id AND a.id = :id")
+  @Query("SELECT new aol.entity.HorariosAulaAluno(td,h,d,c) " +
+          "FROM Calendario c, TurmaDisciplina td, HorarioAula h, Disciplina d " +
+          "WHERE h.calendario.id = c.id " +
+            "AND h.disciplina.id = td.disciplina.id " +
+            "AND c.aluno.id = :id " +
+            "AND d.id = td.disciplina.id")
   public Page<HorariosAulaAluno> listHorariosAulaAluno(@Param(value="id") java.lang.String id,  Pageable pageable);
 }

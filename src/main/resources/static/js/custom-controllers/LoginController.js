@@ -12,11 +12,13 @@
     '$ionicLoading',
     '$timeout',
     '$stateParams',
-    function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
+    'AlunoFromUser',
+    'Aluno.User',
+    function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams,
+      AlunoFromUser, Aluno_User) {
 
         $scope.user = {};
         $scope.message = {};
-
         $scope.profile = {};
 
         $scope.login = function() {
@@ -54,12 +56,24 @@
         }
 
         function handleSuccess(data, status, headers, config) {
-
+          var self= this;
           // Store data response on session storage
           // The session storage will be cleaned when the browser window is closed
           if(typeof (Storage) !== "undefined") {
             // save the user data on localStorage
             sessionStorage.setItem("_u", JSON.stringify(data));
+
+            console.log('[Login_handleSuccess]\tdata=', data);
+
+            if ($scope.profile && $scope.profile.name == 'responsavel') {
+              // TODO: carregar lista de alunos para o responsavel
+            }
+            else {
+
+              AlunoFromUser();
+
+              self.aluno = angular.fromJson(sessionStorage.getItem('_a'));
+            }
           }
           else {
             // Sorry! No Web Storage support.

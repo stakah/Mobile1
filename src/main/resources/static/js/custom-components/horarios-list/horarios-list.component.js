@@ -3,7 +3,7 @@ angular.module('horarios')
   .component('horariosList', {
     templateUrl: 'js/custom-components/horarios-list/horarios-list.component.html',
     bindings: {
-      avisoItem: "=",
+      tableData: "=",
       onListOpenAvisoDetail: "&"
     },
     controller: 'HorariosListController',

@@ -4,22 +4,32 @@ package aol.entity;
  * Created by sergiot on 29/11/16.
  */
 public class HorariosAulaAluno {
-    private Aluno aluno;
     private TurmaDisciplina turmaDisciplina;
     private HorarioAula horarioAula;
+    private Disciplina disciplina;
+    private Calendario calendario;
 
-    public HorariosAulaAluno(Aluno aluno, TurmaDisciplina turmaDisciplina, HorarioAula horarioAula) {
-        this.aluno = aluno;
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public Calendario getCalendario() {
+        return calendario;
+    }
+
+    public void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
+    }
+
+    public HorariosAulaAluno(TurmaDisciplina turmaDisciplina, HorarioAula horarioAula, Disciplina disciplina, Calendario calendario) {
         this.turmaDisciplina = turmaDisciplina;
         this.horarioAula = horarioAula;
-    }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+        this.disciplina = disciplina;
+        this.calendario = calendario;
     }
 
     public TurmaDisciplina getTurmaDisciplina() {

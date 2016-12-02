@@ -47,6 +47,13 @@ public class Disciplina implements Serializable {
   /**
    * @generated
    */
+  @Column(name = "icone", nullable = false, unique = false, insertable=true, updatable=true)
+  private java.lang.String icone;
+
+
+  /**
+   * @generated
+   */
   @ManyToOne
   @JoinColumn(name="fk_boletim", referencedColumnName = "id", insertable=true, updatable=true)
   private Boletim boletim;
@@ -238,7 +245,15 @@ public class Disciplina implements Serializable {
     this.aprovado = aprovado;
     return this;
   }
-  
+
+  public String getIcone() {
+    return icone;
+  }
+
+  public void setIcone(String icone) {
+    this.icone = icone;
+  }
+
   /**
    * @generated
    */

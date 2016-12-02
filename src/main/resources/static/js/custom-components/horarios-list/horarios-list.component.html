@@ -1,9 +1,23 @@
-<a class="item-content item-text-wrap"
-   ng-click="ctrl.itemClick()">
-  <span class="item item-icon-left item-icon-right">
-    <i ng-class="ctrl.avisoItem.icon"></i>
-      <h2 ng-bind-html="ctrl.avisoItem.title"></h2>
-      <p ng-bind-html="ctrl.avisoItem.content"></p>
-    <i class="icon ion-chevron-right placeholder-icon"></i>
-  </span>
-</a>
+<div class="row-responsive">
+  <div class="button button-bar">
+    <a class="button" ng-repeat="ano in ctrl.tableData.getAnos()" ng-bind="ano" ng-click="vm.selectAno(ano)"></a>
+  </div>
+  <div class="card">
+    <div class="button button-bar">
+      <a class="button" ng-repeat="sem in ctrl.tableData.getSemestres()" ng-bind="sem" ng-click="vm.selectSemestre(sem)"></a>
+    </div>
+    <div class="list">
+      <div ng-repeat="diaSemana in ctrl.tableData.getDiasSemana()">
+        <div class="item item-divider"
+             ng-bind="ctrl.tableData.getNomeDiaSemana(diaSemana)">{{diaSemana}}
+        </div>
+
+        <div class="item item-icon-left" ng-repeat="d in ctrl.tableData.getDisciplinas(diaSemana)">
+          <i class="" ng-class="d.icone"></i>
+          <span ng-bind="d.nomeDisciplina"></span>
+          <span class="item-note" ng-bind="d.horaIni"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

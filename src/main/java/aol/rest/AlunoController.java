@@ -2,11 +2,19 @@ package aol.rest;
 
 import aol.business.BoletimBusiness;
 import aol.business.TurmaBusiness;
-import aol.entity.*;
 import aol.business.AlunoBusiness;
 import aol.business.AvisoBusiness;
 import aol.business.CalendarioBusiness;
 import aol.dao.SessionManager;
+
+import aol.entity.Aluno;
+import aol.entity.Boletim;
+import aol.entity.BoletimDisciplinas;
+import aol.entity.Disciplina;
+import aol.entity.TurmaDisciplina;
+import aol.entity.HorariosAulaAluno;
+
+import aol.bean.HorarioAula;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -132,9 +141,15 @@ public class AlunoController {
     }
 
     @RequestMapping(method = RequestMethod.GET
-            , value="/{alunoId}/HorariosAula")
+            , value="/{alunoId}/HorariosAulaAluno")
     public HttpEntity<PagedResources<HorariosAulaAluno>> findBoletimHorariosAulaByAlunoId(@PathVariable("alunoId") java.lang.String alunoId, Pageable pageable, PagedResourcesAssembler assembler) {
         return new ResponseEntity<>(assembler.toResource(alunoBusiness.listHorariosAulaAluno(alunoId,  pageable )), HttpStatus.OK);
+    }
+    @RequestMapping(method = RequestMethod.GET
+            , value="/{alunoId}/HorariosAula",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public HttpEntity<PagedResources<HorarioAula>> listHorariosAulaByAlunoId(@PathVariable("alunoId") java.lang.String alunoId, Pageable pageable, PagedResourcesAssembler assembler) {
+        return new ResponseEntity<>(assembler.toResource(alunoBusiness.listHorariosAula(alunoId,  pageable )), HttpStatus.OK);
     }
 }
 

@@ -1,10 +1,13 @@
 (function($app) {
   angular.module('custom.controllers', [
       'metadata.service',
+      'aol.service',
+      'login.service',
       'alunoCard',
       'avisos',
       'avisoDetail',
-      'boletim'
+      'boletim',
+      'horarios'
    ]);
   /*
    * Controllers declarados em arquivos separados.

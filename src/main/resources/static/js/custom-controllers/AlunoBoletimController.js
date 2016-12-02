@@ -11,12 +11,15 @@
       '$ionicHistory',
       '$cordovaVibration',
       '$ionicModal',
-      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
+      'SessionData',
+      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal, SessionData) {
           var vm = this;
           vm.cell = {};
           vm.chart = {};
           vm.chart.options = {};
           vm.chart.options.lengend = {};
+          vm.sessionData = SessionData;
+          vm.aluno = vm.sessionData.aluno;
 
           console.log('[AlunoBoletimController]\tvm=', vm);
 

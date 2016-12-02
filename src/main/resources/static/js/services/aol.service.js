@@ -23,7 +23,7 @@ angular.
       return $resource('api/rest/alunos/:alunoId/boletim', {}, {
         query: {
           method: 'GET',
-          //params: {alunoId: 'alunos'},
+          params: {page: 0, size: 1000},
           //isArray: true
         }
       });
@@ -35,7 +35,7 @@ angular.
       return $resource('api/rest/alunos/:alunoId/boletim/id', {}, {
         query: {
           method: 'GET',
-          //params: {alunoId: 'alunos'},
+          params: {page: 0, size: 1000},
           //isArray: true
         }
       });
@@ -47,7 +47,7 @@ angular.
       return $resource('/api/rest/alunos/:alunoId/turmas/:turmaId/turmaDisciplinas', {}, {
         query: {
           method: 'GET',
-          //params: {alunoId: 'alunos'},
+          params: {page: 0, size: 1000},
           //isArray: true
         }
       });
@@ -59,7 +59,7 @@ angular.
       return $resource('/api/rest/alunos/:alunoId/HorariosAula', {}, {
         query: {
           method: 'GET',
-          //params: {alunoId: 'alunos'},
+          params: {page: 0, size: 1000},
           //isArray: true
         }
       });
@@ -72,7 +72,7 @@ angular.
       return $resource('/api/rest/alunos/:alunoId/BoletimDisciplinas', {}, {
         query: {
           method: 'GET',
-          //params: {alunoId: 'alunos'},
+          params: {page: 0, size: 1000},
           //isArray: true
         }
       });
@@ -84,7 +84,7 @@ angular.
       return $resource('/api/rest/alunos/:alunoId/calendario/:calendarioId/aulas', {}, {
         query: {
           method: 'GET',
-          //params: {alunoId: 'alunos'},
+          params: {page: 0, size: 1000},
           //isArray: true
         }
       });
