@@ -1,0 +1,41 @@
+<ion-header-bar class="bar-stable">
+  <h1 class="title">Menu</h1>
+</ion-header-bar>
+<ion-content data-container="true">
+  <ion-list>
+    <div menu-close class="item item-icon-left">
+      <i class="icon ion-ios-person placeholder-icon"></i>
+      <a class="button button-clear button-positive ng-binding" ui-sref=".avisos">
+        {{ctrl.session.name}}</a>
+    </div>
+    <div ng-repeat="group in ctrl.groups" class="">
+      <ion-item class="item-stable" ng-click="ctrl.toggleGroup(group)" ng-class="{active: ctrl.isGroupShown(group)}">
+        <i class="icon placeholder-icon" ng-class="ctrl.isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp;
+        <span class="positive">{{group.name | translate}}</span>
+      </ion-item>
+      <ion-item class="item-accordion item-icon" ng-repeat="item in group.items" ng-show="ctrl.isGroupShown(group)" menu-close>
+        <a ui-sref="{{item.url}}" class="item-content ng-binding" ng-click="ctrl.toggleGroup(null)">
+          <i class="icon {{item.icon}} placeholder-icon"></i>
+          <span class="positive">{{item.name | translate}}</span>
+        </a>
+      </ion-item>
+    </div>
+    <ion-item class="item-stable" ng-click="ctrl.toggleGroup(group)" ng-class="{active: ctrl.isGroupShown(group)}">
+      <i class="icon placeholder-icon" ng-class="ctrl.isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp;
+      <span class="positive">{{groupSettings | translate}}</span>
+    </ion-item>
+    <ion-item class="item-accordion item-icon" ng-show="ctrl.isGroupShown(group)" menu-close>
+      <a class="item-content ng-binding" ng-click="ctrl.openChangePassword()">
+        <i class="icon ion-lock-combination placeholder-icon"></i>
+        <span class="positive">{{"Home.view.ChangePassword" | translate}}</span>
+      </a>
+    </ion-item>
+    <div class="item item-divider"></div>
+    <div menu-close class="item item-icon-left">
+      <a class="item-content ng-binding" ng-click="ctrl.logout()">
+        <i class="icon icon ion-ios-close-empty placeholder-icon"></i>
+        <span class="positive">{{"Home.view.Sair" | translate}}</span>
+      </a>
+    </div>
+  </ion-list>
+</ion-content>

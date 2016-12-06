@@ -10,9 +10,12 @@
     <!-- Customs -->
     <link href="lib/fa/css/font-awesome.css" rel="stylesheet">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="plugins/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-  </head>
 
+    <!-- JQuery -->
+    <script src="plugins/jquery/dist/jquery.min.js"></script>
+  </head>
   <body ng-app="MyApp">
     <ion-nav-view></ion-nav-view>
     <!-- Ionic Angular JS  -->
@@ -23,9 +26,6 @@
     <script src="cordova.js"></script> -->
 
 
-
-    <!-- JQuery -->
-    <script src="plugins/jquery/dist/jquery.min.js"></script>
 
     <!-- Angular JS -->
     <script src="plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -47,6 +47,17 @@
     <script src="lib/chart.js/dist/Chart.js"></script>
     <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
 
+    <!-- Angular-UI-Calendar / full-calendar -->
+    <link rel="stylesheet" href="lib/fullcalendar/dist/fullcalendar.css"/>
+    <!-- jquery, moment, and angular have to get included before fullcalendar -->
+    <!-- script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script -->
+    <script type="text/javascript" src="lib/moment/min/moment.min.js"></script>
+    <!-- script type="text/javascript" src="bower_components/angular/angular.min.js"></script -->
+    <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
+    <script type="text/javascript" src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="lib/fullcalendar/dist/lang-all.js"></script>
+    <script type="text/javascript" src="lib/fullcalendar/dist/gcal.js"></script>
+
     <!-- Customs -->
     <!-- <script src="js/hostApp.js"></script> -->
     <script src="js/config.js"></script>
@@ -54,6 +65,11 @@
     <script src="components/js/datasource.js"></script>
 
     <!-- Custom components -->
+    <script src="js/custom-components/menu-component/menu-component.module.js"></script>
+    <script src="js/custom-components/menu-left/menu-left.module.js"></script>
+    <script src="js/custom-components/menu-left/menu-left.component.js"></script>
+    <script src="js/custom-components/menu-right/menu-right.module.js"></script>
+    <script src="js/custom-components/menu-right/menu-right.component.js"></script>
     <script src="js/custom-components/aluno-card/aluno-card.module.js"></script>
     <script src="js/custom-components/aluno-card/aluno-card.component.js"></script>
     <script src="js/custom-components/avisos-list/avisos.module.js"></script>
@@ -69,6 +85,8 @@
     <script src="js/custom-components/boletim-deck/boletim-deck.component.js"></script>
     <script src="js/custom-components/horarios-list/horarios-list.module.js"></script>
     <script src="js/custom-components/horarios-list/horarios-list.component.js"></script>
+    <script src="js/custom-components/agenda-list/agenda-list.module.js"></script>
+    <script src="js/custom-components/agenda-list/agenda-list.component.js"></script>
 
     <!-- Controllers -->
     <script src="js/controllers.js"></script>
@@ -77,6 +95,7 @@
     <script src="js/custom-controllers/AlunoAvisosController.js"></script>
     <script src="js/custom-controllers/AlunoBoletimController.js"></script>
     <script src="js/custom-controllers/AlunoCalendarioAulasController.js"></script>
+    <script src="js/custom-controllers/AgendaController.js"></script>
 
     <!-- Services -->
     <script src="js/services/aol.service.module.js"></script>

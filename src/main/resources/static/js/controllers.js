@@ -1,5 +1,6 @@
 (function($app) {
   angular.module('custom.controllers', [
+      'menu',
       'metadata.service',
       'aol.service',
       'login.service',
@@ -7,7 +8,8 @@
       'avisos',
       'avisoDetail',
       'boletim',
-      'horarios'
+      'horarios',
+      'agenda'
    ]);
   /*
    * Controllers declarados em arquivos separados.

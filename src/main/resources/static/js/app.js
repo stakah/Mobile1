@@ -14,8 +14,8 @@ var app = (function() {
         'tmh.dynamicLocale',
         'ui-notification',
         'ngInputDate',
-        'ngCordova'
-
+        'ngCordova',
+        'ui.calendar'
 
     ])
 
@@ -125,6 +125,18 @@ var app = (function() {
                     controller: 'AlunoCalendarioAulasController',
                     controllerAs: 'vm',
                     templateUrl: 'views/logged/aluno.calendario.aulas.view.html'
+                }
+            }
+        })
+
+        .state('home.agenda', {
+            url: "/agenda",
+            controller: 'HomeController',
+            views: {
+                'mainContent': {
+                    controller: 'AgendaController',
+                    controllerAs: 'vm',
+                    templateUrl: 'views/logged/aluno.agenda.view.html'
                 }
             }
         })

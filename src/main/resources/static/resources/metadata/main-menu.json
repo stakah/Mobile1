@@ -5,7 +5,7 @@
   },
    {"name":"Home.view.calendario",
    "items": [{"name":"Home.view.calendario.aulas", "url": ".calendarioAulas", "icon": "ion-ios-calendar-outline"},
-           {"name":"Home.view.calendario.agenda", "url": "home.agenda", "icon": "ion-ios-list-outline"}]
+           {"name":"Home.view.calendario.agenda", "url": ".agenda", "icon": "ion-ios-list-outline"}]
    },
    {"name":"Home.view.administracao",
    "items": [{"name":"Home.view.administracao.secretaria", "url":".administracao.secretaria", "icon": "ion-ios-paper-outline"}]

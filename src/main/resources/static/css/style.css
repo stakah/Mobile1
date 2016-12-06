@@ -151,3 +151,7 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+#agenda {
+  /*height: 450px;*/
+}
