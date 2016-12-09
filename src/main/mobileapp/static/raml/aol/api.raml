@@ -1,0 +1,999 @@
+#%RAML 0.8
+title: template.springboot.angularjs
+baseUri: /api/rest/aol
+schemas:
+  - alunoAviso-xml: !include schemas/alunoAviso-xml-schema.xsd
+  - alunoAviso: !include schemas/alunoAviso-schema.json
+  - aluno-xml: !include schemas/aluno-xml-schema.xsd
+  - aluno: !include schemas/aluno-schema.json
+  - alunoResponsavel-xml: !include schemas/alunoResponsavel-xml-schema.xsd
+  - alunoResponsavel: !include schemas/alunoResponsavel-schema.json
+  - aviso-xml: !include schemas/aviso-xml-schema.xsd
+  - aviso: !include schemas/aviso-schema.json
+  - responsavel-xml: !include schemas/responsavel-xml-schema.xsd
+  - responsavel: !include schemas/responsavel-schema.json
+  - responsavelAviso-xml: !include schemas/responsavelAviso-xml-schema.xsd
+  - responsavelAviso: !include schemas/responsavelAviso-schema.json
+/AlunoAviso: 
+  description: |
+    Publicando metodos de negocio via REST
+     @generated
+  put: 
+    body: 
+      application/json: 
+        schema: alunoAviso
+        example: !include examples/alunoAviso-example.json
+      application/xml: 
+        schema: alunoAviso-xml
+        example: !include examples/alunoAviso-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  post: 
+    body: 
+      application/json: 
+        schema: alunoAviso
+        example: !include examples/alunoAviso-example.json
+      application/xml: 
+        schema: alunoAviso-xml
+        example: !include examples/alunoAviso-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  get: 
+    description: NamedQuery list
+    queryParameters: 
+      limit: 
+        type: integer
+        default: 100
+      offset: 
+        type: integer
+        default: 0
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  /{id}: 
+    delete: 
+      body: 
+        application/json: 
+        application/xml: 
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    put: 
+      body: 
+        application/json: 
+          schema: alunoAviso
+          example: !include examples/alunoAviso-example.json
+        application/xml: 
+          schema: alunoAviso-xml
+          example: !include examples/alunoAviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+/Aluno: 
+  description: |
+    Publicando metodos de negocio via REST
+     @generated
+  put: 
+    body: 
+      application/json: 
+        schema: aluno
+        example: !include examples/aluno-example.json
+      application/xml: 
+        schema: aluno-xml
+        example: !include examples/aluno-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  post: 
+    body: 
+      application/json: 
+        schema: aluno
+        example: !include examples/aluno-example.json
+      application/xml: 
+        schema: aluno-xml
+        example: !include examples/aluno-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  get: 
+    description: NamedQuery list
+    queryParameters: 
+      limit: 
+        type: integer
+        default: 100
+      offset: 
+        type: integer
+        default: 0
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  /{instanceId}/AlunoAviso: 
+    get: 
+      description: OneToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: OneToMany Relationship POST
+      body: 
+        application/json: 
+          schema: alunoAviso
+          example: !include examples/alunoAviso-example.json
+        application/xml: 
+          schema: alunoAviso-xml
+          example: !include examples/alunoAviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: OneToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+      put: 
+        description: OneToMany Relationship PUT
+        body: 
+          application/json: 
+            schema: alunoAviso
+            example: !include examples/alunoAviso-example.json
+          application/xml: 
+            schema: alunoAviso-xml
+            example: !include examples/alunoAviso-example.xml
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/AlunoResponsavel: 
+    get: 
+      description: OneToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: OneToMany Relationship POST
+      body: 
+        application/json: 
+          schema: alunoResponsavel
+          example: !include examples/alunoResponsavel-example.json
+        application/xml: 
+          schema: alunoResponsavel-xml
+          example: !include examples/alunoResponsavel-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: OneToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+      put: 
+        description: OneToMany Relationship PUT
+        body: 
+          application/json: 
+            schema: alunoResponsavel
+            example: !include examples/alunoResponsavel-example.json
+          application/xml: 
+            schema: alunoResponsavel-xml
+            example: !include examples/alunoResponsavel-example.xml
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/Aviso: 
+    get: 
+      description: ManyToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: ManyToMany Relationship POST
+      body: 
+        application/json: 
+          schema: aviso
+          example: !include examples/aviso-example.json
+        application/xml: 
+          schema: aviso-xml
+          example: !include examples/aviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: ManyToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/Responsavel: 
+    get: 
+      description: ManyToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: ManyToMany Relationship POST
+      body: 
+        application/json: 
+          schema: responsavel
+          example: !include examples/responsavel-example.json
+        application/xml: 
+          schema: responsavel-xml
+          example: !include examples/responsavel-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: ManyToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{id}: 
+    delete: 
+      body: 
+        application/json: 
+        application/xml: 
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    put: 
+      body: 
+        application/json: 
+          schema: aluno
+          example: !include examples/aluno-example.json
+        application/xml: 
+          schema: aluno-xml
+          example: !include examples/aluno-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+/AlunoResponsavel: 
+  description: |
+    Publicando metodos de negocio via REST
+     @generated
+  put: 
+    body: 
+      application/json: 
+        schema: alunoResponsavel
+        example: !include examples/alunoResponsavel-example.json
+      application/xml: 
+        schema: alunoResponsavel-xml
+        example: !include examples/alunoResponsavel-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  post: 
+    body: 
+      application/json: 
+        schema: alunoResponsavel
+        example: !include examples/alunoResponsavel-example.json
+      application/xml: 
+        schema: alunoResponsavel-xml
+        example: !include examples/alunoResponsavel-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  /{id}: 
+    delete: 
+      body: 
+        application/json: 
+        application/xml: 
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    put: 
+      body: 
+        application/json: 
+          schema: alunoResponsavel
+          example: !include examples/alunoResponsavel-example.json
+        application/xml: 
+          schema: alunoResponsavel-xml
+          example: !include examples/alunoResponsavel-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+/Aviso: 
+  description: |
+    Publicando metodos de negocio via REST
+     @generated
+  put: 
+    body: 
+      application/json: 
+        schema: aviso
+        example: !include examples/aviso-example.json
+      application/xml: 
+        schema: aviso-xml
+        example: !include examples/aviso-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  post: 
+    body: 
+      application/json: 
+        schema: aviso
+        example: !include examples/aviso-example.json
+      application/xml: 
+        schema: aviso-xml
+        example: !include examples/aviso-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  get: 
+    description: NamedQuery list
+    queryParameters: 
+      limit: 
+        type: integer
+        default: 100
+      offset: 
+        type: integer
+        default: 0
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  /{instanceId}/AlunoAviso: 
+    get: 
+      description: OneToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: OneToMany Relationship POST
+      body: 
+        application/json: 
+          schema: alunoAviso
+          example: !include examples/alunoAviso-example.json
+        application/xml: 
+          schema: alunoAviso-xml
+          example: !include examples/alunoAviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: OneToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+      put: 
+        description: OneToMany Relationship PUT
+        body: 
+          application/json: 
+            schema: alunoAviso
+            example: !include examples/alunoAviso-example.json
+          application/xml: 
+            schema: alunoAviso-xml
+            example: !include examples/alunoAviso-example.xml
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/ResponsavelAviso: 
+    get: 
+      description: OneToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: OneToMany Relationship POST
+      body: 
+        application/json: 
+          schema: responsavelAviso
+          example: !include examples/responsavelAviso-example.json
+        application/xml: 
+          schema: responsavelAviso-xml
+          example: !include examples/responsavelAviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: OneToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+      put: 
+        description: OneToMany Relationship PUT
+        body: 
+          application/json: 
+            schema: responsavelAviso
+            example: !include examples/responsavelAviso-example.json
+          application/xml: 
+            schema: responsavelAviso-xml
+            example: !include examples/responsavelAviso-example.xml
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/Aluno: 
+    get: 
+      description: ManyToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: ManyToMany Relationship POST
+      body: 
+        application/json: 
+          schema: aluno
+          example: !include examples/aluno-example.json
+        application/xml: 
+          schema: aluno-xml
+          example: !include examples/aluno-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: ManyToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/Responsavel: 
+    get: 
+      description: ManyToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: ManyToMany Relationship POST
+      body: 
+        application/json: 
+          schema: responsavel
+          example: !include examples/responsavel-example.json
+        application/xml: 
+          schema: responsavel-xml
+          example: !include examples/responsavel-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: ManyToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{id}: 
+    delete: 
+      body: 
+        application/json: 
+        application/xml: 
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    put: 
+      body: 
+        application/json: 
+          schema: aviso
+          example: !include examples/aviso-example.json
+        application/xml: 
+          schema: aviso-xml
+          example: !include examples/aviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+/ResponsavelAviso: 
+  description: |
+    Publicando metodos de negocio via REST
+     @generated
+  put: 
+    body: 
+      application/json: 
+        schema: responsavelAviso
+        example: !include examples/responsavelAviso-example.json
+      application/xml: 
+        schema: responsavelAviso-xml
+        example: !include examples/responsavelAviso-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  post: 
+    body: 
+      application/json: 
+        schema: responsavelAviso
+        example: !include examples/responsavelAviso-example.json
+      application/xml: 
+        schema: responsavelAviso-xml
+        example: !include examples/responsavelAviso-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  get: 
+    description: NamedQuery list
+    queryParameters: 
+      limit: 
+        type: integer
+        default: 100
+      offset: 
+        type: integer
+        default: 0
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  /{id}: 
+    delete: 
+      body: 
+        application/json: 
+        application/xml: 
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    put: 
+      body: 
+        application/json: 
+          schema: responsavelAviso
+          example: !include examples/responsavelAviso-example.json
+        application/xml: 
+          schema: responsavelAviso-xml
+          example: !include examples/responsavelAviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+/Responsavel: 
+  description: |
+    Publicando metodos de negocio via REST
+     @generated
+  put: 
+    body: 
+      application/json: 
+        schema: responsavel
+        example: !include examples/responsavel-example.json
+      application/xml: 
+        schema: responsavel-xml
+        example: !include examples/responsavel-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  post: 
+    body: 
+      application/json: 
+        schema: responsavel
+        example: !include examples/responsavel-example.json
+      application/xml: 
+        schema: responsavel-xml
+        example: !include examples/responsavel-example.xml
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  get: 
+    description: NamedQuery list
+    queryParameters: 
+      limit: 
+        type: integer
+        default: 100
+      offset: 
+        type: integer
+        default: 0
+    responses: 
+      200: 
+        body: 
+          application/xml: 
+          application/json: 
+  /{instanceId}/ResponsavelAviso: 
+    get: 
+      description: OneToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: OneToMany Relationship POST
+      body: 
+        application/json: 
+          schema: responsavelAviso
+          example: !include examples/responsavelAviso-example.json
+        application/xml: 
+          schema: responsavelAviso-xml
+          example: !include examples/responsavelAviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: OneToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+      put: 
+        description: OneToMany Relationship PUT
+        body: 
+          application/json: 
+            schema: responsavelAviso
+            example: !include examples/responsavelAviso-example.json
+          application/xml: 
+            schema: responsavelAviso-xml
+            example: !include examples/responsavelAviso-example.xml
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/AlunoResponsavel: 
+    get: 
+      description: OneToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: OneToMany Relationship POST
+      body: 
+        application/json: 
+          schema: alunoResponsavel
+          example: !include examples/alunoResponsavel-example.json
+        application/xml: 
+          schema: alunoResponsavel-xml
+          example: !include examples/alunoResponsavel-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: OneToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+      put: 
+        description: OneToMany Relationship PUT
+        body: 
+          application/json: 
+            schema: alunoResponsavel
+            example: !include examples/alunoResponsavel-example.json
+          application/xml: 
+            schema: alunoResponsavel-xml
+            example: !include examples/alunoResponsavel-example.xml
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/Aluno: 
+    get: 
+      description: ManyToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: ManyToMany Relationship POST
+      body: 
+        application/json: 
+          schema: aluno
+          example: !include examples/aluno-example.json
+        application/xml: 
+          schema: aluno-xml
+          example: !include examples/aluno-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: ManyToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{instanceId}/Aviso: 
+    get: 
+      description: ManyToMany Relationship GET
+      queryParameters: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    post: 
+      description: ManyToMany Relationship POST
+      body: 
+        application/json: 
+          schema: aviso
+          example: !include examples/aviso-example.json
+        application/xml: 
+          schema: aviso-xml
+          example: !include examples/aviso-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{relationId}: 
+      delete: 
+        description: ManyToMany Relationship DELETE
+        body: 
+          application/json: 
+          application/xml: 
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /listByUser: 
+    get: 
+      description: NamedQuery listByUser
+      queryParameters: 
+        user: 
+        limit: 
+          type: integer
+          default: 100
+        offset: 
+          type: integer
+          default: 0
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    /{user}: 
+      get: 
+        description: NamedQuery listByUser
+        queryParameters: 
+          limit: 
+            type: integer
+            default: 100
+          offset: 
+            type: integer
+            default: 0
+        responses: 
+          200: 
+            body: 
+              application/xml: 
+              application/json: 
+  /{id}: 
+    delete: 
+      body: 
+        application/json: 
+        application/xml: 
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
+    put: 
+      body: 
+        application/json: 
+          schema: responsavel
+          example: !include examples/responsavel-example.json
+        application/xml: 
+          schema: responsavel-xml
+          example: !include examples/responsavel-example.xml
+      responses: 
+        200: 
+          body: 
+            application/xml: 
+            application/json: 
