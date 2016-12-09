@@ -1,0 +1,16 @@
+spring:
+  data:
+    rest:
+      basePath: /aol
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/public/,classpath:/resources/www/,classpath:/www/ # Locations of www resources.
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+  contextPath: /
+
+rest:
+  baseUrl: /api/rest
+
