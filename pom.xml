@@ -18,12 +18,12 @@
                 <directory>src/main/java</directory>
             </resource>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/main/mobileapp</directory>
             </resource>
-            <resource>
+            <!--resource>
                 <directory>static</directory>
                 <targetPath>static</targetPath>
-            </resource>
+            </resource-->
         </resources>
         <plugins>
             <plugin>

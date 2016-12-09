@@ -31,7 +31,7 @@ public class SessionManager {
    * 
    * @generated
    */
-  private static final String PERSISTENCE_UNIT = "metadata";  
+  private static final String PERSISTENCE_UNIT = "metadata";
   
   private static final String CLOUD_DB_FILE_LOCATION = "META-INF/cloud_db.properties";
   

@@ -15,7 +15,7 @@ public class SecurityPermission {
   
   public static final String ROLE_ADMIN_NAME = "Administrators";
   public static final String AUTHORITIES_ATTRIBUTE = "authorities";
-  //private static final String APP_BASE = "/Mobile1-1.0-SNAPSHOT";
+  //private www final String APP_BASE = "/Mobile1-1.0-SNAPSHOT";
   private static final String APP_BASE = "";
 
 

@@ -28,7 +28,7 @@ public class User implements Serializable {
    * UID da classe, necessário na serialização 
    * @generated
    */
-  private static final long serialVersionUID = 2648042l;
+  private static  final long serialVersionUID = 2648042l;
   
   /**
    * @generated
