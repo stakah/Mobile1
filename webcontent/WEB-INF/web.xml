@@ -43,9 +43,9 @@
    
 	</servlet>
 	
-	<servlet-mapping>
+	<!--servlet-mapping>
 		<servlet-name>Jersey 2x RESTful</servlet-name>
 		<url-pattern>/api/rest/*</url-pattern>
-	</servlet-mapping>  
+	</servlet-mapping-->
 	
 </web-app>

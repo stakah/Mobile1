@@ -1,6 +1,6 @@
 /coverage
 /custom
-/dist
+#/dist
 /docs/index.md
 /node_modules
 
