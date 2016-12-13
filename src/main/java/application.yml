@@ -3,7 +3,7 @@ spring:
     rest:
       basePath: /aol
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/public/,classpath:/resources/www/,classpath:/www/ # Locations of www resources.
+    #static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/public/,classpath:/resources/www/,classpath:/www/ # Locations of www resources.
   profiles:
     active: dev
 

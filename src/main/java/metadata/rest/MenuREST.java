@@ -1,308 +1,196 @@
 package metadata.rest;
 
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+
+import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.*;
 
 import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
 
-import metadata.rest.util.*;
-
-import metadata.dao.*;
 import metadata.entity.*;
 import metadata.business.*;
-import metadata.rest.exceptions.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
+
 
 /**
- * Publicando metodos de negocio via REST
+ * Controller para expor serviços REST de Menu
+ * 
+ * @author sergiot
+ * @version 1.0
  * @generated
  **/
-@Path("/Menu")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class MenuREST implements RESTService<Menu> {
-  /**
-   * @generated
-   */
-  private SessionManager session;
-  /**
-   * @generated
-   */  
-  private MenuBusiness business;
-  /**
-   * @generated
-   */
-  private MenuItemBusiness menuItemBusiness;
-  /**
-   * @generated
-   */
-  private MenuItemsBusiness menuItemsBusiness;
-  /**
-   * @generated
-   */  
-  @Context 
-  private HttpServletRequest request;
+@RestController
+@RequestMapping(value = "meta/menu/Menu")
+public class MenuREST {
+
+    /**
+     * Classe de negócio para manipulação de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("MenuBusiness")
+    private MenuBusiness menuBusiness;
+
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("MenuItemBusiness")
+      private MenuItemBusiness menuItemBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("MenuItemsBusiness")
+      private MenuItemsBusiness menuItemsBusiness;
+
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public Menu post(@Validated @RequestBody final Menu entity) throws Exception {
+        return menuBusiness.post(entity);
+    }
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public Menu put(@Validated @RequestBody final Menu entity) throws Exception {
+        return menuBusiness.put(entity);
+    }
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public Menu put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final Menu entity) throws Exception {
+        return menuBusiness.put(entity);
+    }
+
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable("id") java.lang.String id) throws Exception {
+        menuBusiness.delete(id);
+    }
+
 
   /**
+   * NamedQuery list
    * @generated
    */
-  public MenuREST() {
-    this.session = SessionManager.getInstance();
-    this.session.getEntityManager().clear();
-    this.business = new MenuBusiness(session);
-    this.menuItemBusiness = new MenuItemBusiness(session);
-    this.menuItemsBusiness = new MenuItemsBusiness(session);
-  }
-  
-  /**
-   * @generated
-   */  
-  @POST
-  public Response post(Menu entity) {
-    try {
-	    session.begin();
-	    business.save(entity);
-	    session.commit();
-	    business.refresh(entity);
-	    return Response.ok(entity).build();
-    }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }
+  @RequestMapping(method = RequestMethod.GET
+  )    
+  public  HttpEntity<PagedResources<Menu>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(menuBusiness.list(pageable   )), HttpStatus.OK);    
   }
 
-  /**
-   * @generated
-   */
-  @PUT
-  public Response put(Menu entity) {
-    try {
-	    session.begin();
-	    Menu updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
-    }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @PUT
-  @Path("/{id}")
-  public Response putWithId(Menu entity) {
-    try {
-	    session.begin();
-	    Menu updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
-    }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @DELETE
-  public Response delete(Menu entity) {  
-		try {
-			session.begin();
-			Menu updatedEntity = business.update(entity);
-			business.delete(updatedEntity);
-			session.commit();
-			return Response.ok().build();
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  } 
-   
-  /**
-   * @generated
-   */    
-  @DELETE
-  @Path("/{id}")
-  public Response delete(@PathParam("id") java.lang.String id) {  
-		try {
-			session.begin();
-			if (business.deleteById(id) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				return Response.status(404).build();
-			}
-		}
-
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  }
-  
-  
-  
   /**
    * OneToMany Relationship GET
    * @generated
    */
-  @GET
-  @Path("/{instanceId}/MenuItems")
-  public GenericEntity<List<MenuItems>> findMenuItems(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<MenuItems>>(this.business.findMenuItems(instanceId, limit, offset)){};
+  @RequestMapping(method = RequestMethod.GET
+  , value="/{instanceId}/MenuItems")    
+  public HttpEntity<PagedResources<MenuItems>> findMenuItems(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(menuBusiness.findMenuItems(instanceId,  pageable )), HttpStatus.OK);
   }
-  
+
   /**
    * OneToMany Relationship DELETE 
    * @generated
    */  
-  @DELETE
-  @Path("/{instanceId}/MenuItems/{relationId}")
-  public Response deleteMenuItems(@PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.menuItemsBusiness.deleteById(relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.DELETE
+  , value="/{instanceId}/MenuItems/{relationId}")    
+  public void deleteMenuItems(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.menuItemsBusiness.delete(relationId);
   }
   
   /**
    * OneToMany Relationship PUT
    * @generated
    */  
-  @PUT
-  @Path("/{instanceId}/MenuItems/{relationId}")
-  public Response putMenuItems(MenuItems entity, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			MenuItems updatedEntity = this.menuItemsBusiness.update(entity);
-			session.commit();
-			return Response.ok(updatedEntity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/MenuItems/{relationId}")
+  public MenuItems putMenuItems(@Validated @RequestBody final MenuItems entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.menuItemsBusiness.put(entity);
   }  
   
   /**
    * OneToMany Relationship POST
    * @generated
    */  
-  @POST
-  @Path("/{instanceId}/MenuItems")
-  public Response postMenuItems(MenuItems entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			Menu menu = this.business.findById(instanceId);
-			entity.setMenu(menu);
-			this.menuItemsBusiness.save(entity);
-			session.commit();
-			this.menuItemsBusiness.refresh(entity);
-			return Response.ok(entity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/MenuItems")
+  public MenuItems postMenuItems(@Validated @RequestBody final MenuItems entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	Menu menu = this.menuBusiness.get(instanceId);
+	entity.setMenu(menu);
+	return this.menuItemsBusiness.post(entity);
   }   
-  
 
 
   /**
    * ManyToMany Relationship GET
    * @generated
    */
-  @GET
-  @Path("/{instanceId}/MenuItem")
-  public GenericEntity<List<MenuItem>> listMenuItem(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<MenuItem>>(this.business.listMenuItem(instanceId, limit, offset)){};
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/{instanceId}/MenuItem")
+  public HttpEntity<PagedResources<MenuItem>> listMenuItem(@PathVariable("instanceId") java.lang.String instanceId,  Pageable pageable, PagedResourcesAssembler assembler ) {
+    return new ResponseEntity<>(assembler.toResource(menuBusiness.listMenuItem(instanceId,  pageable )), HttpStatus.OK); 
   }
-  
+
   /**
    * ManyToMany Relationship POST
    * @generated
    */  
-  @POST
-  @Path("/{instanceId}/MenuItem")
-  public Response postMenuItem(MenuItem entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			MenuItems newMenuItems = new MenuItems();
+  @RequestMapping(method = RequestMethod.POST
+  ,value="/{instanceId}/MenuItem")
+  public Menu postMenuItem(@Validated @RequestBody final MenuItem entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+      MenuItems newMenuItems = new MenuItems();
 
-			Menu instance = this.business.findById(instanceId);
+      Menu instance = this.menuBusiness.get(instanceId);
 
+      newMenuItems.setMenuItem(entity);
+      newMenuItems.setMenu(instance);
+      
+      this.menuItemsBusiness.post(newMenuItems);
 
-			newMenuItems.setMenuItem(entity);
-			newMenuItems.setMenu(instance);
-			
-			this.menuItemsBusiness.save(newMenuItems);
-			session.commit();
-			this.menuItemsBusiness.refresh(newMenuItems);
-			return Response.ok(newMenuItems.getMenu()).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+      return newMenuItems.getMenu();
   }   
-  
+
   /**
    * ManyToMany Relationship DELETE
    * @generated
    */  
-  @DELETE
-  @Path("/{instanceId}/MenuItem/{relationId}")
-  public Response deleteMenuItem(@PathParam("instanceId") java.lang.String instanceId, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.business.deleteMenuItem(instanceId, relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
+  @RequestMapping(method = RequestMethod.DELETE
+  ,value="/{instanceId}/MenuItem/{relationId}")
+  public void deleteMenuItem(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
+	  this.menuBusiness.deleteMenuItem(instanceId, relationId);
   }  
-  
-  
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  @GET
-  	
-  public GenericEntity<List<Menu>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<Menu>>(business.list(limit, offset)){};
 
-  }
-	
-	@GET
-	@Path("/tree")
-	public GenericEntity<List<MenuItems>> listTree() {
-	  HttpSession session = request.getSession();
-	  return new GenericEntity<List<MenuItems>>(business.listMenuItemsTree(session)){};
-	}
+
+
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public Menu get(@PathVariable("id") java.lang.String id) throws Exception {
+        return menuBusiness.get(id);
+    }
 }

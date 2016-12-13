@@ -1,34 +1,38 @@
 package metadata.dao;
 
-import javax.persistence.*;
 import metadata.entity.*;
-import java.util.*;
-import java.io.Serializable;
+
+
+import org.springframework.stereotype.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
+ * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
+ * 
+ * @see org.springframework.data.jpa.repository.JpaRepository
+ * 
  * @generated
  */
-public class MenuDAO extends BasicDAO<String, Menu> implements Serializable {
-
-	/**
-	 * UID da classe, necessário na serialização 
-	 * @generated
-	 */
-	private static final long serialVersionUID = 2396540l;
+@Repository("MenuDAO")
+@Transactional(transactionManager="metadata-TransactionManager")
+public interface MenuDAO extends JpaRepository<Menu, java.lang.String> {
 
   /**
-   * Guarda uma cópia da EntityManager na instância
+   * Obtém a instância de Menu utilizando os identificadores
    * 
-   * @param entitymanager
-   *          Tabela do banco
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  public MenuDAO(EntityManager entitymanager) {
-    super(entitymanager);
-  }
-
-
+   */    
+  @Query("SELECT entity FROM Menu entity WHERE entity.id = :id")
+  public Menu findOne(@Param(value="id") java.lang.String id);
 
   /**
    * Remove a instância de Menu utilizando os identificadores
@@ -37,70 +41,45 @@ public class MenuDAO extends BasicDAO<String, Menu> implements Serializable {
    *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */  
-  public int deleteById(java.lang.String id){
-      Query query = this.entityManager.createQuery("DELETE FROM Menu entity WHERE entity.id = :id");
-      query.setParameter("id", id);
-           
-      return query.executeUpdate();	
-  }
-  
+   */    
+  @Modifying
+  @Query("DELETE FROM Menu entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
   /**
-   * Obtém a instância de Menu utilizando os identificadores
+   * Lista com paginação de acordo com a NamedQuery
    * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
    * @generated
-   */  
-  public Menu findById(java.lang.String id){
-      TypedQuery<Menu> query = this.entityManager.createQuery("SELECT entity FROM Menu entity WHERE entity.id = :id", Menu.class);
-      query.setParameter("id", id);
-           
-      return query.getSingleResult();	
-  }
+   */
+  @Query("select m from Menu m")
+  public Page<Menu> list ( Pageable pageable );
+  
 
   /**
    * OneToMany Relation
    * @generated
    */
-  public List<MenuItems> findMenuItems(java.lang.String id, int limit, int offset) {
-      TypedQuery<MenuItems> query = this.entityManager.createQuery("SELECT entity FROM MenuItems entity WHERE entity.menu.id = :id", MenuItems.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity FROM MenuItems entity WHERE entity.menu.id = :id")
+  public Page<MenuItems> findMenuItems(@Param(value="id") java.lang.String id,  Pageable pageable );
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
+
 
   /**
    * ManyToOne Relation
    * @generated
    */
-  public List<MenuItem> listMenuItem(java.lang.String id, int limit, int offset) {
-      TypedQuery<MenuItem> query = this.entityManager.createQuery("SELECT entity.menuItem FROM MenuItems entity WHERE entity.menu.id = :id", MenuItem.class);
-      query.setParameter("id", id);
+  @Query("SELECT entity.menuItem FROM MenuItems entity WHERE entity.menu.id = :id")
+  public Page<MenuItem> listMenuItem(@Param(value="id") java.lang.String id,  Pageable pageable);
 
-      return query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
-  }
-  
     /**
      * ManyToOne Relation Delete
      * @generated
      */
-    public int deleteMenuItem(java.lang.String instanceId, java.lang.String relationId) {
-      Query query = this.entityManager.createQuery("DELETE FROM MenuItems entity WHERE entity.menu.id = :instanceId AND entity.menuItem.id = :relationId");
-      query.setParameter("instanceId", instanceId);
-      query.setParameter("relationId", relationId);
+    @Modifying
+    @Query("DELETE FROM MenuItems entity WHERE entity.menu.id = :instanceId AND entity.menuItem.id = :relationId")
+    public int deleteMenuItem(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
-      return query.executeUpdate();	  
-  }
-  
 
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  public List<Menu> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("menuList", Menu.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
-  }
-  
+
+
 }

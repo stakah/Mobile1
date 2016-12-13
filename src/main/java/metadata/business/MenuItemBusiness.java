@@ -1,242 +1,199 @@
 package metadata.business;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import metadata.dao.*;
 import metadata.entity.*;
 
-import java.util.*;
+
 
 /**
- * Classe que representa a camada de negócios de MenuItem
+ * Classe que representa a camada de negócios de MenuItemBusiness
+ * 
  * @generated
  **/
+@Service("MenuItemBusiness")
 public class MenuItemBusiness {
 
+
+    /**
+     * Instância da classe MenuItemDAO que faz o acesso ao banco de dados
+     * 
+     * @generated
+     */
+    @Autowired
+    @Qualifier("MenuItemDAO")
+    protected MenuItemDAO repository;
+
+    // CRUD
+
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    public MenuItem post(final MenuItem entity) throws Exception {
+      // begin-user-code  
+      // end-user-code  
+        repository.save(entity);
+      // begin-user-code  
+      // end-user-code  
+      return entity;
+    }
+
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    public MenuItem get(java.lang.String id) throws Exception {
+      // begin-user-code  
+      // end-user-code        
+       MenuItem result = repository.findOne(id);
+      // begin-user-code  
+      // end-user-code        
+      return result;
+    }
+
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
+    public MenuItem put(final MenuItem entity) throws Exception {
+      // begin-user-code  
+      // end-user-code
+        repository.saveAndFlush(entity);
+      // begin-user-code  
+      // end-user-code        
+      return entity;
+    }
+
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    public void delete( java.lang.String id) throws Exception {
+      // begin-user-code  
+      // end-user-code        
+      repository.delete(id);
+      // begin-user-code  
+      // end-user-code        
+    }
+
+    // CRUD
+    
   /**
-   * Instância da classe MenuItemDAO que faz o acesso ao banco de dados
+   * Lista com paginação de acordo com a NamedQuery
+   * 
    * @generated
    */
-  private MenuItemDAO dao;
-  
-  /**
-   * Singleton de sessão usado para abrir e fechar conexão com o banco de dados
-   * @generated
-   */
-  protected SessionManager sessionManager;
-	
-  /**
-   * Copia referência da sessão e instancia DAO relacionada à essa classe para manipular o banco de dados
-   * 
-   * @param sessionmanager
-   *          Singleton de sessão
-   * @generated modifiable
-   */
-  public MenuItemBusiness(final SessionManager sessionmanager) {
-    // begin-user-code
-    // end-user-code
-    this.sessionManager = sessionmanager;
-    this.dao = new MenuItemDAO(sessionmanager.getEntityManager());
-    // begin-user-code
-    // end-user-code
+  public Page<MenuItem> list ( Pageable pageable ){
+    // begin-user-code  
+    // end-user-code        
+    Page<MenuItem> result = repository.list (  pageable );
+    // begin-user-code  
+    // end-user-code        
+    return result;
   }
-  
-  /**
-   * Construtor padrão, inicializa singleton de sessão
-   * @generated modifiable   
-   */
-  public MenuItemBusiness() {
-    // begin-user-code
-    // end-user-code  
-    this(SessionManager.getInstance());
-    // begin-user-code
-    // end-user-code    
-  }	
+    
+    
 
   /**
-   * Grava valor no banco
-   * 
-   * @param entity Linha da tabela a ser persistida no banco de dados
-   * @generated modifiable   
-   */
-  public void save(final MenuItem entity) {
-    // begin-user-code
-    // end-user-code  
-    dao.save(entity);
-    // begin-user-code
-    // end-user-code    
-  }
-  
-  /**
-   * Dá um refresh na entidade com valores valor no banco
-   * 
-   * @param entity Entidade
    * @generated modifiable
-   */
-  public void refresh(final MenuItem entity) {
-    // begin-user-code
-    // end-user-code  
-    dao.refresh(entity);
-    // begin-user-code
-    // end-user-code  
-  }  
-  
-  /**
-   * Atualiza valor do banco
-   * 
-   * @param entity Linha da tabela a ser atualizada
-   * @generated modifiable   
-   */
-  public MenuItem update(final MenuItem entity) {
-    // begin-user-code
-    // end-user-code  
-	MenuItem updatedEntity = dao.update(entity);
-    // begin-user-code
-    // end-user-code	
-    return updatedEntity;
-  }
-  
-  /**
-   * Apaga valor do banco
-   * 
-   * @param entity Linha da tabela a ser excluída
-   * @generated modifiable   
-   */
-  public void delete(final MenuItem entity){
-    // begin-user-code
-    // end-user-code    
-	dao.delete(entity);
-    // begin-user-code
-    // end-user-code  	
-  }
-  
-  /**
-   * Remove a instância de MenuItem utilizando os identificadores
-   * 
-   * @param id
-   *          Identificador 
-   * @return Quantidade de modificações efetuadas
-   * @generated modifiable   
+   * OneToMany Relation
    */  
-  public int deleteById(java.lang.String id){
-    // begin-user-code
-    // end-user-code  
-    int result = dao.deleteById(id);
-    // begin-user-code
-    // end-user-code    
-    return result;    
-  }  
-  
-  /**
-   * Obtém a instância de MenuItem utilizando os identificadores
-   * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
-   * @generated modifiable
-   */  
-  public MenuItem findById(java.lang.String id){
-    // begin-user-code
-    // end-user-code  
-    MenuItem entity = dao.findById(id);
-    // begin-user-code
-    // end-user-code      
-    return entity;  
-  }   
-  
-  /**
-   * @generated modifiable
-   */  
-  public List<SubmenuItems> findSubmenuItems(java.lang.String id, int limit, int offset) {
+  public Page<SubmenuItems> findSubmenuItems(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<SubmenuItems> result = dao.findSubmenuItems(id, limit, offset);
+      Page<SubmenuItems> result = repository.findSubmenuItems(id,  pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
   /**
    * @generated modifiable
+   * OneToMany Relation
    */  
-  public List<SubmenuItems> findSubmenuItems_2(java.lang.String id, int limit, int offset) {
+  public Page<SubmenuItems> findSubmenuItems_2(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<SubmenuItems> result = dao.findSubmenuItems_2(id, limit, offset);
+      Page<SubmenuItems> result = repository.findSubmenuItems_2(id,  pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
   /**
    * @generated modifiable
+   * OneToMany Relation
    */  
-  public List<SubmenuItems> findSubmenuItems_3(java.lang.String id, int limit, int offset) {
+  public Page<SubmenuItems> findSubmenuItems_3(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<SubmenuItems> result = dao.findSubmenuItems_3(id, limit, offset);
+      Page<SubmenuItems> result = repository.findSubmenuItems_3(id,  pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
   /**
    * @generated modifiable
+   * OneToMany Relation
    */  
-  public List<SubmenuItems> findSubmenuItems_4(java.lang.String id, int limit, int offset) {
+  public Page<SubmenuItems> findSubmenuItems_4(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<SubmenuItems> result = dao.findSubmenuItems_4(id, limit, offset);
+      Page<SubmenuItems> result = repository.findSubmenuItems_4(id,  pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
   /**
    * @generated modifiable
+   * OneToMany Relation
    */  
-  public List<MenuItems> findMenuItems(java.lang.String id, int limit, int offset) {
+  public Page<MenuItems> findMenuItems(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<MenuItems> result = dao.findMenuItems(id, limit, offset);
+      Page<MenuItems> result = repository.findMenuItems(id,  pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
+
 
 
   /**
    * @generated modifiable
+   * ManyToMany Relation
    */  
-  public List<Menu> listMenu(java.lang.String id, int limit, int offset) {
+  public Page<Menu> listMenu(java.lang.String id,  Pageable pageable ) {
       // begin-user-code
       // end-user-code  
-      List<Menu> result = dao.listMenu(id, limit, offset);
+      Page<Menu> result = repository.listMenu(id,  pageable );
       // begin-user-code
       // end-user-code
-      return result;        	  
+      return result;            
   }
   
   /**
    * @generated modifiable
+   * ManyToMany Relation
    */    
   public int deleteMenu(java.lang.String instanceId, java.lang.String relationId) {
       // begin-user-code
       // end-user-code  
-      int result = dao.deleteMenu(instanceId, relationId);
+      int result = repository.deleteMenu(instanceId, relationId);
       // begin-user-code
       // end-user-code  
       return result;  
   }
-    
-  
-  /**
-   * @generated modifiable
-   */  	
-  public List<MenuItem> list(int limit, int offset){
-      // begin-user-code
-      // end-user-code  
-      List<MenuItem> result = dao.list(limit, offset);
-      // begin-user-code
-      // end-user-code        
-      return result;	
-  }  
 }
