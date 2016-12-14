@@ -30,6 +30,12 @@
         <span class="positive">{{"Home.view.ChangePassword" | translate}}</span>
       </a>
     </ion-item>
+    <ion-item class="item-accordion item-icon" ng-show="ctrl.isGroupShown(group)" menu-close>
+      <a class="item-content ng-binding" ng-click="ctrl.openSelectLocale()">
+        <i class="icon ion-earth placeholder-icon"></i>
+        <span class="positive">{{"Home.view.SelectLocale" | translate}}</span>
+      </a>
+    </ion-item>
     <div class="item item-divider"></div>
     <div menu-close class="item item-icon-left">
       <a class="item-content ng-binding" ng-click="ctrl.logout()">

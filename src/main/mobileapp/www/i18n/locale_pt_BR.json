@@ -111,6 +111,8 @@
   "Home.view.administracao": "Administração",
   "Home.view.administracao.secretaria": "Secretaria",
   "Home.view.Settings": "Ajustes",
+  "Home.view.SelectLocale": "Língua",
+  "Home.view.Language": "Língua",
   "Home.view.ajustes.configurar": "Configurar",
   "Home.view.ajustes.mudarSenha": "",
   "Home.view.AvisosAluno": "Avisos"

@@ -1,0 +1,23 @@
+<ion-modal-view>
+  <ion-header-bar class="row" data-container="true">
+    <h1 class="title">{{"Home.view.SelectLocale" | translate}}</h1>
+    <button class="button button-clear button-positive" ng-click="closeSelectLocale()">{{'Home.view.Close' | translate}}</button>
+  </ion-header-bar>
+  <ion-content>
+    <form class="form-validation" autocomplete="off" name="form" role="form">
+      <div class="list list-inset" data-container="true">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            {{"Home.view.Language" | translate}}
+          </div>
+          <select
+            ng-model="locales.selectedLanguage"
+            name="selLanguage"
+            required="required"
+            ng-change="onSelectLanguage()"
+            ng-options="lang.name for lang in locales.list">
+          </select>
+        </label>
+    </form>
+  </ion-content>
+</ion-modal-view>

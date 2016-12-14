@@ -19,13 +19,31 @@
       /* ngResource services */
       'MenuTree',
 
+      /* Locales constant */
+      'LOCALES',
+
       MenuLeftController]);
 
-  function MenuLeftController($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal, menuTree) {
+  function MenuLeftController($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal, menuTree, LOCALES) {
       var ctrl = this;
 
       console.log('[MenuLeftController]\tctrl=', ctrl);
 
+      $scope.locales = {
+        list: [],
+        selectedLanguage: LOCALES.selectedLanguage || LOCALES.preferredLanguage,
+        locales: LOCALES.locales
+      };
+
+      var keys = Object.keys(LOCALES.locales);
+      for (i in keys) {
+        var k = keys[i];
+        var v = LOCALES.locales[k];
+        console.log('k=', k, 'v=', v);
+        $scope.locales.list.push({'code': k, 'name': v});
+      }
+
+      console.log('[MenuLeftController]\t$scope=', $scope);
 
         $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
           scope: $scope,
@@ -45,6 +63,26 @@
         ctrl.shouldShowDelete = false;
         ctrl.shouldShowReorder = false;
         ctrl.listCanSwipe = true
+
+        $ionicModal.fromTemplateUrl('views/logged/_selectlocale.view.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          ctrl.modal2 = modal;
+        });
+
+        ctrl.openSelectLocale = function() {
+          ctrl.modal2.show();
+        };
+
+        $scope.closeSelectLocale = function() {
+          ctrl.modal2.hide();
+        };
+
+        $scope.onSelectLanguage = function() {
+          console.log('[onSelectLanguage]\tlocales=', $scope.locales);
+          $translate.use($scope.locales.selectedLanguage.code);
+        }
 
         ctrl.message = {};
 
