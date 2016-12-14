@@ -18,6 +18,10 @@
             <resource>
                 <directory>src/main/java</directory>
             </resource>
+            <resource>
+                <directory>src/main/mobileapp/www</directory>
+                <targetPath>public</targetPath>
+            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -46,6 +50,22 @@
                             <targetPath>META-INF</targetPath>
                         </resource>
                     </webResources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.2.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <addResources>true</addResources>
+
                 </configuration>
             </plugin>
         </plugins>

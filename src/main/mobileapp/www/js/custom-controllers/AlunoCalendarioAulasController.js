@@ -32,7 +32,7 @@
 
           function Aluno_HorariosAula_handleSuccess(data) {
             console.log('data=', data);
-            vm.horariosAula = data._embedded.horarioAulas;
+            vm.horariosAula = data.content;
 
             for (i=0; i<vm.horariosAula.length; i++) {
               var h = vm.horariosAula[i];

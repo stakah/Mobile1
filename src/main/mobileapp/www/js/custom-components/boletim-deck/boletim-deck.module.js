@@ -38,7 +38,7 @@
 
      function Aluno_Boletim_Disciplinas_handleSuccess(result) {
         console.log('[Aluno_Boletim_Disciplinas_handleSuccess]\tresult=', result);
-        self.boletimDisciplinas = result._embedded.boletimDisciplinases;
+        self.boletimDisciplinas = result.content;
 
         console.log('[Aluno_Boletim_Disciplinas_handleSuccess]\tdisciplinas=', self.disciplinas);
 
