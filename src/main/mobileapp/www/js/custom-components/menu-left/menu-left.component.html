@@ -22,7 +22,7 @@
     </div>
     <ion-item class="item-stable" ng-click="ctrl.toggleGroup(group)" ng-class="{active: ctrl.isGroupShown(group)}">
       <i class="icon placeholder-icon" ng-class="ctrl.isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp;
-      <span class="positive">{{groupSettings | translate}}</span>
+      <span class="positive">{{"Home.view.Settings" | translate}}</span>
     </ion-item>
     <ion-item class="item-accordion item-icon" ng-show="ctrl.isGroupShown(group)" menu-close>
       <a class="item-content ng-binding" ng-click="ctrl.openChangePassword()">

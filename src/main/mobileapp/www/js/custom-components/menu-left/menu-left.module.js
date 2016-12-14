@@ -72,8 +72,6 @@
         ctrl.groups = [];
         ctrl.groups = menuTree.get();
 
-        ctrl.groupSettings = "Home.view.ajustes";
-
         /*
          * if given group is the selected group, deselect it else, select the given group
          */
