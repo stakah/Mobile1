@@ -15,7 +15,8 @@ var app = (function() {
         'ui-notification',
         'ngInputDate',
         'ngCordova',
-        'ui.calendar'
+        'ui.calendar',
+        'ngCookies'
 
     ])
 
@@ -194,7 +195,11 @@ var app = (function() {
                     window.navigator.language || 'pt_BR')
                 .replace('-', '_');
 
-            $translateProvider.use(locale);
+            // Para persistir a linguagem escolhida.
+            $translateProvider.useLocalStorage();
+
+            $translateProvider.determinePreferredLanguage();
+            //$translateProvider.use(locale);
             $translateProvider.useSanitizeValueStrategy('escaped');
 
             let localePlugin = 'plugins/angular-i18n/angular-locale_{{locale | lowercase}}.js';
