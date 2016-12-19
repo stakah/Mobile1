@@ -7,13 +7,6 @@
     "password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu"
   },
   {
-    "_class": "app.entity.User",
-    "id": "1",
-    "name": "Hermione",
-    "login": "hermione",
-    "password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu"
-  },
-  {
     "_class": "app.entity.Role",
     "id": "404BF43E-0000-4F4A-8A63-3F22D7AD6556",
     "name": "{{ROLE_ADMIN_NAME}}"

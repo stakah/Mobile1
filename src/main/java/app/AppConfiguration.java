@@ -3,11 +3,13 @@ package app;
 import auth.permission.SecurityPermission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.File;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -35,6 +38,7 @@ import java.util.regex.Pattern;
 class AppConfiguration {
    	private static final Logger LOGGER = LoggerFactory.getLogger(AppConfiguration.class);
 
+
     @Primary
 
     @Bean(name="app-EntityManagerFactory")
@@ -50,52 +54,58 @@ class AppConfiguration {
     }
 
     @Bean
-    public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
+    public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() throws Exception {
   
     //Criando dinamicamente os dados do App
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-    URL url = this.getClass().getClassLoader().getResource("classpath:src/main/java/app/populate.json");
+    URL url = this.getClass().getClassLoader().getResource("app/populate.json");
 
-//        LOGGER.info("Jackson2Repo url=" + url.toString());
+    //URL url = resourceLoader.getClassLoader().getResource("app//populate.json");
 
-        String strJSON = "[" +
-                "{" +
-                "     \"_class\": \"app.entity.User\", " +
-                "         \"id\": \"304BF43E-0E62-4F4A-8A63-3F22D7AD4611\", " +
-                "       \"name\": \"admin\", " +
-                "      \"login\": \"admin\", " +
-                "   \"password\": \"$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu\"" +
-                "}," +
-                "{" +
-                "     \"_class\": \"app.entity.Role\"," +
-                "         \"id\": \"404BF43E-0000-4F4A-8A63-3F22D7AD6556\"," +
-                "       \"name\": \"Administrators\"" +
-                "}," +
-                "{" +
-                "     \"_class\": \"app.entity.Role\"," +
-                "         \"id\": \"404BF43E-0000-4F4A-8A63-3E22D7AD6540\"," +
-                "       \"name\": \"Meta\"" +
-                "}," +
-                "{" +
-                "     \"_class\": \"app.entity.UserRole\"," +
-                "         \"id\": \"404BF43E-0E62-4F4A-8A63-3F22D7AD6556\"," +
-                "       \"user\": { \"id\" : \"304BF43E-0E62-4F4A-8A63-3F22D7AD4611\" } ," +
-                "       \"role\": { \"id\" : \"404BF43E-0000-4F4A-8A63-3F22D7AD6556\" }" +
-                "}," +
-                "{" +
-                "     \"_class\": \"app.entity.UserRole\"," +
-                "         \"id\": \"404BF43E-0E62-4F4A-8A63-3E22D7AD6530\"," +
-                "       \"user\": { \"id\" : \"304BF43E-0E62-4F4A-8A63-3F22D7AD4611\" } ," +
-                "       \"role\": { \"id\" : \"404BF43E-0000-4F4A-8A63-3E22D7AD6540\" }" +
-                "}" +
-                "]";
+        LOGGER.info("Jackson2Repo url=" + url.toString());
+        String strJSON = "";
+
+//        String strJSON = "[" +
+//                "{" +
+//                "     \"_class\": \"app.entity.User\", " +
+//                "         \"id\": \"304BF43E-0E62-4F4A-8A63-3F22D7AD4611\", " +
+//                "       \"name\": \"admin\", " +
+//                "      \"login\": \"admin\", " +
+//                "   \"password\": \"$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu\"" +
+//                "}," +
+//                "{" +
+//                "     \"_class\": \"app.entity.Role\"," +
+//                "         \"id\": \"404BF43E-0000-4F4A-8A63-3F22D7AD6556\"," +
+//                "       \"name\": \"Administrators\"" +
+//                "}," +
+//                "{" +
+//                "     \"_class\": \"app.entity.Role\"," +
+//                "         \"id\": \"404BF43E-0000-4F4A-8A63-3E22D7AD6540\"," +
+//                "       \"name\": \"Meta\"" +
+//                "}," +
+//                "{" +
+//                "     \"_class\": \"app.entity.UserRole\"," +
+//                "         \"id\": \"404BF43E-0E62-4F4A-8A63-3F22D7AD6556\"," +
+//                "       \"user\": { \"id\" : \"304BF43E-0E62-4F4A-8A63-3F22D7AD4611\" } ," +
+//                "       \"role\": { \"id\" : \"404BF43E-0000-4F4A-8A63-3F22D7AD6556\" }" +
+//                "}," +
+//                "{" +
+//                "     \"_class\": \"app.entity.UserRole\"," +
+//                "         \"id\": \"404BF43E-0E62-4F4A-8A63-3E22D7AD6530\"," +
+//                "       \"user\": { \"id\" : \"304BF43E-0E62-4F4A-8A63-3F22D7AD4611\" } ," +
+//                "       \"role\": { \"id\" : \"404BF43E-0000-4F4A-8A63-3E22D7AD6540\" }" +
+//                "}" +
+//                "]";
 
     if (url != null) {
-      File file = new File(url.getFile());
+      File file = new File(URLDecoder.decode(url.getFile(),"UTF-8"));
 
       try {
+        LOGGER.info("url != null:1");
         Scanner scanner = new Scanner(file);
+          LOGGER.info("url != null:2");
         strJSON = scanner.useDelimiter("\\A").next();
+        LOGGER.info(">>>> strJSON:{" + strJSON + "}");
         scanner.close();
       } catch (Exception e) {
       }

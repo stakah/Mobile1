@@ -1,0 +1,234 @@
+[
+  {
+    "_class": "aol.entity.Aluno",
+    "id": "1",
+    "nome": "Hermione Granger",
+    "matricula": "12345",
+    "user": "1",
+    "turma": "Fundamental",
+    "periodo": "Integral",
+    "sala": "5A"
+  },
+  {
+    "_class": "aol.entity.Aviso",
+    "id": "10",
+    "title": "Aviso 1",
+    "content": "Lorem ipsum dolor ist ..."
+  },
+  {
+    "_class": "aol.entity.Turma",
+    "id": "1",
+    "turma": "Fundamental"
+  },
+  {
+    "_class": "aol.entity.Boletim",
+    "id": "401",
+    "ano": "2016",
+    "semestre": "1",
+    "aluno": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "501",
+    "nome": "Portugues",
+    "nota": 7.0,
+    "icone": "fa fa-language",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "7",
+    "aprovado": "aprovado",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "502",
+    "nome": "Matematica",
+    "nota": 5.0,
+    "icone": "fa fa-calculator",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "0",
+    "aprovado": "aprovado",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "503",
+    "nome": "Geografia",
+    "nota": 8.0,
+    "icone": "fa fa-globe",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "0",
+    "aprovado": "aprovado",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "504",
+    "nome": "Historia",
+    "nota": 7.5,
+    "icone": "fa fa-university",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "0",
+    "aprovado": "aprovado",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "505",
+    "nome": "Ciencias",
+    "nota": 6.5,
+    "icone": "fa fa-flask",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "0",
+    "aprovado": "aprovado",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "506",
+    "nome": "Ingles",
+    "nota": 4.5,
+    "icone": "fa fa-language",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "0",
+    "aprovado": "recuperacao",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.Disciplina",
+    "id": "507",
+    "nome": "Ed. Fisica",
+    "nota": 10.0,
+    "icone": "fa fa-futbol-o",
+    "aulas_previstas": 70,
+    "aulas_ministradas": 60,
+    "faltas": "0",
+    "aprovado": "recuperacao",
+    "boletim": { "id" : "401"},
+    "turma": { "id" : "1"}
+  },
+
+
+  {
+    "_class": "aol.entity.Calendario",
+    "id": "10",
+    "ano": "2016",
+    "semestre": "1",
+    "aluno": { "id" : "1"}
+  },
+  {
+    "_class": "aol.entity.TurmaDisciplina",
+    "id" : "10",
+    "media" : "7.5",
+    "turma" : { "id" : "10"},
+    "disciplina" : { "id" : "10"}
+  },
+  {
+    "_class": "aol.entity.BoletimDisciplinas",
+    "id": "10",
+    "boletim" : { "id" : "10"},
+    "disciplina" : { "id" : "10"},
+    "turmaDisciplina" : { "id" : "10"}
+  },
+  {
+    "_class": "aol.entity.AlunoAviso",
+    "id": "10",
+    "enviado": "Y",
+    "lido": "N",
+    "aluno": { "id" : "1"},
+    "aviso": { "id" : "10"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "1",
+    "diaSemana": "1",
+    "horaIni": "07h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "501"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "2",
+    "diaSemana": "1",
+    "horaIni": "08h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "502"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "3",
+    "diaSemana": "1",
+    "horaIni": "09h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "503"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "4",
+    "diaSemana": "1",
+    "horaIni": "10h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "504"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "5",
+    "diaSemana": "1",
+    "horaIni": "11h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "505"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "6",
+    "diaSemana": "1",
+    "horaIni": "13h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "506"}
+  },
+  {
+    "_class": "aol.entity.HorarioAula",
+    "id": "7",
+    "diaSemana": "1",
+    "horaIni": "14h00",
+    "calendario": { "id" : "1"},
+    "disciplina": { "id" : "507"}
+  },
+
+  id  	diaSemana  	horaIni  	fk_calendario  	fk_disciplina
+
+  8	    2	        07h30	    1	            507
+  9	    2	        08h30	    1	            506
+  10	2	        09h30	    1	            505
+  11	2	        10h30	    1	            504
+  12	2	        11h30	    1	            505
+
+  13	3	        09h00	    1	            501
+  14	3	        10h00	    1	            503
+  15	3	        11h00	    1	            505
+  16	3	        12h00	    1	            502
+
+  17	4	        12h00	    1	            501
+  18	4	        13h00	    1	            502
+  19	4	        14h00	    1	            504
+  20	4	        15h00	    1	            506
+  21	4	        16h00	    1	            504
+
+  22	5	        07h30	    1	            504
+  23	5	        08h30	    1	            505
+  24	5	        09h30	    1	            507
+  25	5	        10h30	    1	            505
+  26	5	        13h00	    1	            507
+
+]

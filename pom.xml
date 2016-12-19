@@ -40,9 +40,6 @@
                 <configuration>
                     <warSourceDirectory>src/main/mobileapp/www</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <warSourceDirectory>webcontent</warSourceDirectory>
-                    <failOnMissingWebXml>true</failOnMissingWebXml>
-                    <webXml>webcontent/WEB-INF/web.xml</webXml>
                     <webResources>
                         <resource>
                             <directory>src/main/java/META-INF</directory>
