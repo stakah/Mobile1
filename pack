@@ -1,0 +1,7 @@
+#!/bin/bash
+mvn clean install
+
+echo "Copying war ..."
+rm -rf ~/TOURO/SergioT/Developer/apache/apache-tomcat-8.0.32/webapps/Mobile1-1.0-SNAPSHOT && cp -f target/Mobile1-1.0-SNAPSHOT.war ~/TOURO/SergioT/Developer/apache/apache-tomcat-8.0.32/webapps/
+
+echo "Ok."

@@ -1,0 +1,59 @@
+<ion-view cache-view="false" view-title="Responsavel"> 
+  <ion-nav-buttons side="right"> 
+    <button class="button button-stable" ng-hide="Responsavel.inserting || Responsavel.editing" ng-click="Responsavel.startInserting()"> <i class="icon ion-plus-round"></i> </button> 
+    <button class="button button-stable" ng-show="Responsavel.inserting || Responsavel.editing" ng-click="Responsavel.post()"> <i class="icon ion-checkmark"></i> </button> 
+  </ion-nav-buttons> 
+    <ion-nav-buttons side="left"> 
+    <button class="button button-icon button-clear ion-navicon" ng-hide="Responsavel.inserting || Responsavel.editing" menu-toggle="left"> </button>
+    <button class="button button-stable" ng-show="Responsavel.inserting || Responsavel.editing" ng-click="Responsavel.cancel()"> <i class="icon ion-android-arrow-back"></i> </button> 
+  </ion-nav-buttons> 
+  <ion-content> 
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
+      <datasource  name="Responsavel" entity="api/rest/aol/Responsavel" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
+    </div> 
+	<div crn-datasource="Responsavel" class="" ng-hide="Responsavel.editing || Responsavel.inserting"> 
+	<ion-list can-swipe="listCanSwipe"> 
+        <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
+		  <div class="row">
+			<div class="col">
+					  {{rowData.id}}
+			</div> 
+			<div class="col">
+					  {{rowData.nome}}
+			</div> 
+			<div class="col">
+					  {{rowData.user}}
+			</div> 
+		  </div> 
+          <ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)"> 
+            <i class="icon ion-edit"></i> 
+          </ion-option-button> 
+          <ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)">
+             &nbsp; 
+            <i class="icon ion-trash-a"></i> 
+          </ion-option-button> 
+        </ion-item> 
+      </ion-list> 
+    </div> 
+    <div ng-show="Responsavel.editing || Responsavel.inserting"> 
+      <form crn-datasource="Responsavel"> 
+        <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+          <div class="list"> 
+			<!-- nome begin -->
+			<label for="textinput-nome" class="item item-input item-stacked-label">
+				<span class="input-label">Nome</span> 
+				<input type="text" placeholder="Nome" ng-model="Responsavel.active.nome" id="textinput-nome" name="textinput-nome"  required="required"> 
+			</label> 
+			<!-- nome end -->
+			<!-- user begin -->
+			<label for="textinput-user" class="item item-input item-stacked-label">
+				<span class="input-label">User</span> 
+				<input type="text" placeholder="User" ng-model="Responsavel.active.user" id="textinput-user" name="textinput-user"  required="required"> 
+			</label> 
+			<!-- user end -->
+          </div> 
+        </fieldset> 
+      </form> 
+    </div> 
+  </ion-content> 
+</ion-view>

@@ -1,0 +1,60 @@
+<ion-view cache-view="false" view-title="{{'Login.view.Login' | translate}}">
+  <ion-content scroll="false">
+    <div class="bar bar-header bar-stable" data-container="true">
+      <h1 class="title">{{'Login.view.Login' | translate}}</h1>
+    </div>
+
+    <!-- LOGO da Instituicao -->
+    <div class="list" data-container="true" style="padding-top: 60px;">
+        <div class="col text-center">
+            <img src="img/logo-uni.png" width="200" height="auto"/>
+        </div>
+    </div>
+
+    <div class="login-content">
+      <!-- botoes para selecionar perfil: aluno | responsavel -->
+      <div class="padding">
+        <div class="button-bar">
+          <a class="{{buttonClassAluno}}" ng-click="selectProfile('aluno')">{{loginAlunoButton | translate}}</a>
+          <a class="{{buttonClassResponsavel}}" ng-click="selectProfile('responsavel')">{{loginResponsavelButton | translate}}</a>
+        </div>
+      </div>
+
+      <!-- form para login -->
+      <form class="form-validation" autocomplete="off" name="form" ng-submit="login()" role="form">
+        <div class="list list-inset" data-container="true">
+          <label class="item item-input">
+            <i class="icon ion-person placeholder-icon"></i>
+            <input type="text" class="form-control" ng-model="user.username" id="username"
+                   placeholder="{{loginUsername | translate}}">
+          </label>
+          <label class="item item-input">
+            <i class="icon ion-asterisk placeholder-icon"></i>
+            <input type="password" class="form-control" ng-model="user.password" id="password"
+                   placeholder="{{'Login.view.Password' | translate}}">
+          </label>
+          <label class="item">
+            <button type="submit" class="button button-block button-positive"
+                    ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}
+            </button>
+          </label>
+          <label class="item">
+            <div ng-show="message.error" class="help-block">
+              {{message.error}}
+            </div>
+          </label>
+        </div>
+      </form>
+
+      <!-- botoes para redes sociais -->
+      <div class="button-bar">
+        <a class="button" href="http://facebook.com" target="_self"><i class="button button-small button-positive button-clear button-icon icon ion-social-facebook"></i></a>
+        <a class="button" href="http://google.com" target="_self" ><i class="button button-small button-positive button-clear button-icon icon ion-social-googleplus"></i></a>
+        <a class="button" href="http://facebook.com" target="_self"><i class="button button-small button-positive button-clear button-icon icon ion-social-github"></i></a>
+        <a class="button" href="http://facebook.com" target="_self"><i class="button button-small button-positive button-clear button-icon icon ion-social-linkedin"></i></a>
+        <a class="button" href="https://login.cronapp.io/login" target="_self"><i class="button button-small button-positive button-clear button-icon icon ion-android-cloud"></i></a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

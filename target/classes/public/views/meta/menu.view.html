@@ -1,0 +1,62 @@
+<ion-view cache-view="false" view-title="Menu"> 
+  <ion-nav-buttons side="right"> 
+    <button class="button button-stable" ng-hide="Menu.inserting || Menu.editing" ng-click="Menu.startInserting()"> <i class="icon ion-plus-round"></i> </button> 
+    <button class="button button-stable" ng-show="Menu.inserting || Menu.editing" ng-click="Menu.post()"> <i class="icon ion-checkmark"></i> </button> 
+  </ion-nav-buttons> 
+    <ion-nav-buttons side="left"> 
+    <button class="button button-icon button-clear ion-navicon" ng-hide="Menu.inserting || Menu.editing" menu-toggle="left"> </button>
+    <button class="button button-stable" ng-show="Menu.inserting || Menu.editing" ng-click="Menu.cancel()"> <i class="icon ion-android-arrow-back"></i> </button> 
+  </ion-nav-buttons> 
+  <ion-content> 
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
+      <datasource  name="Menu" entity="meta/menu/Menu" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
+    </div> 
+	<div crn-datasource="Menu" class="" ng-hide="Menu.editing || Menu.inserting"> 
+	<ion-list can-swipe="listCanSwipe"> 
+        <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
+		  <div class="row">
+			<div class="col">
+					  {{rowData.id}}
+			</div> 
+			<div class="col">
+					{{rowData.menuType.type}}
+			</div> 
+			<div class="col">
+					  {{rowData.role}}
+			</div> 
+		  </div> 
+          <ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)"> 
+            <i class="icon ion-edit"></i> 
+          </ion-option-button> 
+          <ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)">
+             &nbsp; 
+            <i class="icon ion-trash-a"></i> 
+          </ion-option-button> 
+        </ion-item> 
+      </ion-list> 
+    </div> 
+    <div ng-show="Menu.editing || Menu.inserting"> 
+      <form crn-datasource="Menu"> 
+        <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+          <div class="list"> 
+			<!-- menuType begin -->
+			 <datasource name="MenuType" entity="api/rest/metadata/MenuType" keys="id" class=""></datasource> 
+			<label for="textinput-menuType" class="item item-input item-select">
+				<span class="input-label">menuType</span> 
+				<select ng-model="Menu.active.menuType" class="form-control" id="textinput-menuType" name="textinput-menuType" ng-options="opt as opt.type for opt in MenuType.data track by opt.id" required="required">
+				  <option value=''>None</option>
+				</select>
+			</label> 
+			<!-- menuType end -->
+			<!-- role begin -->
+			<label for="textinput-role" class="item item-input item-stacked-label">
+				<span class="input-label">Role</span> 
+				<input type="text" placeholder="Role" ng-model="Menu.active.role" id="textinput-role" name="textinput-role"  required="required"> 
+			</label> 
+			<!-- role end -->
+          </div> 
+        </fieldset> 
+      </form> 
+    </div> 
+  </ion-content> 
+</ion-view>

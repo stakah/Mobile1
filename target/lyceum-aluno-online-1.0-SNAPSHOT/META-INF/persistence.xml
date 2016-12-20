@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="app" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:comp/env/jdbc/main</jta-data-source>
+        <class>app.entity.UserRole</class>
+        <class>app.entity.User</class>
+        <class>app.entity.Role</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/98a1657aa70b47d4ace375ae013f0a2a;DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <!-- property name="eclipselink.ddl-generation" value="drop-and-create-tables"/ -->
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="aol" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:comp/env/jdbc/main</jta-data-source>
+        <class>aol.entity.Responsavel</class>
+        <class>aol.entity.TurmaDisciplina</class>
+        <class>aol.entity.AlunoResponsavel</class>
+        <class>aol.entity.Turma</class>
+        <class>aol.entity.HorarioAula</class>
+        <class>aol.entity.Calendario</class>
+        <class>aol.entity.ResponsavelAviso</class>
+        <class>aol.entity.Aluno</class>
+        <class>aol.entity.Aviso</class>
+        <class>aol.entity.AlunoAviso</class>
+        <class>aol.entity.Boletim</class>
+        <class>aol.entity.Disciplina</class>
+        <class>aol.entity.BoletimDisciplinas</class>
+        <class>aol.entity.HorariosAulaAluno</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/98a1657aa70b47d4ace375ae013f0a2a;DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <!-- property name="eclipselink.ddl-generation" value="drop-and-create-tables"/ -->
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="metadata" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:comp/env/jdbc/main</jta-data-source>
+        <class>metadata.entity.MenuType</class>
+        <class>metadata.entity.MenuItems</class>
+        <class>metadata.entity.Menu</class>
+        <class>metadata.entity.MenuItem</class>
+        <class>metadata.entity.SubmenuItems</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/98a1657aa70b47d4ace375ae013f0a2a;DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <!-- property name="eclipselink.ddl-generation" value="create-or-extend-tables"/ -->
+            <!-- property name="eclipselink.ddl-generation" value="create-or-extend-tables"/ -->
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+
+        </properties>
+    </persistence-unit>
+</persistence>

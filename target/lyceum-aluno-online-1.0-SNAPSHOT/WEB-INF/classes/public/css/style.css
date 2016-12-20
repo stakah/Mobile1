@@ -1,0 +1,157 @@
+/* Empty. Add your own CSS if you like */
+
+.text-left{
+     text-align : left;
+}
+
+.text-right{
+     text-align : right;
+}
+
+.text-center{
+     text-align : center;
+}
+
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+.button.button-block, .button.button-full {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+
+}
+
+/*
+.positive,
+.placeholder-icon,
+.button.button-positive.button-clear,
+.button.button-positive.button-outline
+{
+      color:#ef473a;
+}
+.button.button-positive
+{
+      background-color:#ef473a;
+}
+.button.button-positive.button-outline
+{
+      border-color: #ef473a;
+}
+*/
+.button.button-positive {
+      border-color: transparent;
+      color: #fff;
+}
+.button.button-positive.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+}
+.button.button-positive.button-outline {
+      background: transparent;
+}
+
+
+.item-avatar > img:first-child {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.login-content {
+  width: 320px;
+  margin: auto;
+}
+
+.profile {
+    max-width: 100px!important;
+    margin-top: 15px!important;
+    margin-bottom: 5px!important;
+    border: 3px solid #fff!important;
+    border-radius: 100%!important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.content-block {
+    margin: 35px 0;
+    //padding: 0 15px;
+    color: #6d6d72;
+    box-sizing: border-box;
+}
+.margem-cima-negativo10 {
+    margin-top: 0px!important;
+}
+
+.discipina {}
+
+.disciplina-title {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.disciplina-faltas {
+}
+
+.disciplina-nota {
+  font-size: 3.0em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.disciplina-media {
+  display: block;
+  text-align: right;
+  left: auto;
+}
+
+/*
+ * Custom Classes *
+ */
+.badge-faltas {
+    background: red;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    line-height: 20px;
+    margin: 0px 4px 0px 0px!important;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.badge-media {
+    background: #007aff;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    line-height: 20px;
+    margin: 0px 4px 0px 0px!important;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.icon-small {
+    font-size: 24px!important;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#agenda {
+  /*height: 450px;*/
+}

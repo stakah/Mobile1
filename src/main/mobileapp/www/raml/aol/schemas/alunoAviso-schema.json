@@ -1,0 +1,71 @@
+{
+  "$schema" : "http://json-schema.org/draft-03/schema" ,
+  "type" : "object" ,
+  "required" : true ,
+  "properties" : {
+    "Aluno" : {
+      "required" : false ,
+      "type" : "object" ,
+      "properties" : {
+        "Id" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Matricula" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Nome" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Periodo" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Sala" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Turma" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "User" : {
+          "required" : false ,
+          "type" : "string"
+        }
+      }
+    } ,
+    "Aviso" : {
+      "required" : false ,
+      "type" : "object" ,
+      "properties" : {
+        "Content" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Id" : {
+          "required" : false ,
+          "type" : "string"
+        } ,
+        "Title" : {
+          "required" : false ,
+          "type" : "string"
+        }
+      }
+    } ,
+    "Enviado" : {
+      "required" : false ,
+      "type" : "boolean"
+    } ,
+    "Lido" : {
+      "required" : false ,
+      "type" : "boolean"
+    } ,
+    "Id" : {
+      "required" : false ,
+      "type" : "string"
+    }
+  }
+}

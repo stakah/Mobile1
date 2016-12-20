@@ -1,0 +1,27 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <div class="row" data-container="true">
+    <ion-side-menu-content>
+      <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"> </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+          <button class="button button-icon button-clear ion-calendar" menu-toggle="right" ng-show="showCalendarButton()"> </button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+
+      <ion-nav-view name="mainContent"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+      <menu-left session="session"></menu-left>
+    </ion-side-menu>
+
+    <ion-side-menu side="right">
+      <menu-right event-sources="eventSources"></menu-right>
+    </ion-side-menu>
+
+  </div>
+</ion-side-menus>

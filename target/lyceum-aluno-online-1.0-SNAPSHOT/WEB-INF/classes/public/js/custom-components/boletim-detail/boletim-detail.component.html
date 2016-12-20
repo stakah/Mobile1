@@ -1,0 +1,56 @@
+  <div class="bar" ng-class="ctrl.cell.css.titleBackground">
+    <h1 class="title text-center" ng-bind-html="ctrl.cell.disciplina.nome"></h1>
+  </div>
+
+  <div class="content has-header">
+      <div class="list">
+        <div class="item">
+          <span ng-class="ctrl.cell.css.notaBadge">
+          <i ng-class="ctrl.cell.css.notaIcon"></i>
+          </span>
+          Nota:
+          <span class="item-note item-big" ng-bind-html="ctrl.cell.disciplina.nota"></span>
+        </div>
+
+        <div class="item">
+          <span ng-class="ctrl.cell.css.notaBadge">
+          <i ng-class="ctrl.cell.css.mediaTurmaIcon"></i>
+          </span>
+          M&eacute;dia da turma:
+          <span class="item-note item-big" ng-bind-html="ctrl.cell.turmaDisciplina.media"></span>
+        </div>
+
+        <div class="item item-icon-right padding-right" ng-click="ctrl.toggleGroup('faltas')">
+        <span ng-class="ctrl.cell.css.faltasBadge">
+          <i ng-class="ctrl.cell.css.faltasIcon"></i>
+          </span>
+          Faltas:
+        <span class="xitem-note" ng-bind-html="ctrl.cell.disciplina.faltas"></span>
+        <i ng-class="ctrl.isGroupShown('faltas') ? 'icon fa fa-chevron-down' : 'icon fa fa-chevron-right'"></i>
+      </div>
+      <div class="list" ng-show="ctrl.isGroupShown('faltas')">
+        <canvas id="doughnut" class="chart chart-doughnut"
+                chart-data="ctrl.chart.data"
+                chart-labels="ctrl.chart.labels"
+                chart-options="ctrl.chart.options"
+        >
+        </canvas>
+      </div>
+
+      <div class="item">
+        <span ng-class="ctrl.cell.css.aulasPrevistasBadge">
+          <i ng-class="ctrl.cell.css.aulasPrevistasIcon"></i>
+        </span>
+        Aulas Previstas:
+        <span class="item-note item-big" ng-bind-html="ctrl.cell.disciplina.aulas_previstas"></span>
+      </div>
+
+      <div class="item">
+        <span ng-class="ctrl.cell.css.aulasMinistradasBadge">
+          <i ng-class="ctrl.cell.css.aulasMinistradasIcon"></i>
+        </span>
+        Aulas Ministradas:
+        <span class="item-note item-big" ng-bind-html="ctrl.cell.disciplina.aulas_ministradas"></span>
+      </div>
+    </div>  </ion-content>
+

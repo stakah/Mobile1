@@ -1,0 +1,35 @@
+{
+  "$schema" : "http://json-schema.org/draft-03/schema" ,
+  "type" : "object" ,
+  "required" : true ,
+  "properties" : {
+    "Id" : {
+      "required" : false ,
+      "type" : "string"
+    } ,
+    "Matricula" : {
+      "required" : false ,
+      "type" : "string"
+    } ,
+    "Nome" : {
+      "required" : false ,
+      "type" : "string"
+    } ,
+    "Periodo" : {
+      "required" : false ,
+      "type" : "string"
+    } ,
+    "Sala" : {
+      "required" : false ,
+      "type" : "string"
+    } ,
+    "Turma" : {
+      "required" : false ,
+      "type" : "string"
+    } ,
+    "User" : {
+      "required" : false ,
+      "type" : "string"
+    }
+  }
+}
